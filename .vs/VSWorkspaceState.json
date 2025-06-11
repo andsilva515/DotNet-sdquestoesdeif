@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src\\services",
-    "\\src\\services\\SoQuestoesIF.Infra\\Auth"
+    "\\src",
+    "\\src\\services"
   ],
   "SelectedNode": "\\SoQuestoesIF.sln",
   "PreviewInSolutionExplorer": false

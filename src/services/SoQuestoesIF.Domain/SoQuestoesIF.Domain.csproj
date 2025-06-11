@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Financial\" />
+    <Folder Include="Users\" />
+    <Folder Include="Questions\" />
+  </ItemGroup>
+
 </Project>

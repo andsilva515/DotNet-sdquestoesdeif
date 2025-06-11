@@ -11,4 +11,10 @@
     <ProjectReference Include="..\SoQuestoesIF.Domain\SoQuestoesIF.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Auth\" />
+    <Folder Include="PaymentGateway\" />
+  </ItemGroup>
+
 </Project>
