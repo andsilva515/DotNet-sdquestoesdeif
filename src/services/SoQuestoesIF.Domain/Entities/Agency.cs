@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class Agency
+    public class Agency
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+
     }
 }
