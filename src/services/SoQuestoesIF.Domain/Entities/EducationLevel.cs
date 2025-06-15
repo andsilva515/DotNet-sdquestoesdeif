@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class EducationLevel
+    public class EducationLevel
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public ICollection<Position> Positions {get; set;}
     }
 }
