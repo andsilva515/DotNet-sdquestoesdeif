@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class Subject
+    public class Subject
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+
+        public ICollection<Topic> Topics { get; set; }
     }
 }
