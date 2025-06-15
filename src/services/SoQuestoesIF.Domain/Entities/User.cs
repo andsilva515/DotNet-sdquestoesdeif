@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoQuestoesIF.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,28 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class User
+    public class User
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+
+        public string PasswordHash { get; set; }
+
+        public UserType Type { get; set; } // Enum: Student, Teacher, Admin
+
+        public DateTime CreatedAt { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Answer> Answers { get; set; }
+        public ICollection<Exam> CreatedExams { get; set; }
+        public ICollection<QuestionSet> QuestionSets { get; set; }
+
+
+        public EnumUserType UserType { get; set; }
+
+
     }
+
+    
 }
