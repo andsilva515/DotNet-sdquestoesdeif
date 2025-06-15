@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class Organ
+    internal class QuestionSetQuestion
     {
     }
 }
