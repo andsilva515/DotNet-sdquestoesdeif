@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Projetos\\Portf\u00F3lio\\DotNet-sdquestoesdeif\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C10CCC8D-98D4-2E08-D87B-BEB9859F2201}|src\\services\\SoQuestoesIF.Domain\\SoQuestoesIF.Domain.csproj|c:\\projetos\\portf\u00F3lio\\dotnet-sdquestoesdeif\\src\\services\\soquestoesif.domain\\entities\\educationlevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C10CCC8D-98D4-2E08-D87B-BEB9859F2201}|src\\services\\SoQuestoesIF.Domain\\SoQuestoesIF.Domain.csproj|solutionrelative:src\\services\\soquestoesif.domain\\entities\\educationlevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C10CCC8D-98D4-2E08-D87B-BEB9859F2201}|src\\services\\SoQuestoesIF.Domain\\SoQuestoesIF.Domain.csproj|c:\\projetos\\portf\u00F3lio\\dotnet-sdquestoesdeif\\src\\services\\soquestoesif.domain\\entities\\position.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C10CCC8D-98D4-2E08-D87B-BEB9859F2201}|src\\services\\SoQuestoesIF.Domain\\SoQuestoesIF.Domain.csproj|solutionrelative:src\\services\\soquestoesif.domain\\entities\\position.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "EducationLevel.cs",
-              "DocumentMoniker": "C:\\Projetos\\Portf\u00F3lio\\DotNet-sdquestoesdeif\\src\\services\\SoQuestoesIF.Domain\\Entities\\EducationLevel.cs",
-              "RelativeDocumentMoniker": "src\\services\\SoQuestoesIF.Domain\\Entities\\EducationLevel.cs",
-              "ToolTip": "C:\\Projetos\\Portf\u00F3lio\\DotNet-sdquestoesdeif\\src\\services\\SoQuestoesIF.Domain\\Entities\\EducationLevel.cs",
-              "RelativeToolTip": "src\\services\\SoQuestoesIF.Domain\\Entities\\EducationLevel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Title": "Position.cs",
+              "DocumentMoniker": "C:\\Projetos\\Portf\u00F3lio\\DotNet-sdquestoesdeif\\src\\services\\SoQuestoesIF.Domain\\Entities\\Position.cs",
+              "RelativeDocumentMoniker": "src\\services\\SoQuestoesIF.Domain\\Entities\\Position.cs",
+              "ToolTip": "C:\\Projetos\\Portf\u00F3lio\\DotNet-sdquestoesdeif\\src\\services\\SoQuestoesIF.Domain\\Entities\\Position.cs",
+              "RelativeToolTip": "src\\services\\SoQuestoesIF.Domain\\Entities\\Position.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-15T19:00:39.21Z",
+              "WhenOpened": "2025-06-15T19:48:22.003Z",
               "EditorCaption": ""
             },
             {
