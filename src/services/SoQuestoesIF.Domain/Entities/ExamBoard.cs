@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class ExamBoard
+    public class ExamBoard
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }
