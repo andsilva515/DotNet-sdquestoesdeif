@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class Alternative
+    public class Alternative
     {
+        public Guid Id { get; set; }
+        public string Letter { get; set; }
+        public string Text { get; set; }
+        public bool IsCorrect { get; set; }
+
+        public Guid QuestionId { get; set; }
+
+        public Question Question { get; set; }
     }
 }
