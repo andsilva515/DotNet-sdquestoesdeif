@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class QuestionSetQuestion
+    public class QuestionSetQuestion
     {
+        public Guid QuestionSetId { get; set; }
+        public QuestionSet QuestionSet { get; set; }
+
+        public Guid QuestionId { get; set; }
+        public Question Question { get; set; }
+
+        public int Order { get; set; }
     }
 }
