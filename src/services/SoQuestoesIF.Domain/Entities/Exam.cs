@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    internal class Exam
+    public class Exam
     {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+        public DateTime CreatedAt { get; set; }
+
+        public Guid CreatedById { get; set; }
+        public User CreatedBy { get; set; }
+
+        public ICollection<ExamQuestion> Questions { get; set; }
+
+
     }
 }
