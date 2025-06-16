@@ -8,5 +8,6 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface ICommentRepository
     {
+        // Métodos customizados para Comment
     }
 }
