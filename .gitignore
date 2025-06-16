@@ -1,0 +1,92 @@
+## Build folders
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.vs/
+
+## Rider-specific
+.idea/
+
+## Visual Studio Code
+.vscode/
+*.code-workspace
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## DotCover
+*.dotCover
+
+## SQL Server
+*.mdf
+*.ldf
+*.ndf
+*.dbmdl
+
+## Logs
+*.log
+
+## Test results
+TestResults/
+*.trx
+
+## Web config transform files
+*.Release.config
+*.Debug.config
+
+## Publish files
+*.Publish.xml
+*.pubxml
+*.publishproj
+
+## Secrets
+secrets.json
+appsettings.Development.json
+
+## NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Temporary files
+*.tmp
+*.temp
+~$*
+
+## ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+## Entity Framework Migrations
+Migrations/
+
+## Backup & cache files
+*.bak
+*.cache
+*.zip
+*.tar.gz
+
+## Dotnet tools
+.dotnet-tools.json
+
+## JetBrains Rider logs
+.idea/
+
+## macOS
+.DS_Store
+
+## Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+## Linux
+*~
