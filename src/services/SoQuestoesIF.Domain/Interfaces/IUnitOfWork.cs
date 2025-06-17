@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Interfaces
 {
-    public interface IUnitOfWorks
+    public interface IUnitOfWork
     {
         Task<int> CommitAsync();
     }
