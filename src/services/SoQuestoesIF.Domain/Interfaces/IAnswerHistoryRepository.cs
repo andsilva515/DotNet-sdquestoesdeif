@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Interfaces
 {
-    public interface IAnswerHistoryRepository
+    public interface IAnswerHistoryRepository 
     {
         // Métodos customizados para AnswerHistory
     }
