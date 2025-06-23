@@ -1,0 +1,30 @@
+﻿using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SoQuestoesIF.App.Mappings
+{
+    public class AutoMapperProfiles : Profile
+    {
+        public AutoMapperProfiles() 
+        {
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<Question, QuestionDto>().ReverseMap();
+            CreateMap<Subject, SubjectDto>().ReverseMap();
+            CreateMap<Discipline, DisciplineDto>().ReverseMap();
+            CreateMap<Comment, CommentDto>().ReverseMap();
+            CreateMap<Exam, ExamDto>().ReverseMap();
+            CreateMap<AnswerHistory, AnswerHistoryDto>().ReverseMap();
+            CreateMap<Institution, InstitutionDto>().ReverseMap();
+            CreateMap<ExamBoard, ExamBoardDto>().ReverseMap();
+            CreateMap<UserNotebook, UserNotebookDto>().ReverseMap();
+            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap();
+
+        }
+    }
+}
