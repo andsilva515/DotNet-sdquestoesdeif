@@ -10,16 +10,13 @@ namespace SoQuestoesIF.Domain.Entities
     public class Question
     {
         public Guid Id { get; set; }
-        public string Statement { get; set; }
+        public string Statement { get; set; }   
+    
+        public int Year { get; set; }   
 
-        public QuestionType Type { get; set; } // Enum: MultipleChoice, TrueFalse
-        public QuestionDifficulty Difficulty { get; set; } // Enum: Easy, Medium, Hard
-        public int Year { get; set; }
-        public QuestionStatus Status { get; set; } // Enum: Active, Cancelled
-
-        public EnumQuestionType QuestionType { get; set; }
-        public EnumQuestionDifficulty QuestionDifficulty {get; set; }
-        public EnumQuestionStatus QuestionStatus {get; set; }
+        public EnumQuestionType QuestionType { get; set; } // Enum: MultipleChoice, TrueFalse
+        public EnumQuestionDifficulty QuestionDifficulty {get; set; } // Enum: Easy, Medium, Hard
+        public EnumQuestionStatus QuestionStatus {get; set; } // Enum: Active, Cancelled
 
         public string ExamNumber { get; set; }
         public string ExamUrl { get; set; }
