@@ -15,7 +15,7 @@ namespace SoQuestoesIF.Domain.Entities
 
         public string PasswordHash { get; set; }
 
-        public UserType Type { get; set; } // Enum: Student, Teacher, Admin
+        public EnumUserType Type { get; set; } // Enum: Student, Teacher, Admin
 
         public DateTime CreatedAt { get; set; }
 
