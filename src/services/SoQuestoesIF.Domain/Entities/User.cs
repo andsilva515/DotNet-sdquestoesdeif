@@ -20,7 +20,7 @@ namespace SoQuestoesIF.Domain.Entities
         public DateTime CreatedAt { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
-        public ICollection<Answer> Answers { get; set; }
+        public ICollection<UserAnswer> Answers { get; set; }
         public ICollection<Exam> CreatedExams { get; set; }
         public ICollection<QuestionSet> QuestionSets { get; set; }
 
