@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Entities
 {
-    public class Comment
+    public class CommentUsuario
     {
         public Guid Id { get; set; }
         public string Text { get; set; }
