@@ -47,7 +47,7 @@ namespace SoQuestoesIF.Domain.Entities
 
         public ICollection<Alternative> Alternatives { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentUser> CommentsUsers { get; set; }
 
     }
 }
