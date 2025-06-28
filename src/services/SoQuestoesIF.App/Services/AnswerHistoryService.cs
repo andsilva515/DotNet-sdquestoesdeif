@@ -11,9 +11,9 @@ namespace SoQuestoesIF.App.Services
 {
     public class AnswerHistoryService : IAnswerHistoryService
     {
-        private readonly IAnswerHistoryRepository _repository;
+        private readonly IUserAnswerRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
-        public AnswerHistoryService(IAnswerHistoryRepository repository, IUnitOfWork unitOfWork)
+        public AnswerHistoryService(IUserAnswerRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
