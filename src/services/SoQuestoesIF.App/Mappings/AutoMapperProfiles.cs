@@ -1,4 +1,5 @@
-﻿using SoQuestoesIF.App.Dtos;
+﻿using AutoMapper;
+using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,7 @@ namespace SoQuestoesIF.App.Mappings
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Question, QuestionDto>().ReverseMap();
-            CreateMap<Subject, SubjectDto>().ReverseMap();
-            CreateMap<Discipline, DisciplineDto>().ReverseMap();
+            CreateMap<Subject, SubjectDto>().ReverseMap();        
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();
             CreateMap<Exam, ExamDto>().ReverseMap();
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap();
