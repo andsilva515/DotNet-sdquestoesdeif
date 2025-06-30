@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="8.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SoQuestoesIF.App\SoQuestoesIF.App.csproj" />
     <ProjectReference Include="..\SoQuestoesIF.Domain\SoQuestoesIF.Domain.csproj" />
+    <ProjectReference Include="..\SoQuestoesIF.Infra\SoQuestoesIF.Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>
