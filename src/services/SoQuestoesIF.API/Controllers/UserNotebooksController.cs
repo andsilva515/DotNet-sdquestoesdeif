@@ -8,8 +8,8 @@ namespace SoQuestoesIF.API.Controllers
     [ApiController]
     public class UserNotebooksController : ControllerBase
     {
-        private readonly IUserNotebookService _usernotebookService;
-        public UserNotebooksController(IUserNotebookService usernotebookService)
+        private readonly IQuestionSetService _usernotebookService;
+        public UserNotebooksController(IQuestionSetService usernotebookService)
         {
             _usernotebookService = usernotebookService;
         }

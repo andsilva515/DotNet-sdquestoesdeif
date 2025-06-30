@@ -1,4 +1,5 @@
-﻿using SoQuestoesIF.Domain.Interfaces;
+﻿using SoQuestoesIF.Domain.Entities;
+using SoQuestoesIF.Domain.Interfaces;
 using SoQuestoesIF.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -8,30 +9,30 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Services
 {
-    public class UserNotebookService : IUserNotebookService
+    public class QuestionSetService : IQuestionSetService
     {   
-        private readonly IUserNotebookService _repository;
+        private readonly IQuestionSetService _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserNotebookService(IUserNotebookRepositoty repository, IUnitOfWork unitOfWork)
+        public QuestionSetService(IQuestionSetRepositoty repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
         }
-        public async Task<UserNotebook> GetByIdAsync(Guid id)
+        public async Task<QuestionSet> GetByIdAsync(Guid id)
         {
             return await _repository.GetByIdAsync(id);
         }
-        public async Task<IEnumerable<UserNotebook>> GetAllAsync()
+        public async Task<IEnumerable<QuestionSet>> GetAllAsync()
         {
             return await _repository.GetByIdAsync();
         }
-        public async Task AddAsync(UserNotebook entity)
+        public async Task AddAsync(QuestionSet entity)
         {
             await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
         }
-        public async Task UpdateAsync(UserNotebook entity)
+        public async Task UpdateAsync(QuestionSet entity)
         {
             _repository.UpdateAsync(entity);
             await _unitOfWork.CommitAsync();

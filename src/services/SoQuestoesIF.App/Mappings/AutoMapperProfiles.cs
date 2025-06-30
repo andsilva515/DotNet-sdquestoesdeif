@@ -22,7 +22,7 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap();
             CreateMap<Agency, AgencyDto>().ReverseMap();
             CreateMap<ExamBoard, ExamBoardDto>().ReverseMap();
-            CreateMap<UserNotebook, UserNotebookDto>().ReverseMap();
+            CreateMap<QuestionSet, QuestionSetDto>().ReverseMap();
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap();
 
         }

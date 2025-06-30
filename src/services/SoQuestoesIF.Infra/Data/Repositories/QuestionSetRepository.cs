@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Infra.Data.Repositories
 {
-    public class UserNotebookRepository
+    public class QuestionSetRepository
     {
-        public UserNotebookRepository(AppDbContext context) : base(context){ }
+        public QuestionSetRepository(AppDbContext context) : base(context){ }
 
         // Implementações específicas para UserNotebook
     }

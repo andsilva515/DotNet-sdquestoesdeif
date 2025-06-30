@@ -1,4 +1,5 @@
-﻿using SoQuestoesIF.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SoQuestoesIF.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

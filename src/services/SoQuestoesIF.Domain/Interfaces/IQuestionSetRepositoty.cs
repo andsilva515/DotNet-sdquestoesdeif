@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Interfaces
 {
-    public interface IUserNotebookRepositoty
+    public interface IQuestionSetRepositoty
     {
         // Métodos customizados para UserNotebook
     }
