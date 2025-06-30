@@ -9,33 +9,33 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Services
 {
-    public class AnswerHistoryService : IAnswerHistoryService
+    public class UserAnswerService : IUserAnswerService
     {
         private readonly IUserAnswerRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
-        public AnswerHistoryService(IUserAnswerRepository repository, IUnitOfWork unitOfWork)
+        public UserAnswerService(IUserAnswerRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<AnswerHistory> GetByIdAsync(Guid id)
+        public async Task<UserAnswer> GetByIdAsync(Guid id)
         {
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<AnswerHistory>> GetAllAsync()
+        public async Task<IEnumerable<UserAnswer>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }
 
-        public async Task AddAsync (AnswerHistory entity)
+        public async Task AddAsync (UserAnswer entity)
         {
             await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
         }
         
-        public async Task UpdateAsync(AnswerHistory entity)
+        public async Task UpdateAsync(UserAnswer entity)
         {
             _repository.Update(entity);
             await _unitOfWork.CommitAsync();

@@ -8,8 +8,8 @@ namespace SoQuestoesIF.API.Controllers
     [ApiController]
     public class AnswerHistorysController : ControllerBase
     {
-        private readonly IAnswerHistoryService _answerhistoryService;   
-        public AnswerHistorysController(IAnswerHistoryService answerhistoryService)
+        private readonly IUserAnswerService _answerhistoryService;   
+        public AnswerHistorysController(IUserAnswerService answerhistoryService)
         {
             _answerhistoryService = answerhistoryService;
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Dtos
 {
-    public class AnswerHistoryDto
+    public class UserAnswerDto
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
