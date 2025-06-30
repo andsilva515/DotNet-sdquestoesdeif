@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Dtos
 {
-    public class InstitutionDto
+    public class AgencyDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

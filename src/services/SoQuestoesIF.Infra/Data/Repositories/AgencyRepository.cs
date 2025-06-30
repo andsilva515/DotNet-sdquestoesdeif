@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Infra.Data.Repositories
 {
-    public class InstitutionRepository
+    public class AgencyRepository
     {
-        public InstitutionRepository(AppDbContext context) :base(context){ }
+        public AgencyRepository(AppDbContext context) :base(context){ }
 
         // Implementações específicas para Institution
     }

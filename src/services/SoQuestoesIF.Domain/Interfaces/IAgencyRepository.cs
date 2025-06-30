@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Interfaces
 {
-    public interface IInstitutionRepository
+    public interface IAgencyRepository
     {
         // Métodos customizados para Institution
     }

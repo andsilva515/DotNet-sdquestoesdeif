@@ -1,4 +1,5 @@
-﻿using SoQuestoesIF.Domain.Interfaces;
+﻿using SoQuestoesIF.Domain.Entities;
+using SoQuestoesIF.Domain.Interfaces;
 using SoQuestoesIF.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -8,31 +9,31 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Services
 {
-    public class InstitutionService : IInstitutionService
+    public class AgencyService : IAgencyService
     {
-        private readonly IInstitutionRepository _repository;
+        private readonly IAgencyRepository _repository;
         private readonly IUnitOfWork _uniOfWork;
 
-        public InstitutionService(IInstitutionRepository repository, IUnitOfWork uniOfWork)
+        public AgencyService(IAgencyRepository repository, IUnitOfWork uniOfWork)
         {
             _repository = repository;
             _uniOfWork = uniOfWork;
         }
 
-        public async Task<Institution> GetByIdAsync(Guid id)
+        public async Task<Agency> GetByIdAsync(Guid id)
         {
             return await _repository.GetByIdAsync(id);
         }
-        public async Task<IEnumerable<Institution>> GetAllAsync()
+        public async Task<IEnumerable<Agency>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }
-        public async Task AddAsync(Institution entity)
+        public async Task AddAsync(Agency entity)
         {
             await _repository.AddAsync(entity);
             await _uniOfWork.CommitAsync();
         }                  
-        public async Task UpdateAsync(IInstitutionService entity)
+        public async Task UpdateAsync(IAgencyService entity)
         {
             _repository.Update(entity);
             await _uniOfWork.CommitAsync();
