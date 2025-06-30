@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Services
 {
-    public interface ICommentService
+    public interface ICommentUserService
     {
-        Task<Comment> GetByIdAsync(Guid id);
-        Task<IEnumerable<Comment>> GetAllAsync();
-        Task AddAsync(Comment entity);
-        Task UpdateAsync(Comment entity);
+        Task<CommentUser> GetByIdAsync(Guid id);
+        Task<IEnumerable<CommentUser>> GetAllAsync();
+        Task AddAsync(CommentUser entity);
+        Task UpdateAsync(CommentUser entity);
         Task DeleteAsync(Guid id);
     }
 }

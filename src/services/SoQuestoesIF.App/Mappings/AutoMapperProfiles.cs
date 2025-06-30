@@ -17,7 +17,7 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<Question, QuestionDto>().ReverseMap();
             CreateMap<Subject, SubjectDto>().ReverseMap();
             CreateMap<Discipline, DisciplineDto>().ReverseMap();
-            CreateMap<Comment, CommentDto>().ReverseMap();
+            CreateMap<CommentUser, CommentUserDto>().ReverseMap();
             CreateMap<Exam, ExamDto>().ReverseMap();
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap();
             CreateMap<Institution, InstitutionDto>().ReverseMap();

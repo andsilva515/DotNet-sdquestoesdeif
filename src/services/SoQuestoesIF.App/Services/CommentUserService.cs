@@ -9,31 +9,31 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Services
 {
-    public class CommentService : ICommentService
+    public class CommentUserService : ICommentUserService
     {
-        private readonly ICommentRepository _repository;
+        private readonly ICommentUserRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CommentService(ICommentRepository repository, IUnitOfWork unitOfWork)
+        public CommentUserService(ICommentUserRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
         }
-        public async Task<Comment> GetByIdAsync(Guid id)
+        public async Task<CommentUser> GetByIdAsync(Guid id)
         {
             return await _repository.GetByIdAsync(id);
         }
-        public async Task<IEnumerable<Comment>> GetAllAsync()
+        public async Task<IEnumerable<CommentUser>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }
 
-        public async Task AddAsync(Comment entity)
+        public async Task AddAsync(CommentUser entity)
         {
             await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
         }
-        public async Task UpdateAsync(Comment entity)
+        public async Task UpdateAsync(CommentUser entity)
         {
             _repository.Update(entity);
             await _unitOfWork.CommitAsync();

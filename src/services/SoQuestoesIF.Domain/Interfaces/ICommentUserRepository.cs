@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Interfaces
 {
-    public interface ICommentRepository
+    public interface ICommentUserRepository
     {
         // Métodos customizados para Comment
     }

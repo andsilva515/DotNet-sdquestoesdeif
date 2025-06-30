@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Infra.Data.Repositories
 {
-    public class CommentRepository
+    public class CommentUserRepository
     {
-        public CommentRepository(AppDbContext context) : base(context){ }
+        public CommentUserRepository(AppDbContext context) : base(context){ }
 
         // Implementações especificas para Comment
     }
