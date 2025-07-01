@@ -11,9 +11,9 @@ namespace SoQuestoesIF.API.Controllers
     {
         private readonly ICommentUserService _commentuserService;
 
-        public CommentUserController(ICommentUserService commentUserService)
+        public CommentUserController(ICommentUserService commentuserService)
         {
-            _commentuserService = commentUserService;
+            _commentuserService = commentuserService;
         }
 
         [HttpGet]
@@ -31,17 +31,17 @@ namespace SoQuestoesIF.API.Controllers
             return Ok(item);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CommentUser comment)
+        public async Task<IActionResult> Create(CommentUser commentuser)
         {
-            await _commentuserService.AddAsync(comment);
-            return CreatedAtAction(nameof(GetById), new { id = comment.Id }, comment);
+            await _commentuserService.AddAsync(commentuser);
+            return CreatedAtAction(nameof(GetById), new { id = commentuser.Id }, commentuser);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, CommentUser comment)
+        public async Task<IActionResult> Update(Guid id, CommentUser commentuser)
         {
-            if (id != comment.Id) return BadRequest();
-            await _commentuserService.UpdateAsync(comment);
+            if (id != commentuser.Id) return BadRequest();
+            await _commentuserService.UpdateAsync(commentuser);
             return NoContent();
         }
 
