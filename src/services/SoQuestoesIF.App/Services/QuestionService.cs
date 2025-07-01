@@ -70,7 +70,7 @@ namespace SoQuestoesIF.App.Services
             if (entity == null)
                 throw new Exception("Questão não encontrada.");
 
-            entity.Update(
+            entity.UpdateBasicInfo(
                 dto.Statement,
                 dto.Year,
                 dto.QuestionDifficulty,
@@ -98,6 +98,18 @@ namespace SoQuestoesIF.App.Services
 
             await _repository.UpdateAsync(entity);
         }
+
+        public async Task CancelAsync(Guid id)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+                throw new Exception("Questão não encontrada.");
+
+            entity.Cancel();
+
+            await _unitOfWork.CommitAsync();
+        }
+
     }
 
 }

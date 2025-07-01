@@ -34,6 +34,8 @@ namespace SoQuestoesIF.Domain.Entities
         public ICollection<Alternative> Alternatives { get; set; }
         public ICollection<CommentUser> CommentsUsers { get; set; }
 
+        
+        // Método validação completo
         public void Validate()
         {
             if (string.IsNullOrWhiteSpace(Statement))
@@ -76,24 +78,32 @@ namespace SoQuestoesIF.Domain.Entities
                 throw new ArgumentException("A disciplina é obrigatória.");
 
             if (TopicId == Guid.Empty)
-                throw new ArgumentException("O assunto é obrigatório.");
-        }
+                throw new ArgumentException("O assunto é obrigatório.");        }
 
-        // Atualizar dados principais (edição)
-        public void Update(
-            string statement,
-            int year,
-            EnumQuestionDifficulty difficulty,
-            EnumQuestionStatus status,
-            string examNumber,
-            string examUrl,
-            string fullExamUrl)
+
+        // Métodos validãção auxiliar
+
+        // Atualizar dados principais (edição) e faz vaidação de campos
+        public void UpdateBasicInfo(
+             string statement,
+             int year,
+             EnumQuestionDifficulty difficulty,
+             EnumQuestionStatus status,
+             string examNumber,
+             string examUrl,
+             string fullExamUrl)
         {
             if (string.IsNullOrWhiteSpace(statement))
                 throw new ArgumentException("O enunciado é obrigatório.");
 
             if (year < 1900 || year > DateTime.UtcNow.Year)
-                throw new ArgumentException("O ano da questão é inválido.");
+                throw new ArgumentException("Ano inválido.");
+
+            if (!Enum.IsDefined(typeof(EnumQuestionDifficulty), difficulty))
+                throw new ArgumentException("Dificuldade inválida.");
+
+            if (!Enum.IsDefined(typeof(EnumQuestionStatus), status))
+                throw new ArgumentException("Status inválido.");
 
             Statement = statement;
             Year = year;
@@ -102,6 +112,12 @@ namespace SoQuestoesIF.Domain.Entities
             ExamNumber = examNumber;
             ExamUrl = examUrl;
             FullExamUrl = fullExamUrl;
+        }     
+
+        // Marcar a questão como cancelada
+        public void Cancel()
+        {
+            QuestionStatus = EnumQuestionStatus.Cancelled;
         }
 
         // Trocar status
@@ -110,10 +126,20 @@ namespace SoQuestoesIF.Domain.Entities
             QuestionStatus = newStatus;
         }
 
-        // Marcar como cancelada
-        public void Cancel()
+        // Marca a questão como Ativa
+        public void Activate()
         {
-            QuestionStatus = EnumQuestionStatus.Cancelled;
+            QuestionStatus = EnumQuestionStatus.Active;
+        }
+
+        // Atualiza estatísticas (total/certas/erradas)
+        public void RegisterAnswer(bool isCorrect)
+        {
+            TotalAnswers++;
+            if (isCorrect)
+                CorrectAnswers++;
+            else
+                WrongAnswers++;
         }
     }
 }
