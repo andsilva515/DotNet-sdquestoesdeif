@@ -1,6 +1,10 @@
 using FluentAssertions.Common;
+using Microsoft.EntityFrameworkCore;
 using SoQuestoesIF.App.Mappings;
+using SoQuestoesIF.App.Services;
 using SoQuestoesIF.Domain.Interfaces;
+using SoQuestoesIF.Domain.Services;
+using SoQuestoesIF.Infra.Data;
 using SoQuestoesIF.Infra.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +16,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
 
-services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 
 object value = builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));

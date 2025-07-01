@@ -26,5 +26,6 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap();
 
         }
+
     }
 }

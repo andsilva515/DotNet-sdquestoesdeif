@@ -31,15 +31,6 @@ namespace SoQuestoesIF.Infra.Data
         //public DbSet<Product> Products { get; set; }
 
         //public DbSet<UserAccess> UserAccesses { get; set; }
-
-
-
-
-
-
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
