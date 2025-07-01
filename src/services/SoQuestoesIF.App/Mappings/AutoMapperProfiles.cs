@@ -25,7 +25,13 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<QuestionSet, QuestionSetDto>().ReverseMap();
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap();
 
-        }
+            CreateMap<User, UserDto>()
+               .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()))
+               .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+
+            CreateMap<UserCreateDto, User>();
+            CreateMap<UserUpdateDto, User>();
+        }      
 
     }
 }

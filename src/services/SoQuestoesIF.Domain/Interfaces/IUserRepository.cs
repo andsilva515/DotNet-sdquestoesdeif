@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoQuestoesIF.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,11 @@ namespace SoQuestoesIF.Domain.Interfaces
     public interface IUserRepository
     {
         // Métodos customizado para User
+        Task<User> GetByIdAsync(Guid id);
+        Task<User> GetByEmailAsync(string email);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task AddAsync(User user);
+        void Update(User user);
+        void Delete(User user);
     }
 }
