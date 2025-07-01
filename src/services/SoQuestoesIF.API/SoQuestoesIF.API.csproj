@@ -19,8 +19,4 @@
     <ProjectReference Include="..\SoQuestoesIF.Infra\SoQuestoesIF.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
 </Project>
