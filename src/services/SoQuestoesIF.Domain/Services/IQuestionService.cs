@@ -1,6 +1,5 @@
 ﻿using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Enums;
-using SoQuestoesIF.App.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

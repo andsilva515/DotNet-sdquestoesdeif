@@ -10,7 +10,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly AppContext _context;
+        protected readonly AppDbContext _context;
 
         protected readonly DbSet<T> _dbSet;
 
