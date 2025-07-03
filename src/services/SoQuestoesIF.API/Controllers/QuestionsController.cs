@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Services;
+using System.Runtime.InteropServices;
 
 namespace SoQuestoesIF.API.Controllers
 {
@@ -30,17 +32,16 @@ namespace SoQuestoesIF.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Question question)
+        public async Task<IActionResult> Create([FromBody] QuestionCreateDto dto)
         {
-            await _questionService.AddAsync(question);
-            return CreatedAtAction(nameof(GetById), new { id = question.Id }, question);
+            var id = await _questionService.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id }, dto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, Question question)
-        {
-            if (id != question.Id) return BadRequest();
-            await _questionService.UpdateAsync(question);
+        public async Task<IActionResult> Update(Guid id, [FromBody] QuestionUpdateDto dto)
+        {            
+            await _questionService.UpdateAsync(id, dto);
             return NoContent();
         }
 
@@ -48,6 +49,20 @@ namespace SoQuestoesIF.API.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             await _questionService.DeleteAsync(id);
+            return NoContent();
+        }
+
+        [HttpPost("{id}/register-answer")]
+        public async Task<IActionResult> RegisterAnswer(Guid id, [FromQuery] bool isCorrect)
+        {
+            await _questionService.RegisterAnswerAsync(id, isCorrect);
+            return NoContent();
+        }
+
+        [HttpPost("{id}/cancel")]
+        public  async Task<IActionResult> Cancel(Guid id)
+        {
+            await _questionService.CancelAsync(id);
             return NoContent();
         }
     }

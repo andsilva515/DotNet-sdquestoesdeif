@@ -81,7 +81,7 @@ namespace SoQuestoesIF.Domain.Entities
                 throw new ArgumentException("O assunto é obrigatório.");        }
 
 
-        // Métodos validãção auxiliar
+        // Métodos validação auxiliar
 
         // Atualizar dados principais (edição) e faz vaidação de campos
         public void UpdateBasicInfo(

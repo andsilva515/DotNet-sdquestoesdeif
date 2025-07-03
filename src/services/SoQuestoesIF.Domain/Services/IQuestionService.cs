@@ -21,11 +21,11 @@ namespace SoQuestoesIF.Domain.Services
                 EnumQuestionDifficulty? difficulty,
                 int? year);
 
-            Task<Guid> CreateAsync(QuestionDto dto);
-            Task UpdateAsync(Guid id, QuestionDto dto);
+            Task<Guid> CreateAsync(QuestionDto question);
+            Task UpdateAsync(Guid id, QuestionDto question);
             Task DeleteAsync(Guid id);
-
             Task RegisterAnswerAsync(Guid questionId, bool isCorrect);
+            Task CancelAsync(Guid id);
         }
 
     }

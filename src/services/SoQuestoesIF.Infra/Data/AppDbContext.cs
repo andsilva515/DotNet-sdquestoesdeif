@@ -27,10 +27,6 @@ namespace SoQuestoesIF.Infra.Data
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Topic> Topics { get; set; }    
         public DbSet<UserAnswer> UserAnswers { get; set; }
-
-        //public DbSet<Product> Products { get; set; }
-
-        //public DbSet<UserAccess> UserAccesses { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);

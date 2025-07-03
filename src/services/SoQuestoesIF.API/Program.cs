@@ -22,16 +22,9 @@ builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddAutoMapper(typeof(Program));
-
-
-object value = builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 var app = builder.Build();
-
-var builder = WebApplication.CreateBuilder(args);
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

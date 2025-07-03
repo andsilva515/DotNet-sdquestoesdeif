@@ -14,8 +14,18 @@ namespace SoQuestoesIF.App.Mappings
     {
         public AutoMapperProfiles() 
         {
-            CreateMap<User, UserDto>().ReverseMap();
+
             CreateMap<Question, QuestionDto>().ReverseMap();
+            CreateMap<QuestionCreateDto, Question>();
+            CreateMap<QuestionUpdateDto, Question>();
+
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserDto>()
+               .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()))
+               .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+            CreateMap<UserCreateDto, User>();
+            CreateMap<UserUpdateDto, User>();
+
             CreateMap<Subject, SubjectDto>().ReverseMap();        
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();
             CreateMap<Exam, ExamDto>().ReverseMap();
@@ -23,15 +33,10 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<Agency, AgencyDto>().ReverseMap();
             CreateMap<ExamBoard, ExamBoardDto>().ReverseMap();
             CreateMap<QuestionSet, QuestionSetDto>().ReverseMap();
-            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap();
+            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap();                        
+            
+        }
 
-            CreateMap<User, UserDto>()
-               .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()))
-               .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+   }
 
-            CreateMap<UserCreateDto, User>();
-            CreateMap<UserUpdateDto, User>();
-        }      
-
-    }
 }

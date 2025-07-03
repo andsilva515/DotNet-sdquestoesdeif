@@ -15,12 +15,12 @@ namespace SoQuestoesIF.App.Services
     public class QuestionService : IQuestionService
     {
         private readonly IQuestionRepository _repository;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper; 
 
         public QuestionService(IQuestionRepository repository, IMapper mapper)
         {
             _repository = repository;
-            _mapper = mapper;
+            _mapper = mapper;            
         }
 
         public async Task<QuestionDto> GetByIdAsync(Guid id)
@@ -107,7 +107,7 @@ namespace SoQuestoesIF.App.Services
 
             entity.Cancel();
 
-            await _unitOfWork.CommitAsync();
+            await _repository.UpdateAsync(entity);
         }
 
     }
