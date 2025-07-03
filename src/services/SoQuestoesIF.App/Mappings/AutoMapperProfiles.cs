@@ -13,11 +13,7 @@ namespace SoQuestoesIF.App.Mappings
     public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles() 
-        {
-
-            CreateMap<Question, QuestionDto>().ReverseMap();
-            CreateMap<QuestionCreateDto, Question>();
-            CreateMap<QuestionUpdateDto, Question>();
+        {    
 
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserDto>()
@@ -26,19 +22,27 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<UserCreateDto, User>();
             CreateMap<UserUpdateDto, User>();
 
-            CreateMap<Alternative, AlternativeDto>().ReverseMap(); 
+            CreateMap<Question, QuestionDto>().ReverseMap();
+            CreateMap<QuestionCreateDto, Question>();
+            CreateMap<QuestionUpdateDto, Question>();
 
-            CreateMap<Subject, SubjectDto>().ReverseMap();        
-            CreateMap<CommentUser, CommentUserDto>().ReverseMap();
-            CreateMap<Exam, ExamDto>().ReverseMap();
-            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap();
-            CreateMap<Agency, AgencyDto>().ReverseMap();
-            CreateMap<ExamBoard, ExamBoardDto>().ReverseMap();
-            CreateMap<QuestionSet, QuestionSetDto>().ReverseMap();
-            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap();                        
-            
+            CreateMap<Alternative, AlternativeDto>().ReverseMap();
+
+            CreateMap<Exam, ExamDto>().ReverseMap(); // Simulado
+            CreateMap<QuestionSet, QuestionSetDto>().ReverseMap(); // Caderno
+            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário               
+            CreateMap<CommentUser, CommentUserDto>().ReverseMap(); // Comentário do Usuário (para o forum)
+
+            CreateMap<Subject, SubjectDto>().ReverseMap(); // Disciplina
+            CreateMap<Agency, AgencyDto>().ReverseMap(); // Orgão
+            CreateMap<ExamBoard, ExamBoardDto>().ReverseMap(); // Banca
+            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); // Escolaridade
+                                                                         
+            // Position
+            // Topic                                                                               
+
         }
 
-   }
+    }
 
 }

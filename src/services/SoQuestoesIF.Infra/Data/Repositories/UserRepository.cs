@@ -11,7 +11,6 @@ namespace SoQuestoesIF.Infra.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        // Implmentações específicas para User
 
         private readonly AppDbContext _context;
         public UserRepository(AppDbContext context)
@@ -20,8 +19,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
         }                                  
         public async Task<User> GetByIdAsync(Guid id)
         {            
-            return await _context.Users.FindAsync(id);
-            // return await _context.Users.FindAsync(x => x.Id == id);
+            return await _context.Users.FindAsync(id);            
         }
         public async Task<User> GetByEmailAsync(string email)
         {

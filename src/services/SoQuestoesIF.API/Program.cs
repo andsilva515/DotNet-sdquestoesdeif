@@ -33,7 +33,26 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Configuração CORS
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins(
+                "https://sdquestoesdeif.vercel.app/"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+});
+
 app.UseHttpsRedirection();
+
+// Configuração CORS
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

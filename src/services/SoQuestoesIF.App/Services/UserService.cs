@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediaBrowser.Model.Dto;
+using Org.BouncyCastle.Crypto.Generators;
 using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Enums;
@@ -97,38 +98,6 @@ namespace SoQuestoesIF.App.Services
 
             return _mapper.Map<UserDto>(entity);
         }
-}
-
-
-
-
-
-    //public async task<user> getbyidasync(guid id)
-    //{
-    //    return await _repository.getbyidasync(id);
-    //}               
-    //public async task<ienumerable<user>> getallasync()
-    //{
-    //    return await _repository.getallasync();
-    //}
-    //public async task addasync(user entity)
-    //{
-    //    await _repository.addasync(entity);
-    //    await _unitofwork.commitasync();
-    //}
-    //public async task updateasync(user entity)
-    //{
-    //    _repository.update(entity);
-    //    await _unitofwork.commitasync();
-    //}
-    //public async task deleteasync(guid id)
-    //{
-    //    var entity = await _repository.getbyidasync(id);
-    //    if (entity != null)
-    //    {     
-    //        _repository.delete(entity);
-    //        await _unitofwork.commitasync();
-    //    }
-}   
     }
-}
+}   
+ 

@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IUserRepository
-    {
-        // Métodos customizado para User
+    {     
         Task<User> GetByIdAsync(Guid id);
         Task<User> GetByEmailAsync(string email);
         Task<IEnumerable<User>> GetAllAsync();
