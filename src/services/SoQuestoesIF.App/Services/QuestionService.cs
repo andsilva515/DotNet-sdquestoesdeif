@@ -53,23 +53,21 @@ namespace SoQuestoesIF.App.Services
             return _mapper.Map<IEnumerable<QuestionDto>>(entities);
         }
 
-        public async Task<Guid> CreateAsync(QuestionDto dto)
+        public async Task<Guid> CreateAsync(QuestionCreateDto dto)
         {
             var entity = _mapper.Map<Question>(dto);
-
             entity.Validate();
-
             await _repository.AddAsync(entity);
-
             return entity.Id;
         }
 
-        public async Task UpdateAsync(Guid id, QuestionDto dto)
+        public async Task UpdateAsync(Guid id, QuestionUpdateDto dto)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null)
                 throw new Exception("Questão não encontrada.");
 
+            // Atualiza os campos básicos
             entity.UpdateBasicInfo(
                 dto.Statement,
                 dto.Year,
@@ -79,6 +77,21 @@ namespace SoQuestoesIF.App.Services
                 dto.ExamUrl,
                 dto.FullExamUrl
             );
+
+
+            // Atualiza as alterenativas
+            if (dto.Alternatives != null)
+            {
+                // Limpa as antigas
+                entity.Alternatives.Clear();
+
+                // Mapeia e adiciona as novas
+                var alternatives = _mapper.Map<ICollection<Alternative>>(dto.Alternatives);
+                foreach (var alt in alternatives)
+                {
+                    entity.Alternatives.Add(alt);
+                }
+            }
 
             await _repository.UpdateAsync(entity);
         }

@@ -29,7 +29,6 @@ namespace SoQuestoesIF.App.Dtos
         public ICollection<AlternativeDto> Alternatives { get; set; }
     }
 
-
     public class QuestionCreateDto
     {
         public string Statement { get; set; }
@@ -56,6 +55,7 @@ namespace SoQuestoesIF.App.Dtos
         public string ExamNumber { get; set; }
         public string ExamUrl { get; set; }
         public string FullExamUrl { get; set; }
+        public ICollection<AlternativeDto> Alternatives { get; set; }
     }
 
     public class AlternativeDto
@@ -64,5 +64,4 @@ namespace SoQuestoesIF.App.Dtos
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
     }
-
 }

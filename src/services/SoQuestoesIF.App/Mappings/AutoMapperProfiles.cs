@@ -26,6 +26,8 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<UserCreateDto, User>();
             CreateMap<UserUpdateDto, User>();
 
+            CreateMap<Alternative, AlternativeDto>().ReverseMap(); 
+
             CreateMap<Subject, SubjectDto>().ReverseMap();        
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();
             CreateMap<Exam, ExamDto>().ReverseMap();
