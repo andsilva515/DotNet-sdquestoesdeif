@@ -1,4 +1,4 @@
-﻿using MediaBrowser.Model.Dto;
+﻿using SoQuestoesIF.App.Dto;
 using SoQuestoesIF.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,6 @@ namespace SoQuestoesIF.Domain.Services
 {
     public interface IUserService
     {
-        Task<User> GetByIdAsync(Guid id);
         Task<IEnumerable<User>> GetAllAsync();
         Task AddAsync(User entity);
         Task UpdateAsync(User entity);

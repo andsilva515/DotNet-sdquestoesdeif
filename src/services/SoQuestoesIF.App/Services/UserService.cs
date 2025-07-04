@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MediaBrowser.Model.Dto;
 using Org.BouncyCastle.Crypto.Generators;
 using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.Domain.Entities;
@@ -11,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserDto = SoQuestoesIF.App.Dtos.UserDto;
+
 
 namespace SoQuestoesIF.App.Services
 {
@@ -26,7 +25,7 @@ namespace SoQuestoesIF.App.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<MediaBrowser.Model.Dto.UserDto> GetByIdAsync(Guid id)
+        public async Task<UserDto> GetByIdAsync(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);
             return _mapper.Map<UserDto>(entity);
