@@ -10,10 +10,10 @@ namespace SoQuestoesIF.Domain.Entities
     {
         public Guid Id { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public Guid EducationLeveId { get; set; }
+        public Guid EducationLevelId { get; set; }
 
-        public EducationLevel EducationLevel { get; set; }
+        public EducationLevel EducationLevel { get; set; } = null!;
     }
 }

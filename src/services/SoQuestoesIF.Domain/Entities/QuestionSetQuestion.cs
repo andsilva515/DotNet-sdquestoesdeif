@@ -9,10 +9,10 @@ namespace SoQuestoesIF.Domain.Entities
     public class QuestionSetQuestion
     {
         public Guid QuestionSetId { get; set; }
-        public QuestionSet QuestionSet { get; set; }
+        public QuestionSet QuestionSet { get; set; } = null!;
 
         public Guid QuestionId { get; set; }
-        public Question Question { get; set; }
+        public Question Question { get; set; } = null!;
 
         public int Order { get; set; }
     }

@@ -13,13 +13,13 @@ namespace SoQuestoesIF.Domain.Entities
         public bool IsCorrect { get; set; }
 
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public User User { get; set; } = null!;
 
         public Guid QuestionId { get; set; }
-        public Question Question { get; set; }
+        public Question Question { get; set; } = null!;
 
         public Guid SelectedAlternativeId { get; set; }
-        public Alternative SelectedAlternative { get; set; }
+        public Alternative SelectedAlternative { get; set; } = null!;
 
 
     }

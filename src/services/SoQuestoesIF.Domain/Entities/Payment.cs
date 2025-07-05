@@ -14,8 +14,8 @@ namespace SoQuestoesIF.Domain.Entities
         public Guid ProductId { get; set; }
         public decimal Amount { get; set; }
         public EnumPaymentMethod Method { get; set; }
-        public string GatewayTransactionId { get; set; }
+        public string GatewayTransactionId { get; set; } = string.Empty;
         public DateTime PaidAt { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = string.Empty;
     }
 }

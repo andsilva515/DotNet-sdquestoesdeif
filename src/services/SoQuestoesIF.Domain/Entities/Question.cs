@@ -10,29 +10,29 @@ namespace SoQuestoesIF.Domain.Entities
     public class Question
     {
         public Guid Id { get; set; }
-        public string Statement { get; set; }       
+        public string Statement { get; set; } = string.Empty;       
         public int Year { get; set; }   
         public EnumQuestionType QuestionType { get; set; } // Enum: MultipleChoice, TrueFalse
         public EnumQuestionDifficulty QuestionDifficulty {get; set; } // Enum: Easy, Medium, Hard
         public EnumQuestionStatus QuestionStatus {get; set; } // Enum: Active, Cancelled
-        public string ExamNumber { get; set; }
-        public string ExamUrl { get; set; }
-        public string FullExamUrl { get; set; }
+        public string ExamNumber { get; set; } = string.Empty;
+        public string ExamUrl { get; set; } = string.Empty;
+        public string FullExamUrl { get; set; } = string.Empty;
         public int TotalAnswers { get; set; }
         public int CorrectAnswers { get; set; }
         public int WrongAnswers { get; set; }
         public Guid AgencyId { get; set; }
-        public Agency Agency { get; set; }
+        public Agency Agency { get; set; } = null;
         public Guid ExamBoardId { get; set; }
-        public ExamBoard ExamBoard { get; set; }
+        public ExamBoard ExamBoard { get; set; } = null;
         public Guid PositionId { get; set; }
-        public Position Position { get; set; }
+        public Position Position { get; set; } = null;
         public Guid SubjectId { get; set; }
-        public Subject Subject { get; set; }
+        public Subject Subject { get; set; } = null;
         public Guid TopicId { get; set; }
-        public Topic Topic { get; set; }
-        public ICollection<Alternative> Alternatives { get; set; }
-        public ICollection<CommentUser> CommentsUsers { get; set; }
+        public Topic Topic { get; set; } = null;
+        public ICollection<Alternative> Alternatives { get; set; } = new List<Alternative>();
+        public ICollection<CommentUser> CommentsUsers { get; set; } = new List<CommentUser>();
 
         
         // Método validação completo
