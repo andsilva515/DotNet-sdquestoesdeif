@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
 using Org.BouncyCastle.Crypto.Generators;
 using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Enums;
 using SoQuestoesIF.Domain.Interfaces;
-using SoQuestoesIF.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 
 namespace SoQuestoesIF.App.Services
 {
@@ -59,19 +58,21 @@ namespace SoQuestoesIF.App.Services
             return entity.Id;
         }
 
-        public async Task UpdateAsync(Guid id, UserUpdateDto dto)
+        public async Task UpdateAsync(Guid id, UserCreateDto dto)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
+            var user = await _repository.GetByIdAsync(id);
+            if (user == null)
                 throw new Exception("Usuário não encontrado.");
 
-            entity.FullName = dto.FullName;
-            entity.Role = dto.Role;
-            entity.Status = dto.Status;
+            user.Name = dto.FullName;
+            user.Email = dto.Email;
+            user.Role = dto.Role;
 
-            await _unitOfWork.CommitAsync();
+            if (!string.IsNullOrEmpty(dto.Password))
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+
+            _repository.Update(user);
         }
-
         public async Task DeleteAsync(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);

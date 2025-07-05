@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.Domain.Entities;
-using SoQuestoesIF.Domain.Services;
+using SoQuestoesIF.App.Interfaces;
+
 
 namespace SoQuestoesIF.API.Controllers
 {

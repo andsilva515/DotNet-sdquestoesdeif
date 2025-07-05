@@ -1,4 +1,5 @@
-﻿using SoQuestoesIF.Domain.Entities;
+﻿using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Enums;
 using System;
 using System.Collections.Generic;

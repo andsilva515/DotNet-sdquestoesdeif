@@ -1,5 +1,6 @@
 using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
+using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.App.Mappings;
 using SoQuestoesIF.App.Services;
 using SoQuestoesIF.Domain.Interfaces;
@@ -16,8 +17,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// Iterfaces e Repositórios
+
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+// Contexto Base
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
