@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoQuestoesIF.Domain.Services
+namespace SoQuestoesIF.App.Interfaces
 {
     public interface IUserAnswerService
     {

@@ -12,8 +12,7 @@ namespace SoQuestoesIF.Domain.Services
         Task<Agency> GetByIdAsync(Guid id);
         Task<IEnumerable<Agency>> GetAllAsync();
         Task AddAsync(Agency entity);
-
-        Task UpdateAsync(IAgencyService entity);
+        Task UpdateAsync(Agency entity);
         Task DeleteAsync(Guid id);
     }
 }

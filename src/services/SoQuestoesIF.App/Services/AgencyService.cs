@@ -33,7 +33,7 @@ namespace SoQuestoesIF.App.Services
             await _repository.AddAsync(entity);
             await _uniOfWork.CommitAsync();
         }                  
-        public async Task UpdateAsync(IAgencyService entity)
+        public async Task UpdateAsync(Agency entity)
         {
             _repository.Update(entity);
             await _uniOfWork.CommitAsync();
@@ -46,6 +46,7 @@ namespace SoQuestoesIF.App.Services
                 _repository.Delete(entity);
                 await _uniOfWork.CommitAsync();
             }
-        }
+        }      
+     
     }
 }
