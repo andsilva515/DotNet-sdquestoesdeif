@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Enums;
 using SoQuestoesIF.Domain.Interfaces;
