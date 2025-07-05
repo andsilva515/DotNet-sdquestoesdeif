@@ -10,7 +10,7 @@ namespace SoQuestoesIF.App.Interfaces
 {
     public interface IUserService
     {     
-        Task AddAsync(User entity);
+        Task AddAsync(User user);
         Task UpdateAsync(Guid id, UserCreateDto dto);
         Task DeleteAsync(Guid id);
         Task<UserDto> GetByIdAsync(Guid id);

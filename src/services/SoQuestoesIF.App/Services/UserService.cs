@@ -98,6 +98,11 @@ namespace SoQuestoesIF.App.Services
 
             return _mapper.Map<UserDto>(entity);
         }
+
+        public async Task AddAsync(User user)
+        {
+            await _repository.AddAsync(user);
+        }
     }
 }   
  

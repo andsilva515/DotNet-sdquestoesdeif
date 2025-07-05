@@ -12,7 +12,7 @@ namespace SoQuestoesIF.App.Services
     public class EducationLevelService : IEducationLevelService
     {
 
-        private readonly IEducationLevelRepostory _repository;
+        private readonly IEducationLevelRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
         public EducationLevelService(IEducationLevelRepository repository, IUnitOfWork unitOfWork)
@@ -23,7 +23,7 @@ namespace SoQuestoesIF.App.Services
 
         public async Task<EducationLevel> GetByIdAsync(Guid id)
         {
-            return await -_repository.GetByIdAsync(id);
+            return await _repository.GetByIdAsync(id);
         }
         public async Task<IEnumerable<EducationLevel>> GetAllAsync()
         {
