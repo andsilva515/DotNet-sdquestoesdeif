@@ -56,6 +56,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 // Contexto Base
 
 builder.Services.AddDbContext<AppDbContext>(options =>

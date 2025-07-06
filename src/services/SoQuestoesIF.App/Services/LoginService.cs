@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.JsonWebTokens;
 using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.App.Interfaces;
+using SoQuestoesIF.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +17,11 @@ namespace SoQuestoesIF.App.Services
     {
         public class LoginService : ILoginService
         {
-            private readonly IUsuarioRepository _usuarioRepository;
+            private readonly IUserRepository _usuarioRepository;
             private readonly IPasswordHasher _passwordHasher;
             private readonly IConfiguration _configuration;
 
-            public LoginService(IUsuarioRepository usuarioRepository, IPasswordHasher passwordHasher, IConfiguration configuration)
+            public LoginService(IUserRepository usuarioRepository, IPasswordHasher passwordHasher, IConfiguration configuration)
             {
                 _usuarioRepository = usuarioRepository;
                 _passwordHasher = passwordHasher;
