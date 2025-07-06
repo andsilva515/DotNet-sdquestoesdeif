@@ -1,5 +1,7 @@
 using FluentAssertions.Common;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.App.Mappings;
 using SoQuestoesIF.App.Services;
@@ -7,8 +9,33 @@ using SoQuestoesIF.Domain.Interfaces;
 using SoQuestoesIF.Domain.Services;
 using SoQuestoesIF.Infra.Data;
 using SoQuestoesIF.Infra.Data.Repositories;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configura JSON Web Tokens - JWT
+
+var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
 
 // Add services to the container.
 
@@ -25,6 +52,9 @@ builder.Services.AddScoped<IQuestionService, QuestionService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 // Contexto Base
 
@@ -64,6 +94,7 @@ app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

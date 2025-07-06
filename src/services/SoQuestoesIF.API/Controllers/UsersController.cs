@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SoQuestoesIF.App.Dtos;
-using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.App.Interfaces;
+using SoQuestoesIF.Domain.Entities;
 
 
 namespace SoQuestoesIF.API.Controllers
@@ -68,6 +69,15 @@ namespace SoQuestoesIF.API.Controllers
                 return Unauthorized(new { messate = ex.Message });
             }
         }
+
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
+        {
+            var loginResponse = await _loginService.AutenticarAsync(dto);
+            return Ok(loginResponse);
+        }
+
     }
 
 }
