@@ -11,7 +11,7 @@ namespace SoQuestoesIF.App.Interfaces
     public interface IUserService
     {     
         Task AddAsync(User user);
-        Task UpdateAsync(Guid id, UserCreateDto dto);
+        Task UpdateAsync(Guid id, UserUpdateDto dto);
         Task DeleteAsync(Guid id);
         Task<UserDto> GetByIdAsync(Guid id);
         Task<IEnumerable<UserDto>> GetAllAsync();

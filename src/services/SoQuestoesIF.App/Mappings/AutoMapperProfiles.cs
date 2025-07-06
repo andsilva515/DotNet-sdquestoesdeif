@@ -13,9 +13,8 @@ namespace SoQuestoesIF.App.Mappings
     public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles() 
-        {    
+        {   
 
-            CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserDto>()
                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()))
                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));

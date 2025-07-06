@@ -58,20 +58,21 @@ namespace SoQuestoesIF.App.Services
             return entity.Id;
         }
 
-        public async Task UpdateAsync(Guid id, UserCreateDto dto)
+        public async Task UpdateAsync(Guid id, UserUpdateDto dto)
         {
             var user = await _repository.GetByIdAsync(id);
             if (user == null)
                 throw new Exception("Usuário não encontrado.");
 
-            user.Name = dto.FullName;
-            user.Email = dto.Email;
+            user.FullName = dto.FullName;
             user.Role = dto.Role;
+            user.Status = dto.Status;
 
             if (!string.IsNullOrEmpty(dto.Password))
                 user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
             _repository.Update(user);
+            await _unitOfWork.CommitAsync();
         }
         public async Task DeleteAsync(Guid id)
         {
@@ -102,6 +103,7 @@ namespace SoQuestoesIF.App.Services
         public async Task AddAsync(User user)
         {
             await _repository.AddAsync(user);
+            await _unitOfWork.CommitAsync();
         }
     }
 }   

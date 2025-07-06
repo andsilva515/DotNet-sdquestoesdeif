@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace SoQuestoesIF.Domain.Enums
 {
     public enum EnumUserStatus
-    {
-        Pending = 0,
-        Active = 1,
-        Inactive = 2
+    {        
+        Active,
+        Inactive,
+        Blocked,
     }
 }

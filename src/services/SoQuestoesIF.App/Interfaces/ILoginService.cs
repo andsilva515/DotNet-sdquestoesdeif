@@ -9,6 +9,6 @@ namespace SoQuestoesIF.App.Interfaces
 {
     public interface ILoginService
     {
-        Task<LoginResponseDto> AuthenticateAsync{ LoginDto dto };
+        Task<LoginResponseDto> AuthenticateAsync(LoginDto dto);
     }
 }

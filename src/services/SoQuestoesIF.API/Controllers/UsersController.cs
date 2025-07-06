@@ -13,9 +13,11 @@ namespace SoQuestoesIF.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _service;
-        public UsersController(IUserService service)
+        private readonly ILoginService _loginService;
+        public UsersController(IUserService service, ILoginService loginService)
         {
             _service = service;
+            _loginService = loginService;
         }
 
         [HttpGet]
@@ -43,7 +45,7 @@ namespace SoQuestoesIF.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UserCreateDto dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateDto dto)
         {
             await _service.UpdateAsync(id, dto);
             return NoContent();
@@ -74,7 +76,7 @@ namespace SoQuestoesIF.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            var loginResponse = await _loginService.AutenticarAsync(dto);
+            var loginResponse = await _loginService.AuthenticateAsync(dto);
             return Ok(loginResponse);
         }
 
