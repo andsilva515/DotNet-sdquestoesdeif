@@ -6,10 +6,10 @@ namespace SoQuestoesIF.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExamsController : ControllerBase
+    public class ExamController : ControllerBase
     {
         private readonly IExamService _examService;
-        public ExamsController(IExamService examService)
+        public ExamController(IExamService examService)
         {
             _examService = examService;
         }

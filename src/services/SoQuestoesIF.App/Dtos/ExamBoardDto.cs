@@ -10,5 +10,23 @@ namespace SoQuestoesIF.App.Dtos
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class ExamBoardCreateDto
+    {
+        public string Name { get; set; }
+        public string Decription { get; set; }
+    }
+
+    public class ExamBoardUpdateDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; } 
+        public bool IsActive { get; set; }
     }
 }
+
+
+

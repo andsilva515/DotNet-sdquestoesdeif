@@ -62,7 +62,8 @@ builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddScoped<IAgencyRepository, AgencyRepository>();
 builder.Services.AddScoped<IAgencyService, AgencyService>();
 
-
+builder.Services.AddScoped<IExamBoardRepository, ExamBoardRepository>();
+builder.Services.AddScoped<IExamBoardService, ExamBoardService>();
 
 // Contexto Base
 
