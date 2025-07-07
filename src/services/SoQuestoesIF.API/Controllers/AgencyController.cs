@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.App.Services;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Services;
@@ -18,30 +19,29 @@ namespace SoQuestoesIF.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var items = await _agencyService.GetAllAsync();
-            return Ok(items);
+            var result = await _agencyService.GetAllAsync();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var item = await _agencyService.GetByIdAsync(id);
-            if (item == null) return NotFound();
-            return Ok(item);
+            var result = await _agencyService.GetByIdAsync(id);
+            if (result == null) return NotFound();
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Agency agency)
+        public async Task<IActionResult> Create([FromBody] AgencyCreateDto dto)
         {
-            await _agencyService.AddAsync(agency);
-            return CreatedAtAction(nameof(GetById), new { id = agency.Id }, agency);
+           var id = await _agencyService.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id}, null);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, Agency agency)
-        {
-            if (id != agency.Id) return BadRequest();
-            await _agencyService.UpdateAsync(agency);
+        public async Task<IActionResult> Update(Guid id, [FromBody] AgencyUpdateDto dto)
+        {           
+            await _agencyService.UpdateAsync(id, dto);
             return NoContent();
         }
 

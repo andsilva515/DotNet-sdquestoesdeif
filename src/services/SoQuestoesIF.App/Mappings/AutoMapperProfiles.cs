@@ -29,7 +29,11 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<SubjectCreateDto, Subject>();
             CreateMap<SubjectUpdateDto, Subject>();
 
-            CreateMap<Agency, AgencyDto>().ReverseMap(); // Orgão
+            CreateMap<Agency, AgencyDto>().ReverseMap();
+            CreateMap<AgencyCreateDto, Agency>().ReverseMap();
+            CreateMap<AgencyUpdateDto, Agency>().ReverseMap();
+
+
             CreateMap<ExamBoard, ExamBoardDto>().ReverseMap(); // Banca
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); // Escolaridade
 

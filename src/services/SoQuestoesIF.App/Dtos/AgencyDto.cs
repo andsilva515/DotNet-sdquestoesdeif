@@ -10,5 +10,20 @@ namespace SoQuestoesIF.App.Dtos
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class AgencyCreateDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class AgencyUpdateDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
     }
 }
