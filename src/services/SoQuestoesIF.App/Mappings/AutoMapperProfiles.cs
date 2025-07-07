@@ -25,20 +25,23 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<QuestionCreateDto, Question>();
             CreateMap<QuestionUpdateDto, Question>();
 
-            CreateMap<Alternative, AlternativeDto>().ReverseMap();
+            CreateMap<Subject, SubjectDto>().ReverseMap();
+            CreateMap<SubjectCreateDto, Subject>();
+            CreateMap<SubjectUpdateDto, Subject>();
+
+            CreateMap<Agency, AgencyDto>().ReverseMap(); // Orgão
+            CreateMap<ExamBoard, ExamBoardDto>().ReverseMap(); // Banca
+            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); // Escolaridade
+
+            // Position
+            // Topic  
+
+            CreateMap<Alternative, AlternativeDto>().ReverseMap(); // Alternativa
 
             CreateMap<Exam, ExamDto>().ReverseMap(); // Simulado
             CreateMap<QuestionSet, QuestionSetDto>().ReverseMap(); // Caderno
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário               
             CreateMap<CommentUser, CommentUserDto>().ReverseMap(); // Comentário do Usuário (para o forum)
-
-            CreateMap<Subject, SubjectDto>().ReverseMap(); // Disciplina
-            CreateMap<Agency, AgencyDto>().ReverseMap(); // Orgão
-            CreateMap<ExamBoard, ExamBoardDto>().ReverseMap(); // Banca
-            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); // Escolaridade
-                                                                         
-            // Position
-            // Topic                                                                               
 
         }
 

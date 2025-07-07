@@ -1,4 +1,6 @@
-﻿using SoQuestoesIF.App.Interfaces;
+﻿using AutoMapper;
+using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Interfaces;
 using SoQuestoesIF.Domain.Services;
@@ -14,37 +16,59 @@ namespace SoQuestoesIF.App.Services
     {
         private readonly ISubjectRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public SubjectService(ISubjectRepository repository, IUnitOfWork unitOfWork)
+        public SubjectService(ISubjectRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<Subject> GetByIdAsync(Guid id)
+        public async Task<SubjectDto> GetByIdAsync(Guid id)
         {
-            return await _repository.GetByIdAsync(id);
+            var subject = await _repository.GetByIdAsync(id);
+            if (subject == null)
+                throw new Exception("Disciplina não encontrada.");
+
+            return _mapper.Map<SubjectDto>(subject);
         }            
-        public async Task<IEnumerable<Subject>> GetAllAsync()
+        public async Task<IEnumerable<SubjectDto>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            var subjects = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<SubjectDto>>(subjects);
         }
-        public async Task AddAsync(Subject entity)
+        public async Task<Guid> CreateAsync(SubjectCreateDto dto)
         {
-            await _repository.AddAsync(entity);
+            var subject = new Subject
+            {
+                Id = Guid.NewGuid(),
+                Name = dto.Name,
+                Description = dto.Description,
+                IsActive = true
+            };
+
+            await _repository.AddAsync(subject);
             await _unitOfWork.CommitAsync();
+
         }
-        public async Task UpdateAsync(Subject entity)
+        public async Task UpdateAsync(Guid id, SubjectUpdateDto dto)
         {
-            _repository.Update(entity);
-            await _unitOfWork.CommitAsync();
+            var subject = await _repository.GetByIdAsync(id);
+            if (subject == null)
+                throw new Exception("Disciplina não encontrada.");
+
+            subject.Name = dto.Name;
+            subject.Description = dto.Description;
+            subject.IsActive = dto.IsActive;
         }
         public async Task DeleteAsync(Guid id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity != null)
+            var subject = await _repository.GetByIdAsync(id);
+            if (subject != null)
+                throw new Exception("Disciplina não encontrada.");
             {
-                _repository.Delete(entity);
+                _repository.Delete(subject);
                 await _unitOfWork.CommitAsync();
             }
         }

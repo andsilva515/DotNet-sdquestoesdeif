@@ -17,16 +17,16 @@ namespace SoQuestoesIF.API.Controllers
             _emailService = emailService;
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> EnviarFormulario([FromBody] ContactDto dto)
+    [HttpPost]
+    [AllowAnonymous]
+    public async Task<IActionResult> EnviarFormulario([FromBody] ContactDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Nome) ||
+            string.IsNullOrWhiteSpace(dto.Email) ||
+            string.IsNullOrWhiteSpace(dto.Message))
         {
-            if (string.IsNullOrWhiteSpace(dto.Nome) ||
-                string.IsNullOrWhiteSpace(dto.Email) ||
-                string.IsNullOrWhiteSpace(dto.Message))
-            {
-                return BadRequest("Todos os campos são obrigatórios.");
-            }
+            return BadRequest("Todos os campos são obrigatórios.");
+        }
 
             await _emailService.EnviarContatoAsync(dto);
 

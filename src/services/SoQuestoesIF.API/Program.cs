@@ -53,10 +53,13 @@ builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-
 builder.Services.AddScoped<ILoginService, LoginService>();
-
 builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
+
+
 
 // Contexto Base
 

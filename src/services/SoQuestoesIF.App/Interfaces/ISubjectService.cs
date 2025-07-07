@@ -14,5 +14,7 @@ namespace SoQuestoesIF.App.Interfaces
         Task AddAsync(Subject entity);
         Task UpdateAsync(Subject entity);
         Task DeleteAsync(Guid id);
+        
+        Task CreateAsync(Subject entity);
     }
 }

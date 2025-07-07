@@ -11,7 +11,8 @@ namespace SoQuestoesIF.Domain.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
-
-        public ICollection<Topic> Topics { get; set; } = new List<Topic>();
+        public string Description { get; set; } = string.Empty;
+        public bool IsActive { get; set; }
+        public ICollection<Question> Questions { get; set; } = new List<Question>();
     }
 }

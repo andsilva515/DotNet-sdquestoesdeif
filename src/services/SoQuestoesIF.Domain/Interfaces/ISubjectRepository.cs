@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoQuestoesIF.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,11 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface ISubjectRepository
     {
-        // Médotos customizados para Subject
+        Task<Subject> GetByIdAsync(Guid id);
+        Task<IEnumerable<Subject>> GetAllAsync();
+        Task AddAsync(Subject subject);
+        void Update(Subject subject);
+        void Delete(Subject subject);
+        Task CreateAsync(Subject subject);
     }
 }
