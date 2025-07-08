@@ -1,4 +1,5 @@
-﻿using SoQuestoesIF.Domain.Entities;
+﻿using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace SoQuestoesIF.Domain.Services
 {
     public interface ICommentUserService
     {
-        Task<CommentUser> GetByIdAsync(Guid id);
-        Task<IEnumerable<CommentUser>> GetAllAsync();
-        Task AddAsync(CommentUser entity);
-        Task UpdateAsync(CommentUser entity);
+        Task<CommentUserDto> GetByIdAsync(Guid id);
+        Task<IEnumerable<CommentUserDto>> GetAllByQuestionAsync(Guid questionId);
+        Task<Guid> CreateAsync(CommentUserCreateDto dto);
+        Task UpdateAsync(Guid id, CommentUserUpdateDto dto);
         Task DeleteAsync(Guid id);
     }
 }

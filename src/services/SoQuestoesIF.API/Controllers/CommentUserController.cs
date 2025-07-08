@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Services;
 
@@ -7,48 +8,41 @@ namespace SoQuestoesIF.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentUserController : ControllerBase
+    public class CommentUsersController : ControllerBase
     {
-        private readonly ICommentUserService _commentuserService;
+        private readonly ICommentUserService _service;
 
-        public CommentUserController(ICommentUserService commentuserService)
+        public CommentUsersController(ICommentUserService service)
         {
-            _commentuserService = commentuserService;
+            _service = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var items await _commentuserService.GetAllAsync();
-            return Ok(items);
-        }
+        [HttpGet("by-question/{questionId}")]
+        public async Task<IActionResult> GetAllByQuestion(Guid questionId)
+            => Ok(await _service.GetAllByQuestionAsync(questionId));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
-        {
-            var item = await _commentuserService.GetByIdAsync(id);
-            if (item == null) return NotFound();
-            return Ok(item);
-        }
+            => Ok(await _service.GetByIdAsync(id));
+
         [HttpPost]
-        public async Task<IActionResult> Create(CommentUser commentuser)
+        public async Task<IActionResult> Create([FromBody] CommentUserCreateDto dto)
         {
-            await _commentuserService.AddAsync(commentuser);
-            return CreatedAtAction(nameof(GetById), new { id = commentuser.Id }, commentuser);
+            var id = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, CommentUser commentuser)
+        public async Task<IActionResult> Update(Guid id, [FromBody] CommentUserUpdateDto dto)
         {
-            if (id != commentuser.Id) return BadRequest();
-            await _commentuserService.UpdateAsync(commentuser);
+            await _service.UpdateAsync(id, dto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _commentuserService.DeleteAsync(id);
+            await _service.DeleteAsync(id);
             return NoContent();
         }
     }

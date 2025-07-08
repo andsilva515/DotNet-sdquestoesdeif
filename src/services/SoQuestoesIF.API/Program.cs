@@ -77,6 +77,9 @@ builder.Services.AddScoped<ITopicService, TopicService>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IExamService, ExamService>();
 
+builder.Services.AddScoped<ICommentUserRepository, CommentUserRepository>();
+builder.Services.AddScoped<ICommentUserService, CommentUserService>();
+
 
 // Contexto Base
 
