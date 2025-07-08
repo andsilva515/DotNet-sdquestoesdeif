@@ -71,6 +71,6 @@ namespace SoQuestoesIF.App.Services
                 _repository.Delete(subject);
                 await _unitOfWork.CommitAsync();
             }
-        }
+        }              
     }
 }

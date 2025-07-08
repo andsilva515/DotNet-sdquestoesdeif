@@ -51,7 +51,7 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<EducationLevelUpdateDto, EducationLevel>().ReverseMap();
 
             CreateMap<Exam, ExamDto>()
-               .ForMember(dest => dest.QuestionIds, opt => opt.Ignore());
+               .ForMember(dest => dest.QuestionId, opt => opt.Ignore());
             CreateMap<ExamCreateDto, Exam>().ReverseMap();
             CreateMap<ExamUpdateDto, Exam>().ReverseMap();
 
@@ -60,22 +60,18 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<QuestionSetCreateDto, QuestionSet>();
             CreateMap<QuestionSetUpdateDto, QuestionSet>();
 
-<<<<<<< HEAD
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
             CreateMap<UserAnswerCreateDto, UserAnswer>().ReverseMap();
 
-=======
-            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário
-                                                                  
->>>>>>> 56e7c512592f8ae3734f9a1533f0085459a8a449
+            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
 
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();           
             CreateMap<CommentUserCreateDto, CommentUser>().ReverseMap();
             CreateMap<CommentUserUpdateDto, CommentUser>().ReverseMap();
 
-
-
-            CreateMap<Alternative, AlternativeDto>().ReverseMap(); // Alternativa
+            CreateMap<Alternative, AlternativeDto>().ReverseMap();
+            CreateMap<AlternativeCreateDto, Alternative>();
+            CreateMap<AlternativeUpdateDto, Alternative>();
 
 
         }

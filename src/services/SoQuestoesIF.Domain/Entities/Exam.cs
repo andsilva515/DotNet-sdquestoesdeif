@@ -15,7 +15,7 @@ namespace SoQuestoesIF.Domain.Entities
         public Guid CreatedById { get; set; }
         public User CreatedBy { get; set; } = null!;
         public bool IsActive { get; set; }
-        public ICollection<ExamQuestion> ExamQuestions { get; set; }
+        public ICollection<ExamQuestion> ExamQuestions { get; set; } = new List<ExamQuestion>();
         public ICollection<ExamQuestion> Questions { get; set; } = new List<ExamQuestion>();
 
     }

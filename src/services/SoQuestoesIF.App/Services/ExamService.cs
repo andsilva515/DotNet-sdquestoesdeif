@@ -31,7 +31,7 @@ namespace SoQuestoesIF.App.Services
                 throw new Exception("Simulado não encontrado.");
 
             var dto = _mapper.Map<ExamDto>(entity);
-            dto.QuestionIds = entity.ExamQuestions.Select(eq => eq.QuestionId).ToList();
+            dto.QuestionId = entity.ExamQuestions.Select(eq => eq.QuestionId).ToList();
             return dto;
         }
 
@@ -45,7 +45,7 @@ namespace SoQuestoesIF.App.Services
                 CreatedAt = e.CreatedAt,
                 UserId = e.UserId,
                 IsActive = e.IsActive,
-                QuestionIds = e.ExamQuestions.Select(eq => eq.QuestionId).ToList()
+                QuestionId = e.ExamQuestions.Select(eq => eq.QuestionId).ToList()
             });
         }
 
@@ -61,7 +61,7 @@ namespace SoQuestoesIF.App.Services
             };
 
             await _repository.AddAsync(entity);
-            await _repository.SaveExamQuestionsAsync(entity, dto.QuestionIds);
+            await _repository.SaveExamQuestionsAsync(entity, dto.QuestionId);
             await _unitOfWork.CommitAsync();
 
             return entity.Id;

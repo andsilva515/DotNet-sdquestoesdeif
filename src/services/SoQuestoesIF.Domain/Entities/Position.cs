@@ -13,7 +13,7 @@ namespace SoQuestoesIF.Domain.Entities
 
         public string Name { get; set; } = string.Empty;
 
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public bool IsActive { get; set; }
 
@@ -21,6 +21,6 @@ namespace SoQuestoesIF.Domain.Entities
 
         public EducationLevel EducationLevel { get; set; } = null!;
 
-        public ICollection<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; } = new List<Question>();
     }
 }

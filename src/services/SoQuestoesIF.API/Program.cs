@@ -46,48 +46,35 @@ builder.Services.AddSwaggerGen();
 
 
 // Iterfaces e Repositórios
-
-builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
-builder.Services.AddScoped<IQuestionService, QuestionService>();
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
-
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-
-builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
-builder.Services.AddScoped<ISubjectService, SubjectService>();
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IAlternativeRepository, AlternativeRepository>();
+builder.Services.AddScoped<IAlternativeService, AlternativeService>();
 builder.Services.AddScoped<IAgencyRepository, AgencyRepository>();
 builder.Services.AddScoped<IAgencyService, AgencyService>();
-
 builder.Services.AddScoped<IExamBoardRepository, ExamBoardRepository>();
 builder.Services.AddScoped<IExamBoardService, ExamBoardService>();
-
 builder.Services.AddScoped<IPositionRepository, PositionRepository>();
 builder.Services.AddScoped<IPositionService, PositionService>();
-
 builder.Services.AddScoped<IEducationLevelRepository, EducationLevelRepository>();
 builder.Services.AddScoped<IEducationLevelService, EducationLevelService>();
-
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<ITopicService, TopicService>();
-
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IExamService, ExamService>();
-
 builder.Services.AddScoped<ICommentUserRepository, CommentUserRepository>();
 builder.Services.AddScoped<ICommentUserService, CommentUserService>();
-
 builder.Services.AddScoped<IQuestionSetRepository, QuestionSetRepository>();
 builder.Services.AddScoped<IQuestionSetService, QuestionSetService>();
-<<<<<<< HEAD
-
 builder.Services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
 builder.Services.AddScoped<IUserAnswerService, UserAnswerService>();
-=======
->>>>>>> 56e7c512592f8ae3734f9a1533f0085459a8a449
+
 
 // Contexto Base
 

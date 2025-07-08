@@ -13,6 +13,6 @@ namespace SoQuestoesIF.Domain.Entities
         public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         public ICollection<Position> Positions {get; set;} = new List<Position>();
-        public ICollection<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; } = new List<Question>();
     }
 }

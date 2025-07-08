@@ -55,13 +55,7 @@ namespace SoQuestoesIF.App.Dtos
         public string ExamNumber { get; set; }
         public string ExamUrl { get; set; }
         public string FullExamUrl { get; set; }
-        public ICollection<AlternativeDto> Alternatives { get; set; }
-    }
+        public ICollection<AlternativeDto> Alternative { get; set; }    }
 
-    public class AlternativeDto
-    {
-        public Guid Id { get; set; }
-        public string Text { get; set; }
-        public bool IsCorrect { get; set; }
-    }
+ 
 }

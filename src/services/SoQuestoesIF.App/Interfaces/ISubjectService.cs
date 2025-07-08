@@ -1,4 +1,5 @@
-﻿using SoQuestoesIF.Domain.Entities;
+﻿using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace SoQuestoesIF.App.Interfaces
 {
     public interface ISubjectService
     {
-        Task<Subject> GetByIdAsync(Guid id);
-        Task<IEnumerable<Subject>> GetAllAsync();
-        Task AddAsync(Subject entity);
-        Task UpdateAsync(Subject entity);
+        Task<IEnumerable<SubjectDto>> GetAllAsync();
+        Task<SubjectDto> GetByIdAsync(Guid id);
+        Task CreateAsync(SubjectCreateDto dto);
+        Task UpdateAsync(SubjectUpdateDto dto);
         Task DeleteAsync(Guid id);
         
-        Task CreateAsync(Subject entity);
+ 
     }
 }
