@@ -1,4 +1,6 @@
-﻿using SoQuestoesIF.App.Interfaces;
+﻿using AutoMapper;
+using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Interfaces;
 using SoQuestoesIF.Domain.Services;
@@ -14,41 +16,79 @@ namespace SoQuestoesIF.App.Services
     {
         private readonly IExamRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ExamService(IExamRepository repository, IUnitOfWork unitOfWork)
+        public ExamService(IExamRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public async Task<Exam> GetByIdAsync(Guid id)
+        public async Task<ExamDto> GetByIdAsync(Guid id)
         {
-            return await _repository.GetByIdAsync(id);
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+                throw new Exception("Simulado não encontrado.");
+
+            var dto = _mapper.Map<ExamDto>(entity);
+            dto.QuestionIds = entity.ExamQuestions.Select(eq => eq.QuestionId).ToList();
+            return dto;
         }
 
-        public async Task<IEnumerable<Exam>> GetAllAsync()
+        public async Task<IEnumerable<ExamDto>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            var entities = await _repository.GetAllAsync();
+            return entities.Select(e => new ExamDto
+            {
+                Id = e.Id,
+                Title = e.Title,
+                CreatedAt = e.CreatedAt,
+                UserId = e.UserId,
+                IsActive = e.IsActive,
+                QuestionIds = e.ExamQuestions.Select(eq => eq.QuestionId).ToList()
+            });
         }
 
-        public async Task AddAsync(Exam entity)
+        public Task<Guid> CreateAsync(ExamCreateDto dto)
         {
+            var entity = new Exam
+            {
+                Id = Guid.NewGuid(),
+                Title = dto.Title,
+                CreatedAt = DateTime.UtcNow,
+                UserId = dto.UserId,
+                IsActive = true
+            };
+
             await _repository.AddAsync(entity);
+            await _repository.SaveExamQuestionsAsync(entity, dto.QuestionIds);
             await _unitOfWork.CommitAsync();
-        }
 
-        public async Task UpdateAsync(Exam entity)
+            return entity.Id;
+        }      
+
+        public async Task UpdateAsync(Guid id, ExamUpdateDto dto)
         {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+                throw new Exception("Simulado não encontrado.");
+
+            entity.Title = dto.Title;
+            entity.IsActive = dto.IsActive;
+
             _repository.Update(entity);
+            await _repository.SaveExamQuestionsAsync(entity, dto.QuestionIds);
             await _unitOfWork.CommitAsync();
         }
         public async Task DeleteAsync(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity != null)
-            {
+                throw new Exception("Simulado não encontrado.");
+            
                 _repository.Delete(entity);
                 await _unitOfWork.CommitAsync();
-            }
         }
-    }
+    }       
+    
 }

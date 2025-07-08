@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.Domain.Services;
 
 namespace SoQuestoesIF.API.Controllers
@@ -30,17 +32,16 @@ namespace SoQuestoesIF.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Exam exam)
+        public async Task<IActionResult> Create([FromBody] ExamCreateDto dto)
         {
-            await _examService.AddAsync(exam);
-            return CreatedAtAction(nameof(GetById), new { id = exam.Id }, exam);
+            var id = await _examService.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, Exam exam)
+        public async Task<IActionResult> Update(Guid id, [FromBody] ExamUpdateDto dto)
         {
-            if (id != exam.Id) return BadRequest();
-            await _examService.UpdateAsync(exam);
+            await _examService.UpdateAsync(id, dto);
             return NoContent();
         }
 

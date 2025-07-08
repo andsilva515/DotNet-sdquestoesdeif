@@ -46,16 +46,21 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<TopicCreateDto, Topic>().ReverseMap();
             CreateMap<TopicUpdateDto, Topic>().ReverseMap();
 
-            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); // Escolaridade
+            CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); 
             CreateMap<EducationLevelCreateDto, EducationLevel>().ReverseMap();
             CreateMap<EducationLevelUpdateDto, EducationLevel>().ReverseMap();
 
-            CreateMap<Alternative, AlternativeDto>().ReverseMap(); // Alternativa
+            CreateMap<Exam, ExamDto>()
+               .ForMember(dest => dest.QuestionIds, opt => opt.Ignore());
+            CreateMap<ExamCreateDto, Exam>().ReverseMap();
+            CreateMap<ExamUpdateDto, Exam>().ReverseMap();
 
-            CreateMap<Exam, ExamDto>().ReverseMap(); // Simulado
             CreateMap<QuestionSet, QuestionSetDto>().ReverseMap(); // Caderno
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário               
             CreateMap<CommentUser, CommentUserDto>().ReverseMap(); // Comentário do Usuário (para o forum)
+
+            CreateMap<Alternative, AlternativeDto>().ReverseMap(); // Alternativa
+
 
         }
 
