@@ -82,9 +82,12 @@ builder.Services.AddScoped<ICommentUserService, CommentUserService>();
 
 builder.Services.AddScoped<IQuestionSetRepository, QuestionSetRepository>();
 builder.Services.AddScoped<IQuestionSetService, QuestionSetService>();
+<<<<<<< HEAD
 
 builder.Services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
 builder.Services.AddScoped<IUserAnswerService, UserAnswerService>();
+=======
+>>>>>>> 56e7c512592f8ae3734f9a1533f0085459a8a449
 
 // Contexto Base
 

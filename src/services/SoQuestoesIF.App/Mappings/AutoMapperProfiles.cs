@@ -60,9 +60,14 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<QuestionSetCreateDto, QuestionSet>();
             CreateMap<QuestionSetUpdateDto, QuestionSet>();
 
+<<<<<<< HEAD
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
             CreateMap<UserAnswerCreateDto, UserAnswer>().ReverseMap();
 
+=======
+            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário
+                                                                  
+>>>>>>> 56e7c512592f8ae3734f9a1533f0085459a8a449
 
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();           
             CreateMap<CommentUserCreateDto, CommentUser>().ReverseMap();
