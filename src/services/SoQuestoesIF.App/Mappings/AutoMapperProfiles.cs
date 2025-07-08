@@ -42,7 +42,9 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<PositionCreateDto, Position>().ReverseMap();
             CreateMap<PositionUpdateDto, Position>().ReverseMap();
 
-            // Topic  
+            CreateMap<Topic, TopicDto>().ReverseMap();
+            CreateMap<TopicCreateDto, Topic>().ReverseMap();
+            CreateMap<TopicUpdateDto, Topic>().ReverseMap();
 
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); // Escolaridade
             CreateMap<EducationLevelCreateDto, EducationLevel>().ReverseMap();

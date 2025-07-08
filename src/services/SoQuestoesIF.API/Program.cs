@@ -71,6 +71,9 @@ builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddScoped<IEducationLevelRepository, EducationLevelRepository>();
 builder.Services.AddScoped<IEducationLevelService, EducationLevelService>();
 
+builder.Services.AddScoped<ITopicRepository, TopicRepository>();
+builder.Services.AddScoped<ITopicService, TopicService>();
+
 // Contexto Base
 
 builder.Services.AddDbContext<AppDbContext>(options =>
