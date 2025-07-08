@@ -10,7 +10,25 @@ namespace SoQuestoesIF.App.Dtos
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool IsActive { get; set; }
+        public List<Guid> QuestionIds { get; set; }
+    }
+    public class QuestionSetCreateDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Guid UserId { get; set; }
+        public List<Guid> QuestionIds { get; set; }
+    }
+
+    public class QuestionSetUpdateDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
+        public List<Guid> QuestionIds { get; set; }
     }
 }

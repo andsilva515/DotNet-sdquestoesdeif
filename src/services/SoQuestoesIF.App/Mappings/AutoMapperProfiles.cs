@@ -55,9 +55,13 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<ExamCreateDto, Exam>().ReverseMap();
             CreateMap<ExamUpdateDto, Exam>().ReverseMap();
 
-            CreateMap<QuestionSet, QuestionSetDto>().ReverseMap(); // Caderno
+            CreateMap<QuestionSet, QuestionSetDto>()
+               .ForMember(dest => dest.QuestionIds, opt => opt.Ignore());
+            CreateMap<QuestionSetCreateDto, QuestionSet>();
+            CreateMap<QuestionSetUpdateDto, QuestionSet>();
+
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário
-                                                                 // 
+                                                                  
 
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();           
             CreateMap<CommentUserCreateDto, CommentUser>().ReverseMap();

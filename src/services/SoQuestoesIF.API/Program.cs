@@ -80,6 +80,8 @@ builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ICommentUserRepository, CommentUserRepository>();
 builder.Services.AddScoped<ICommentUserService, CommentUserService>();
 
+builder.Services.AddScoped<IQuestionSetRepository, QuestionSetRepository>();
+builder.Services.AddScoped<IQuestionSetService, QuestionSetService>();
 
 // Contexto Base
 
