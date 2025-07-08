@@ -68,6 +68,9 @@ builder.Services.AddScoped<IExamBoardService, ExamBoardService>();
 builder.Services.AddScoped<IPositionRepository, PositionRepository>();
 builder.Services.AddScoped<IPositionService, PositionService>();
 
+builder.Services.AddScoped<IEducationLevelRepository, EducationLevelRepository>();
+builder.Services.AddScoped<IEducationLevelService, EducationLevelService>();
+
 // Contexto Base
 
 builder.Services.AddDbContext<AppDbContext>(options =>

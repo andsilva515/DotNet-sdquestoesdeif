@@ -45,6 +45,8 @@ namespace SoQuestoesIF.App.Mappings
             // Topic  
 
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); // Escolaridade
+            CreateMap<EducationLevelCreateDto, EducationLevel>().ReverseMap();
+            CreateMap<EducationLevelUpdateDto, EducationLevel>().ReverseMap();
 
             CreateMap<Alternative, AlternativeDto>().ReverseMap(); // Alternativa
 

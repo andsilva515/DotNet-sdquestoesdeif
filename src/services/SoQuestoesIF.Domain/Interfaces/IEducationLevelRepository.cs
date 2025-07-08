@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoQuestoesIF.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,10 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IEducationLevelRepository
     {
-        // Métodos customizados para EducationLevel
+        Task<EducationLevel> GetByIdAsync(Guid id);
+        Task<IEnumerable<EducationLevel>> GetAllAsync();
+        Task AddAsync(EducationLevel entity);
+        void Update(EducationLevel entity);
+        void Delete(EducationLevel entity);
     }
 }
