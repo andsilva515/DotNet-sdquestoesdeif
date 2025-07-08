@@ -1,4 +1,5 @@
-﻿using SoQuestoesIF.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,33 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Infra.Data.Repositories
 {
-    public class UserAnswerRepository : Repository<UserAnswer>, IUserAnswerRepository
+    public class UserAnswerRepository : IUserAnswerRepository
     {
-        public UserAnswerRepository(ApplicationDbContext context) : base(context) { }
-        
-        public async Task<List<UserAnswer>> GetByUserIdAsync(Guid userId)
-        {
-            return await _context.UserAnswers.Where(x => x.UserId == userId)
-                .ToListAsync();
+        private readonly AppDbContext _context;
 
+        public UserAnswerRepository(AppDbContext context)
+        {
+            _context = context;
         }
 
-        public async Task<int> CountCorrectAnswerAsync(Guid userId)
+        public async Task<UserAnswer> GetByIdAsync(Guid id)
         {
-            return await _context.UserAnswers.CountAsync(x => x.UserId == userId && x.IsCorrect);
+            return await _context.UserAnswers
+                .Include(ua => ua.Question)
+                .Include(ua => ua.Alternative)
+                .FirstOrDefaultAsync(ua => ua.Id == id);
+        }
+
+        public async Task<IEnumerable<UserAnswer>> GetAllByUserAsync(Guid userId)
+        {
+            return await _context.UserAnswers
+                .Where(ua => ua.UserId == userId)
+                .ToListAsync();
+        }
+
+        public async Task AddAsync(UserAnswer entity)
+        {
+            await _context.UserAnswers.AddAsync(entity);
         }
     }
 }

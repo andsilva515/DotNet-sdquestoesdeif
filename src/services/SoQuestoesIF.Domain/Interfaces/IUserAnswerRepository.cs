@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Domain.Interfaces
 {
-    public interface IUserAnswerRepository : IRepository<UserAnswer>
+    public interface IUserAnswerRepository 
     {
-        Task<List<UserAnswer>> GetByUserIdAsync(Guid userId);
-        Task<int> CountCorrectAnswerSync(Guid userId);
+        Task<UserAnswer> GetByIdAsync(Guid id);
+        Task<IEnumerable<UserAnswer>> GetAllByUserAsync(Guid userId);
+        Task AddAsync(UserAnswer entity);
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.App.Services;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Services;
@@ -8,49 +10,41 @@ namespace SoQuestoesIF.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionSetController : ControllerBase
+    public class QuestionSetsController : ControllerBase
     {
-        private readonly IQuestionSetService _questionsetService;
-        public QuestionSetController(IQuestionSetService questionsetService)
+        private readonly IQuestionSetService _service;
+
+        public QuestionSetsController(IQuestionSetService service)
         {
-            _questionsetService = questionsetService;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var items = await _questionsetService.GetAllAsync();
-            return Ok(items);
-        }
+        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
-        {
-            var item = await _questionsetService.GetByIdAsync(id);
-            if (item == null) return NotFound();
-            return Ok(item);
-        }
+        public async Task<IActionResult> GetById(Guid id) => Ok(await _service.GetByIdAsync(id));
 
         [HttpPost]
-        public async Task<IActionResult> Create(QuestionSet usernotebook)
+        public async Task<IActionResult> Create([FromBody] QuestionSetCreateDto dto)
         {
-            await _questionsetService.AddAsync(usernotebook);
-            return CreatedAtAction(nameof(GetById), new { id = usernotebook.Id }, usernotebook);
+            var id = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, QuestionSet usernotebook)
+        public async Task<IActionResult> Update(Guid id, [FromBody] QuestionSetUpdateDto dto)
         {
-            if (id != usernotebook.Id) return BadRequest();
-            await _questionsetService.UpdateAsync(usernotebook);
+            await _service.UpdateAsync(id, dto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _questionsetService.DeleteAsync(id);
+            await _service.DeleteAsync(id);
             return NoContent();
         }
     }
+
 }

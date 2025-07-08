@@ -14,4 +14,11 @@ namespace SoQuestoesIF.App.Dtos
         public DateTime AnsweredAt { get; set; }
         public bool IsCorrect { get; set; }
     }
+
+    public class UserAnswerCreateDto
+    {
+        public Guid UserId { get; set; }
+        public Guid QuestionId { get; set; }
+        public Guid? AlternativeId { get; set; }
+    }
 }
