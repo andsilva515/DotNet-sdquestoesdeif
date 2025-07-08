@@ -63,15 +63,23 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
             CreateMap<UserAnswerCreateDto, UserAnswer>().ReverseMap();
 
+<<<<<<< HEAD
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
+=======
+            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário
+>>>>>>> a0d1987 (reorganiza projeto)
 
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();           
             CreateMap<CommentUserCreateDto, CommentUser>().ReverseMap();
             CreateMap<CommentUserUpdateDto, CommentUser>().ReverseMap();
 
+<<<<<<< HEAD
             CreateMap<Alternative, AlternativeDto>().ReverseMap();
             CreateMap<AlternativeCreateDto, Alternative>();
             CreateMap<AlternativeUpdateDto, Alternative>();
+=======
+            CreateMap<Alternative, AlternativeDto>().ReverseMap(); // Alternativa
+>>>>>>> a0d1987 (reorganiza projeto)
 
 
         }
