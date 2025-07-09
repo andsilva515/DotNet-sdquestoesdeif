@@ -11,6 +11,7 @@ namespace SoQuestoesIF.API.Controllers
     public class ExamController : ControllerBase
     {
         private readonly IExamService _examService;
+
         public ExamController(IExamService examService)
         {
             _examService = examService;
@@ -26,30 +27,57 @@ namespace SoQuestoesIF.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var item = await _examService.GetByIdAsync(id);
-            if (item == null) return NotFound();
-            return Ok(item);
+            try
+            {
+                var item = await _examService.GetByIdAsync(id);
+                return Ok(item);
+            }
+            catch (Exception ex) // Considere um middleware de erro global ou exceções mais específicas
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ExamCreateDto dto)
         {
-            var id = await _examService.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id }, null);
+            try
+            {
+                var id = await _examService.CreateAsync(dto);
+                return CreatedAtAction(nameof(GetById), new { id }, null);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] ExamUpdateDto dto)
         {
-            await _examService.UpdateAsync(id, dto);
-            return NoContent();
+            try
+            {
+                await _examService.UpdateAsync(id, dto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _examService.DeleteAsync(id);
-            return NoContent();
+            try
+            {
+                await _examService.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message }); // Retorna 400 Bad Request ou 404 Not Found se a exceção for de "não encontrado"
+            }
         }
     }
 }

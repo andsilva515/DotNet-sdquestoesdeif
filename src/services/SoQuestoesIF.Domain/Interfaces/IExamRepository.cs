@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IExamRepository
     {
-        Task<Exam> GetByIdAsync(Guid id);
+        Task<Exam?> GetByIdAsync(Guid id); // Alterado para Task<Exam?> para indicar que pode ser null
         Task<IEnumerable<Exam>> GetAllAsync();
         Task AddAsync(Exam entity);
         void Update(Exam entity);

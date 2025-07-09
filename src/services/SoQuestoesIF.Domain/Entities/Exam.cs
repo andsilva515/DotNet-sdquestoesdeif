@@ -10,13 +10,10 @@ namespace SoQuestoesIF.Domain.Entities
     {
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
-        public Guid CreatedById { get; set; }
-        public User CreatedBy { get; set; } = null!;
+        public Guid CreatedById { get; set; } // Quem criou o simulado
+        public User CreatedBy { get; set; } = null!; // Navegação para o usuário criador
         public bool IsActive { get; set; }
         public ICollection<ExamQuestion> ExamQuestions { get; set; } = new List<ExamQuestion>();
-        public ICollection<ExamQuestion> Questions { get; set; } = new List<ExamQuestion>();
-
     }
 }

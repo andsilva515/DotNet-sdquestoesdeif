@@ -47,12 +47,7 @@ namespace SoQuestoesIF.App.Mappings
 
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); 
             CreateMap<EducationLevelCreateDto, EducationLevel>().ReverseMap();
-            CreateMap<EducationLevelUpdateDto, EducationLevel>().ReverseMap();
-
-            CreateMap<Exam, ExamDto>()
-               .ForMember(dest => dest.QuestionId, opt => opt.Ignore());
-            CreateMap<ExamCreateDto, Exam>().ReverseMap();
-            CreateMap<ExamUpdateDto, Exam>().ReverseMap();
+            CreateMap<EducationLevelUpdateDto, EducationLevel>().ReverseMap();          
 
             CreateMap<QuestionSet, QuestionSetDto>()
                .ForMember(dest => dest.QuestionIds, opt => opt.Ignore());
@@ -80,6 +75,28 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<Year, YearDto>().ReverseMap();
             CreateMap<YearCreateDto, Year>().ReverseMap();
             CreateMap<YearUpdateDto, Year>().ReverseMap();
+
+            // Mapeamento de Exam para ExamDto
+            // QuestionId é mapeado manualmente no serviço
+            CreateMap<Exam, ExamDto>()
+                .ForMember(dest => dest.QuestionId, opt => opt.Ignore());
+
+            // Mapeamento de DTOs de criação/atualização para a entidade Exam
+            // Propriedades como Id, CreatedAt, CreatedById e a coleção ExamQuestions são tratadas manualmente no serviço
+            CreateMap<ExamCreateDto, Exam>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedById, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ExamQuestions, opt => opt.Ignore());
+
+            CreateMap<ExamUpdateDto, Exam>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedById, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ExamQuestions, opt => opt.Ignore());
+       
         }
 
     }

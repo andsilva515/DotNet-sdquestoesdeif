@@ -15,7 +15,7 @@ namespace SoQuestoesIF.App.Services
     public class ExamService : IExamService
     {
         private readonly IExamRepository _repository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork; // Reintroduzido para gerenciar transações
         private readonly IMapper _mapper;
 
         public ExamService(IExamRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
@@ -24,14 +24,18 @@ namespace SoQuestoesIF.App.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
         public async Task<ExamDto> GetByIdAsync(Guid id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
-                throw new Exception("Simulado não encontrado.");
+            var exam = await _repository.GetByIdAsync(id);
+            if (exam == null)
+            {
+                throw new Exception("Simulado não encontrado."); // Idealmente, use uma exceção customizada ou NotFoundException
+            }
 
-            var dto = _mapper.Map<ExamDto>(entity);
-            dto.QuestionId = entity.ExamQuestions.Select(eq => eq.QuestionId).ToList();
+            var dto = _mapper.Map<ExamDto>(exam);
+            // Mapeamento manual da lista de IDs de questões
+            dto.QuestionId = exam.ExamQuestions.Select(eq => eq.QuestionId).ToList();
             return dto;
         }
 
@@ -43,7 +47,6 @@ namespace SoQuestoesIF.App.Services
                 Id = e.Id,
                 Title = e.Title,
                 CreatedAt = e.CreatedAt,
-                UserId = e.UserId,
                 IsActive = e.IsActive,
                 QuestionId = e.ExamQuestions.Select(eq => eq.QuestionId).ToList()
             });
@@ -51,47 +54,55 @@ namespace SoQuestoesIF.App.Services
 
         public async Task<Guid> CreateAsync(ExamCreateDto dto)
         {
+            var examId = Guid.NewGuid();
             var exam = new Exam
             {
-                Id = Guid.NewGuid(),
-                UserId = dto.UserId,
+                Id = examId,
+                Title = dto.Title,
                 CreatedAt = DateTime.UtcNow,
-                ExamQuestions = dto.QuestionIds.Select(qId => new ExamQuestion
+                IsActive = true, // Define como ativo por padrão na criação
+                                 // TODO: Obtenha o ID do usuário logado (ex: do HttpContext.User ou de um serviço de identidade)
+                CreatedById = Guid.Parse("SEU_USER_ID_AQUI"), // Exemplo: Guid.Parse(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString()),
+                ExamQuestions = dto.QuestionId.Select(qId => new ExamQuestion
                 {
-                    ExamId = Guid.NewGuid(),
+                    ExamId = examId, // ID do simulado pai
                     QuestionId = qId
                 }).ToList()
             };
 
             await _repository.AddAsync(exam);
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.CommitAsync(); // Salva o novo simulado e suas relações de uma vez
 
             return exam.Id;
         }
 
-
         public async Task UpdateAsync(Guid id, ExamUpdateDto dto)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
+            var exam = await _repository.GetByIdAsync(id);
+            if (exam == null)
+            {
                 throw new Exception("Simulado não encontrado.");
+            }
 
-            entity.Title = dto.Title;
-            entity.IsActive = dto.IsActive;
+            exam.Title = dto.Title;
+            exam.IsActive = dto.IsActive;
 
-            _repository.Update(entity);
-            await _repository.SaveExamQuestionsAsync(entity, dto.QuestionIds);
-            await _unitOfWork.CommitAsync();
+            _repository.Update(exam); // Marca o simulado para atualização
+            await _repository.SaveExamQuestionsAsync(exam, dto.QuestionId); // Prepara as relações para atualização
+            await _unitOfWork.CommitAsync(); // Salva as alterações no simulado e nas relações de uma vez
         }
+
         public async Task DeleteAsync(Guid id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity != null)
+            var exam = await _repository.GetByIdAsync(id);
+            if (exam == null)
+            {
                 throw new Exception("Simulado não encontrado.");
-            
-                _repository.Delete(entity);
-                await _unitOfWork.CommitAsync();
+            }
+
+            _repository.Delete(exam); // Marca o simulado para exclusão
+            await _unitOfOfWork.CommitAsync(); // Salva a exclusão do simulado (e suas relações, se configurado em cascata no EF Core)
         }
-    }       
-    
+    }
+
 }
