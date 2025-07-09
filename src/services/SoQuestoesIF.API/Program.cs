@@ -76,6 +76,8 @@ builder.Services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
 builder.Services.AddScoped<IUserAnswerService, UserAnswerService>();
 builder.Services.AddScoped<ICommentTeacherRepository, CommentTeacherRepository>();
 builder.Services.AddScoped<ICommentTeacherService, CommentTeacherService>();
+builder.Services.AddScoped<IStateRepository, StateRepository>();
+builder.Services.AddScoped<IStateService, StateService>();
 
 // Contexto Base
 

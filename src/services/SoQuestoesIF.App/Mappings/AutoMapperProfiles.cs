@@ -76,6 +76,7 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<CommentUserUpdateDto, CommentUser>().ReverseMap();
 
             CreateMap<Alternative, AlternativeDto>().ReverseMap();
+<<<<<<< HEAD
             CreateMap<AlternativeCreateDto, Alternative>();
             CreateMap<AlternativeUpdateDto, Alternative>();
 <<<<<<< HEAD
@@ -85,9 +86,17 @@ namespace SoQuestoesIF.App.Mappings
 
 =======
 >>>>>>> c04dafb (implementa entidade comentario profesor)
+=======
+            CreateMap<AlternativeCreateDto, Alternative>().ReverseMap();
+            CreateMap<AlternativeUpdateDto, Alternative>().ReverseMap();
+>>>>>>> f092bb3 (implementa entidade comentario estados)
 
-            CreateMap<CommentTeacher, CommentTeacherDto>();
-            CreateMap<CommentTeacherCreateDto, CommentTeacher>();
+            CreateMap<CommentTeacher, CommentTeacherDto>().ReverseMap();
+            CreateMap<CommentTeacherCreateDto, CommentTeacher>().ReverseMap();
+
+            CreateMap<State, StateDto>().ReverseMap();
+            CreateMap<StateCreateDto, State>().ReverseMap();
+            CreateMap<StateUpdateDto, State>().ReverseMap();
         }
 
     }
