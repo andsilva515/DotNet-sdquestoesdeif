@@ -49,23 +49,26 @@ namespace SoQuestoesIF.App.Services
             });
         }
 
-        public Task<Guid> CreateAsync(ExamCreateDto dto)
+        public async Task<Guid> CreateAsync(ExamCreateDto dto)
         {
-            var entity = new Exam
+            var exam = new Exam
             {
                 Id = Guid.NewGuid(),
-                Title = dto.Title,
-                CreatedAt = DateTime.UtcNow,
                 UserId = dto.UserId,
-                IsActive = true
+                CreatedAt = DateTime.UtcNow,
+                ExamQuestions = dto.QuestionIds.Select(qId => new ExamQuestion
+                {
+                    ExamId = Guid.NewGuid(),
+                    QuestionId = qId
+                }).ToList()
             };
 
-            await _repository.AddAsync(entity);
-            await _repository.SaveExamQuestionsAsync(entity, dto.QuestionId);
+            await _repository.AddAsync(exam);
             await _unitOfWork.CommitAsync();
 
-            return entity.Id;
-        }      
+            return exam.Id;
+        }
+
 
         public async Task UpdateAsync(Guid id, ExamUpdateDto dto)
         {

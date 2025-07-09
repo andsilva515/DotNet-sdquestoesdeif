@@ -12,8 +12,7 @@ namespace SoQuestoesIF.App.Interfaces
     {
         Task<ExamBoardDto> GetByIdAsync(Guid id);
         Task<IEnumerable<ExamBoardDto>> GetAllAsync();
-        Task<Guid> CreateAsync(ExamBoardDto dto);
-        Task AddAsync(ExamBoard dto);
+        Task<Guid> CreateAsync(ExamBoardCreateDto dto);    
         Task UpdateAsync(Guid id, ExamBoardUpdateDto dto);
         Task DeleteAsync(Guid id);
     }

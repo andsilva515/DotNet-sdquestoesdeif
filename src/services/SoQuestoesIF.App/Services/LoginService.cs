@@ -18,13 +18,15 @@ namespace SoQuestoesIF.App.Services
 {
     public class LoginService : ILoginService
     {
-       private readonly IUserRepository _usuarioRepository;       
+       private readonly IUserRepository _userRepository;       
        private readonly IConfiguration _configuration;
-       public LoginService(IUserRepository usuarioRepository, IPasswordHasher passwordHasher, IConfiguration configuration)
+       private readonly IPasswordHasher _passwordHasher;
+        public LoginService(IUserRepository userRepository, IPasswordHasher passwordHasher, IConfiguration configuration)
        {
-           _usuarioRepository = usuarioRepository;           
+           _userRepository = userRepository;           
            _configuration = configuration;
-       }
+            _passwordHasher = passwordHasher;
+        }
 
        public async Task<LoginResponseDto> AuthenticateAsync(LoginDto dto)
        {

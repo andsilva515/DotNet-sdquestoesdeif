@@ -38,7 +38,7 @@ namespace SoQuestoesIF.App.Services
             var subjects = await _repository.GetAllAsync();
             return _mapper.Map<IEnumerable<SubjectDto>>(subjects);
         }
-        public async Task<Guid> CreateAsync(SubjectCreateDto dto)
+        public async Task CreateAsync(SubjectCreateDto dto)             
         {
             var subject = new Subject
             {
@@ -52,7 +52,7 @@ namespace SoQuestoesIF.App.Services
             await _unitOfWork.CommitAsync();
 
         }
-        public async Task UpdateAsync(Guid id, SubjectUpdateDto dto)
+        public async Task UpdateAsync(Guid id, SubjectUpdateDto dto)          
         {
             var subject = await _repository.GetByIdAsync(id);
             if (subject == null)
@@ -71,6 +71,11 @@ namespace SoQuestoesIF.App.Services
                 _repository.Delete(subject);
                 await _unitOfWork.CommitAsync();
             }
-        }              
+        }
+
+        public Task UpdateAsync(SubjectUpdateDto dto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -61,35 +61,14 @@ namespace SoQuestoesIF.App.Mappings
 
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
             CreateMap<UserAnswerCreateDto, UserAnswer>().ReverseMap();
-
-            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap();
-            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
-<<<<<<< HEAD
-=======
-            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário
->>>>>>> a0d1987 (reorganiza projeto)
-=======
->>>>>>> c04dafb (implementa entidade comentario profesor)
-
+        
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();           
             CreateMap<CommentUserCreateDto, CommentUser>().ReverseMap();
             CreateMap<CommentUserUpdateDto, CommentUser>().ReverseMap();
 
             CreateMap<Alternative, AlternativeDto>().ReverseMap();
-<<<<<<< HEAD
             CreateMap<AlternativeCreateDto, Alternative>();
             CreateMap<AlternativeUpdateDto, Alternative>();
-<<<<<<< HEAD
-=======
-            CreateMap<Alternative, AlternativeDto>().ReverseMap(); // Alternativa
->>>>>>> a0d1987 (reorganiza projeto)
-
-=======
->>>>>>> c04dafb (implementa entidade comentario profesor)
-=======
-            CreateMap<AlternativeCreateDto, Alternative>().ReverseMap();
-            CreateMap<AlternativeUpdateDto, Alternative>().ReverseMap();
->>>>>>> f092bb3 (implementa entidade comentario estados)
 
             CreateMap<CommentTeacher, CommentTeacherDto>().ReverseMap();
             CreateMap<CommentTeacherCreateDto, CommentTeacher>().ReverseMap();

@@ -14,6 +14,6 @@ namespace SoQuestoesIF.Domain.Entities
 
         public bool IsActive { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; } = new List<Question>();
     }
 }
