@@ -78,6 +78,8 @@ builder.Services.AddScoped<ICommentTeacherRepository, CommentTeacherRepository>(
 builder.Services.AddScoped<ICommentTeacherService, CommentTeacherService>();
 builder.Services.AddScoped<IStateRepository, StateRepository>();
 builder.Services.AddScoped<IStateService, StateService>();
+builder.Services.AddScoped<IYearRepository, YearRepository>();
+builder.Services.AddScoped<IYearService, YearService>();
 
 // Contexto Base
 

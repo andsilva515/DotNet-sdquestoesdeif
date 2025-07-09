@@ -97,6 +97,10 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<State, StateDto>().ReverseMap();
             CreateMap<StateCreateDto, State>().ReverseMap();
             CreateMap<StateUpdateDto, State>().ReverseMap();
+
+            CreateMap<Year, YearDto>().ReverseMap();
+            CreateMap<YearCreateDto, Year>().ReverseMap();
+            CreateMap<YearUpdateDto, Year>().ReverseMap();
         }
 
     }
