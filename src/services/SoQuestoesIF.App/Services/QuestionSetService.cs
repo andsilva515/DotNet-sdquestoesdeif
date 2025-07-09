@@ -25,43 +25,56 @@ namespace SoQuestoesIF.App.Services
             _mapper = mapper;
         }
 
-        public async Task<QuestionSetDto> GetByIdAsync(Guid id)
+        public async Task<QuestionSetDto> GetByIdAsync(Guid id, Guid currentUserId)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null)
-                throw new Exception("Caderno não encontrado.");
+                throw new NotFoundException("Caderno não encontrado.");
 
-            var dto = _mapper.Map<QuestionSetDto>(entity);
-            dto.QuestionIds = entity.QuestionSetQuestions.Select(q => q.QuestionId).ToList();
-            return dto;
+            if (entity.UserId != currentUserId)
+                throw new UnauthorizedAccessException("Você não tem permissão para acessar este caderno.");
+
+            return _mapper.Map<QuestionSetDto>(entity);
         }
 
-        public async Task<IEnumerable<QuestionSetDto>> GetAllAsync()
+        public async Task<PagedResult<QuestionSetDto>> GetAllAsync(QuestionSetFilterDto filter, Guid currentUserId)
         {
-            var entities = await _repository.GetAllAsync();
-            return entities.Select(e => new QuestionSetDto
-            {
-                Id = e.Id,
-                Name = e.Name,
-                Description = e.Description,
-                CreatedAt = e.CreatedAt,
-                UserId = e.UserId,
-                IsActive = e.IsActive,
-                QuestionIds = e.QuestionSetQuestions.Select(q => q.QuestionId).ToList()
-            });
-        }
+            // Garante que o filtro por UserId seja aplicado, para que um usuário só veja seus próprios cadernos
+            filter.UserId = currentUserId;
 
-        public async Task<Guid> CreateAsync(QuestionSetCreateDto dto)
-        {
-            var entity = new QuestionSet
+            var pagedResult = await _repository.GetAllAsync(filter);
+
+            var dtoList = pagedResult.Items.Select(e => _mapper.Map<QuestionSetDto>(e)).ToList();
+
+            return new PagedResult<QuestionSetDto>
             {
-                Id = Guid.NewGuid(),
-                Name = dto.Name,
-                Description = dto.Description,
-                CreatedAt = DateTime.UtcNow,
-                UserId = dto.UserId,
-                IsActive = true
+                Items = dtoList,
+                TotalCount = pagedResult.TotalCount,
+                PageNumber = pagedResult.PageNumber,
+                PageSize = pagedResult.PageSize
             };
+        }
+
+        public async Task<Guid> CreateAsync(QuestionSetCreateDto dto, Guid currentUserId)
+        {
+            if (dto.UserId != currentUserId)
+            {
+                throw new ValidationException("Você só pode criar cadernos para sua própria conta de usuário.");
+            }
+
+            // Valida se todas as QuestionIds fornecidas realmente existem
+            foreach (var qid in dto.QuestionIds)
+            {
+                if (!await _repository.QuestionExistsAsync(qid))
+                {
+                    throw new ValidationException($"Questão com ID '{qid}' não encontrada. Não é possível criar o caderno.");
+                }
+            }
+
+            var entity = _mapper.Map<QuestionSet>(dto);
+            entity.Id = Guid.NewGuid();
+            entity.CreatedAt = DateTime.UtcNow;
+            entity.IsActive = true; // Cadernos são ativos por padrão ao serem criados
 
             await _repository.AddAsync(entity);
             await _repository.SaveQuestionSetQuestionsAsync(entity, dto.QuestionIds);
@@ -70,26 +83,39 @@ namespace SoQuestoesIF.App.Services
             return entity.Id;
         }
 
-        public async Task UpdateAsync(Guid id, QuestionSetUpdateDto dto)
+        public async Task UpdateAsync(Guid id, QuestionSetUpdateDto dto, Guid currentUserId)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null)
-                throw new Exception("Caderno não encontrado.");
+                throw new NotFoundException("Caderno não encontrado.");
 
-            entity.Name = dto.Name;
-            entity.Description = dto.Description;
-            entity.IsActive = dto.IsActive;
+            if (entity.UserId != currentUserId)
+                throw new UnauthorizedAccessException("Você não tem permissão para atualizar este caderno.");
+
+            // Valida se todas as QuestionIds fornecidas realmente existem
+            foreach (var qid in dto.QuestionIds)
+            {
+                if (!await _repository.QuestionExistsAsync(qid))
+                {
+                    throw new ValidationException($"Questão com ID '{qid}' não encontrada. Não é possível atualizar o caderno.");
+                }
+            }
+
+            _mapper.Map(dto, entity); // Mapeia as propriedades do DTO para a entidade existente
 
             _repository.Update(entity);
             await _repository.SaveQuestionSetQuestionsAsync(entity, dto.QuestionIds);
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id, Guid currentUserId)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null)
-                throw new Exception("Caderno não encontrado.");
+                throw new NotFoundException("Caderno não encontrado.");
+
+            if (entity.UserId != currentUserId)
+                throw new UnauthorizedAccessException("Você não tem permissão para deletar este caderno.");
 
             _repository.Delete(entity);
             await _unitOfWork.CommitAsync();

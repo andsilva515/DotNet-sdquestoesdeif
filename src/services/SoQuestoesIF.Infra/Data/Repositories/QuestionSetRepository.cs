@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Interfaces;
 using System;
@@ -21,15 +22,45 @@ namespace SoQuestoesIF.Infra.Data.Repositories
         public async Task<QuestionSet> GetByIdAsync(Guid id)
         {
             return await _context.QuestionSets
-                .Include(qs => qs.QuestionSetQuestions)
+                .Include(qs => qs.QuestionSetQuestion)
                 .FirstOrDefaultAsync(qs => qs.Id == id);
         }
 
-        public async Task<IEnumerable<QuestionSet>> GetAllAsync()
+        public async Task<PagedResult<QuestionSet>> GetAllAsync(QuestionSetFilterDto filter)
         {
-            return await _context.QuestionSets
-                .Include(qs => qs.QuestionSetQuestions)
+            var query = _context.QuestionSets
+                .Include(qs => qs.QuestionSetQuestion)
+                .AsQueryable();
+
+            if (filter.UserId.HasValue)
+            {
+                query = query.Where(qs => qs.UserId == filter.UserId.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.Name))
+            {
+                query = query.Where(qs => qs.Name.Contains(filter.Name));
+            }
+
+            if (filter.IsActive.HasValue)
+            {
+                query = query.Where(qs => qs.IsActive == filter.IsActive.Value);
+            }
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
                 .ToListAsync();
+
+            return new PagedResult<QuestionSet>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = filter.PageNumber,
+                PageSize = filter.PageSize
+            };
         }
 
         public async Task AddAsync(QuestionSet entity)
@@ -49,17 +80,29 @@ namespace SoQuestoesIF.Infra.Data.Repositories
 
         public async Task SaveQuestionSetQuestionsAsync(QuestionSet set, List<Guid> questionIds)
         {
-            var existing = _context.QuestionSetQuestions.Where(q => q.QuestionSetId == set.Id);
-            _context.QuestionSetQuestions.RemoveRange(existing);
+            // Remove os links existentes
+            var existingLinks = _context.QuestionSetQuestions.Where(q => q.QuestionSetId == set.Id);
+            _context.QuestionSetQuestions.RemoveRange(existingLinks);
 
-            var newLinks = questionIds.Select(qid => new QuestionSetQuestion
+            // Adiciona novos links se houver questions
+            if (questionIds != null && questionIds.Any())
             {
-                QuestionSetId = set.Id,
-                QuestionId = qid
-            });
+                var newLinks = questionIds.Select(qid => new QuestionSetQuestion
+                {
+                    QuestionSetId = set.Id,
+                    QuestionId = qid
+                }).ToList(); // Materializa para evitar problemas com AddRangeAsync
 
-            await _context.QuestionSetQuestions.AddRangeAsync(newLinks);
+                await _context.QuestionSetQuestions.AddRangeAsync(newLinks);
+            }
         }
 
+        public async Task<bool> QuestionExistsAsync(Guid questionId)
+        {
+            // Implemente a verificação se a questão existe na tabela Question
+            // Ex: return await _context.Questions.AnyAsync(q => q.Id == questionId);
+            // Por enquanto, retorna true para simular a existência
+            return await Task.FromResult(true);
+        }
     }
 }
