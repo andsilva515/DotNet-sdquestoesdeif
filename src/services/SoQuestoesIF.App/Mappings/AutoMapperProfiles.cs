@@ -33,7 +33,6 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<AgencyCreateDto, Agency>().ReverseMap();
             CreateMap<AgencyUpdateDto, Agency>().ReverseMap();
 
-
             CreateMap<ExamBoard, ExamBoardDto>().ReverseMap();
             CreateMap<ExamBoardCreateDto, ExamBoard>().ReverseMap();
             CreateMap<ExamBoardUpdateDto, ExamBoard>().ReverseMap();
@@ -63,25 +62,32 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
             CreateMap<UserAnswerCreateDto, UserAnswer>().ReverseMap();
 
-<<<<<<< HEAD
+            CreateMap<UserAnswer, UserAnswerDto>().ReverseMap();
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
+<<<<<<< HEAD
 =======
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); // Resposta do Usuário
 >>>>>>> a0d1987 (reorganiza projeto)
+=======
+>>>>>>> c04dafb (implementa entidade comentario profesor)
 
             CreateMap<CommentUser, CommentUserDto>().ReverseMap();           
             CreateMap<CommentUserCreateDto, CommentUser>().ReverseMap();
             CreateMap<CommentUserUpdateDto, CommentUser>().ReverseMap();
 
-<<<<<<< HEAD
             CreateMap<Alternative, AlternativeDto>().ReverseMap();
             CreateMap<AlternativeCreateDto, Alternative>();
             CreateMap<AlternativeUpdateDto, Alternative>();
+<<<<<<< HEAD
 =======
             CreateMap<Alternative, AlternativeDto>().ReverseMap(); // Alternativa
 >>>>>>> a0d1987 (reorganiza projeto)
 
+=======
+>>>>>>> c04dafb (implementa entidade comentario profesor)
 
+            CreateMap<CommentTeacher, CommentTeacherDto>();
+            CreateMap<CommentTeacherCreateDto, CommentTeacher>();
         }
 
     }
