@@ -101,7 +101,7 @@ namespace SoQuestoesIF.App.Services
             }
 
             _repository.Delete(exam); // Marca o simulado para exclusão
-            await _unitOfOfWork.CommitAsync(); // Salva a exclusão do simulado (e suas relações, se configurado em cascata no EF Core)
+            await _unitOfWork.CommitAsync(); // Salva a exclusão do simulado (e suas relações, se configurado em cascata no EF Core)
         }
     }
 
