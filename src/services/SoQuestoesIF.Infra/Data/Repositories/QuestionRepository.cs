@@ -9,8 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SoQuestoesIF.Infra.Data.Repositories
-{
-    // Implementações específicas para Question
+{ 
     public class QuestionRepository : IQuestionRepository
     {
         private readonly AppDbContext _context;

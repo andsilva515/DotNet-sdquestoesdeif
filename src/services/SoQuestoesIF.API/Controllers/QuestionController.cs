@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.Domain.Entities;
 using SoQuestoesIF.Domain.Services;
 using System.Runtime.InteropServices;
@@ -8,10 +10,10 @@ namespace SoQuestoesIF.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionsController : ControllerBase
+    public class QuestionController : ControllerBase
     {
         private readonly IQuestionService _questionService;
-        public QuestionsController(IQuestionService questionService)
+        public QuestionController(IQuestionService questionService)
         {
             _questionService = questionService;
         }        
