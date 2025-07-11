@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using SoQuestoesIF.App.Dtos;
+using SoQuestoesIF.App.Interfaces;
+using SoQuestoesIF.App.Services;
 using SoQuestoesIF.Domain.Entities;
 using System;
 using System.Collections.Generic;

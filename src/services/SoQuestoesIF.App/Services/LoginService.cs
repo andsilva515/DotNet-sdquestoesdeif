@@ -18,41 +18,52 @@ namespace SoQuestoesIF.App.Services
 {
     public class LoginService : ILoginService
     {
-       private readonly IUserRepository _userRepository;       
-       private readonly IConfiguration _configuration;
-       private readonly IPasswordHasher _passwordHasher;
-        public LoginService(IUserRepository userRepository, IPasswordHasher passwordHasher, IConfiguration configuration)
-       {
-           _userRepository = userRepository;           
-           _configuration = configuration;
-            _passwordHasher = passwordHasher;
+
+        private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
+        private readonly IUnitOfWork _unitOfWork;
+        public LoginService(
+            IUserRepository userRepository,
+            IConfiguration configuration,
+            IUnitOfWork unitOfWork)
+        {
+            _userRepository = userRepository;
+            _configuration = configuration;
+            _unitOfWork = unitOfWork;
         }
 
-       public async Task<LoginResponseDto> AuthenticateAsync(LoginDto dto)
-       {
-           var user = await _userRepository.GetByEmailAsync(dto.Email)
-           ?? throw new Exception("Usuário não encontrado.");
-           
+        public async Task<LoginResponseDto> AuthenticateAsync(LoginDto dto)
+        {
+            var user = await _userRepository.GetByEmailAsync(dto.Email)
+                ?? throw new Exception("Usuário ou senha inválidos.");
+
             if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-                    throw new Exception("Senha inválida.");
+                throw new Exception("Usuário ou senha inválidos.");
+
+            // Atualizar última data de login
+            user.LastLoginAt = DateTime.UtcNow;
+            _userRepository.Update(user);
+            await _unitOfWork.CommitAsync();
 
             var token = GenerateToken(user);
-            var expiracao = DateTime.UtcNow.AddHours(2);
+            var expiration = DateTime.UtcNow.AddHours(2);
 
-            return new LoginResponseDto(token, expiracao);
-       }
+            return new LoginResponseDto
+            {
+                Token = token,
+                Expiration = expiration
+            };
+        }
 
-       private string GenerateToken(User user)
-       {
+        private string GenerateToken(User user)
+        {
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
             var claims = new[]
             {
-            
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Perfil.ToString())
-            
-            };
+            new Claim(ClaimTypes.Role, user.Role.ToString())
+        };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -60,7 +71,9 @@ namespace SoQuestoesIF.App.Services
                 Expires = DateTime.UtcNow.AddHours(2),
                 Issuer = _configuration["Jwt:Issuer"],
                 Audience = _configuration["Jwt:Audience"],
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -68,6 +81,6 @@ namespace SoQuestoesIF.App.Services
 
             return tokenHandler.WriteToken(token);
         }
-    }
+    }       
     
 }
