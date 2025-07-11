@@ -27,7 +27,9 @@ namespace SoQuestoesIF.Infra.Data
         public DbSet<Position> Positions { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<QuestionSetQuestion> QuestionSetQuestions { get; set; }
-     
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
