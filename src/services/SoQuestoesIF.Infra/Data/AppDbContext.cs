@@ -27,9 +27,11 @@ namespace SoQuestoesIF.Infra.Data
         public DbSet<Position> Positions { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<QuestionSetQuestion> QuestionSetQuestions { get; set; }
+        public DbSet<Year> Years { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<CommentTeacher> CommentTeachers { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
-
-
+        public DbSet<ExamQuestion> ExamQuestions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -42,8 +44,7 @@ namespace SoQuestoesIF.Infra.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-            base.OnModelCreating(modelBuilder);
-        }
+            base.OnModelCreating(modelBuilder);        }
 
 
         public string ObterStringConexao()
