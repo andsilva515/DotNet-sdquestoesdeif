@@ -35,7 +35,7 @@ namespace SoQuestoesIF.Infra.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Package> Packages { get; set; }
         public DbSet<PackagePurchase> PackagePurchases { get; set; }
-
+        public DbSet<UserQuestionResolutionLog> UserQuestionResolutionLogs { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -50,8 +50,18 @@ namespace SoQuestoesIF.Infra.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-            base.OnModelCreating(modelBuilder);        }
+            base.OnModelCreating(modelBuilder);
 
+            // Índice único para impedir múltiplos registros por dia por usuário
+            modelBuilder.Entity<UserQuestionResolutionLog>()
+                .HasIndex(x => new { x.UserId, x.Date })
+                .IsUnique();
+
+            // Você pode ter outros configurations aqui
+            // Por exemplo:
+            // modelBuilder.Entity<Subscription>().Property(x => x.Type).HasConversion<string>();
+
+        }
 
         public string ObterStringConexao()
         {
