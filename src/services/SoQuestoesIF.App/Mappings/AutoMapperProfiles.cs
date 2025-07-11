@@ -26,6 +26,12 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<UserCreateDto, User>();
             CreateMap<UserUpdateDto, User>();
 
+            CreateMap<Subscription, SubscriptionDto>()
+            .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString()));
+            CreateMap<Package, PackageDto>()
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString()));
+            CreateMap<PackageCreateDto, Package>();
+
             CreateMap<Question, QuestionDto>().ReverseMap();
             CreateMap<QuestionCreateDto, Question>();
             CreateMap<QuestionUpdateDto, Question>();

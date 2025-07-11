@@ -32,6 +32,12 @@ namespace SoQuestoesIF.Infra.Data
         public DbSet<CommentTeacher> CommentTeachers { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<ExamQuestion> ExamQuestions { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<PackagePurchase> PackagePurchases { get; set; }
+
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
