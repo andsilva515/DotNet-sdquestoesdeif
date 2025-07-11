@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 namespace SoQuestoesIF.App.Interfaces
 {
     public interface IUserService
-    {     
-        Task AddAsync(User user);
+    {
+        Task<Guid> CreateAsync(UserCreateDto dto);        
         Task UpdateAsync(Guid id, UserUpdateDto dto);
         Task DeleteAsync(Guid id);
         Task<UserDto> GetByIdAsync(Guid id);
-        Task<IEnumerable<UserDto>> GetAllAsync();
-        Task<Guid> CreateAsync(UserCreateDto dto);       
+        Task<IEnumerable<UserDto>> GetAllAsync();          
         Task<UserDto> AuthenticateAsync(string email, string password);
     }
 }

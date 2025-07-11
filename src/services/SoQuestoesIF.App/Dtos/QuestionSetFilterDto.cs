@@ -11,7 +11,7 @@ namespace SoQuestoesIF.App.Dtos
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
         public Guid? UserId { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public bool? IsActive { get; set; }
     }
 

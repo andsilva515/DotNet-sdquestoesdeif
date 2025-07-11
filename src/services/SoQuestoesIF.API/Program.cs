@@ -48,8 +48,10 @@ builder.Services.AddSwaggerGen();
 // Iterfaces e Repositórios
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IAlternativeRepository, AlternativeRepository>();

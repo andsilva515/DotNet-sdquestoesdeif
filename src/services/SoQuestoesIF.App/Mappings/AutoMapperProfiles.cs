@@ -19,6 +19,9 @@ namespace SoQuestoesIF.App.Mappings
                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()))
                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
             CreateMap<UserCreateDto, User>();
+            CreateMap<UserUpdateDto, User>();        
+
+            CreateMap<UserCreateDto, User>();
             CreateMap<UserUpdateDto, User>();
 
             CreateMap<Question, QuestionDto>().ReverseMap();

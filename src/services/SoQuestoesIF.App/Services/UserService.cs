@@ -14,31 +14,20 @@ using System.Threading.Tasks;
 namespace SoQuestoesIF.App.Services
 {
     public class UserService : IUserService
-   {
+    {
         private readonly IUserRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository repositoty, IUnitOfWork unitOfWork, IMapper mapper)
+
+        public UserService(IUserRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = repositoty;
+            _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-        }
-        public async Task<UserDto> GetByIdAsync(Guid id)
-        {
-            var entity = await _repository.GetByIdAsync(id);
-            return _mapper.Map<UserDto>(entity);
-        }
-
-        public async Task<IEnumerable<UserDto>> GetAllAsync()
-        {
-            var users = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<UserDto>>(users);
         }
 
         public async Task<Guid> CreateAsync(UserCreateDto dto)
         {
-            // Simples hash fake, substitua por um serviço de hash seguro
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
             var entity = new User
@@ -54,7 +43,6 @@ namespace SoQuestoesIF.App.Services
 
             await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
-
             return entity.Id;
         }
 
@@ -68,12 +56,10 @@ namespace SoQuestoesIF.App.Services
             user.Role = dto.Role;
             user.Status = dto.Status;
 
-            if (!string.IsNullOrEmpty(dto.Password))
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
-
             _repository.Update(user);
             await _unitOfWork.CommitAsync();
         }
+
         public async Task DeleteAsync(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);
@@ -82,6 +68,18 @@ namespace SoQuestoesIF.App.Services
 
             _repository.Delete(entity);
             await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<UserDto> GetByIdAsync(Guid id)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            return _mapper.Map<UserDto>(entity);
+        }
+
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        {
+            var users = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<UserDto>>(users);
         }
 
         public async Task<UserDto> AuthenticateAsync(string email, string password)
@@ -95,16 +93,11 @@ namespace SoQuestoesIF.App.Services
                 throw new Exception("Usuário ou senha inválidos.");
 
             entity.LastLoginAt = DateTime.UtcNow;
+            _repository.Update(entity);
             await _unitOfWork.CommitAsync();
 
             return _mapper.Map<UserDto>(entity);
         }
-
-        public async Task AddAsync(User user)
-        {
-            await _repository.AddAsync(user);
-            await _unitOfWork.CommitAsync();
-        }
     }
-}   
+}
  
