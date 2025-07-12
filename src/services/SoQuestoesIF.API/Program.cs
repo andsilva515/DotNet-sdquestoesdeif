@@ -85,8 +85,6 @@ builder.Services.AddScoped<ICommentUserService, CommentUserService>();
 
 builder.Services.AddScoped<IQuestionSetRepository, QuestionSetRepository>();
 builder.Services.AddScoped<IQuestionSetService, QuestionSetService>();
-builder.Services.AddScoped<IQuestionSetRepository, QuestionSetRepository>();
-builder.Services.AddScoped<IQuestionSetService, QuestionSetService>();
 
 builder.Services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
 builder.Services.AddScoped<IUserAnswerService, UserAnswerService>();

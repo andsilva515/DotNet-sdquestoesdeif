@@ -17,6 +17,7 @@ namespace SoQuestoesIF.Infra.Data
         public DbSet<Alternative> Alternatives { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<QuestionSet> QuestionSets { get; set; }
+        public DbSet<QuestionSetQuestion> QuestionSetQuestions { get; set; }
         public DbSet<UserAnswer> UserAnswers { get; set; }
         public DbSet<CommentUser> CommentUsers { get; set; }
         public DbSet<Subject> Subjects { get; set; }   
@@ -25,8 +26,7 @@ namespace SoQuestoesIF.Infra.Data
         public DbSet<EducationLevel> EducationLevels { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<QuestionSetQuestion> QuestionSetQuestions { get; set; }
+        public DbSet<Payment> Payments { get; set; }  
         public DbSet<Year> Years { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<CommentTeacher> CommentTeachers { get; set; }

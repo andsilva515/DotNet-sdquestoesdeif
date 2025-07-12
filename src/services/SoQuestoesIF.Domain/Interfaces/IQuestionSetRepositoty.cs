@@ -11,11 +11,10 @@ namespace SoQuestoesIF.Domain.Interfaces
     public interface IQuestionSetRepository
     {
         Task<QuestionSet> GetByIdAsync(Guid id);
-        Task<PagedResult<QuestionSet>> GetAllAsync(QuestionSetFilterDto filter);
+        Task<IEnumerable<QuestionSet>> GetAllAsync();
         Task AddAsync(QuestionSet entity);
         void Update(QuestionSet entity);
         void Delete(QuestionSet entity);
         Task SaveQuestionSetQuestionsAsync(QuestionSet set, List<Guid> questionIds);
-        Task<bool> QuestionExistsAsync(Guid questionId);
     }
 }

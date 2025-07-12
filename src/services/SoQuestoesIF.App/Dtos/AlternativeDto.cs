@@ -9,7 +9,7 @@ namespace SoQuestoesIF.App.Dtos
     public class AlternativeDto
     {
         public Guid Id { get; set; }
-        public string Letter { get; set; }
+        public string Letter { get; set; } = string.Empty;
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
         public Guid QuestionId { get; set; }
@@ -17,16 +17,16 @@ namespace SoQuestoesIF.App.Dtos
 
     public class AlternativeCreateDto
     {
-        public string Letter { get; set; }
-        public string Text { get; set; }
+        public string Letter { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
         public bool IsCorrect { get; set; }
         public Guid QuestionId { get; set; }
     }
 
     public class AlternativeUpdateDto
     {
-        public string Letter { get; set; }
-        public string Text { get; set; }
+        public string Letter { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
         public bool IsCorrect { get; set; }
     }
 }

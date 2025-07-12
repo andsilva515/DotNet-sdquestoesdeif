@@ -10,11 +10,11 @@ namespace SoQuestoesIF.App.Interfaces
 {
     public interface IQuestionSetService
     {
-        Task<QuestionSetDto> GetByIdAsync(Guid id, Guid currentUserId);
-        Task<PagedResult<QuestionSetDto>> GetAllAsync(QuestionSetFilterDto filter, Guid currentUserId);
-        Task<Guid> CreateAsync(QuestionSetCreateDto dto, Guid currentUserId);
-        Task UpdateAsync(Guid id, QuestionSetUpdateDto dto, Guid currentUserId);
-        Task DeleteAsync(Guid id, Guid currentUserId);
+        Task<QuestionSetDto> GetByIdAsync(Guid id);
+        Task<IEnumerable<QuestionSetDto>> GetAllAsync();
+        Task<Guid> CreateAsync(QuestionSetCreateDto dto);
+        Task UpdateAsync(Guid id, QuestionSetUpdateDto dto);
+        Task DeleteAsync(Guid id);
     }
 }
 

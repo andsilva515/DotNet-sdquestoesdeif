@@ -9,21 +9,21 @@ namespace SoQuestoesIF.App.Dtos
     public class TopicDto
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
     }
     
     public class TopicCreateDto
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-    }    
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+    }       
 
     public class TopicUpdateDto
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
     }
 }

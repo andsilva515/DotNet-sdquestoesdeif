@@ -9,7 +9,7 @@ namespace SoQuestoesIF.App.Dtos
     public class CommentTeacherDto
     {
         public Guid Id { get; set; }
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
         public Guid QuestionId { get; set; }
         public Guid UserProfId { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -17,7 +17,7 @@ namespace SoQuestoesIF.App.Dtos
 
     public class CommentTeacherCreateDto
     {
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
         public Guid QuestionId { get; set; }
         public Guid UserProfId { get; set; }
     }

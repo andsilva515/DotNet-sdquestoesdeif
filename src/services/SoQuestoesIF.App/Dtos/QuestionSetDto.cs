@@ -10,56 +10,29 @@ namespace SoQuestoesIF.App.Dtos
     public class QuestionSetDto
     {
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
+        public Guid UserId { get; set; }
         public bool IsActive { get; set; }
-        public List<Guid> QuestionIds { get; set; } = new List<Guid>();
+
+        public List<Guid> QuestionIds { get; set; }
     }
+
     public class QuestionSetCreateDto
     {
-        [Required(ErrorMessage = "O nome do caderno é obrigatório.")]
-        [MaxLength(100, ErrorMessage = "O nome do caderno não pode exceder 100 caracteres.")]
-        public string Name { get; set; }
-
-        [MaxLength(500, ErrorMessage = "A descrição do caderno não pode exceder 500 caracteres.")]
-        public string Description { get; set; }
-
-        [Required(ErrorMessage = "O ID do usuário é obrigatório.")]
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty; 
         public Guid UserId { get; set; }
-        public List<Guid> QuestionIds { get; set; } = new List<Guid>();
+        public List<Guid> QuestionIds { get; set; }
     }
 
     public class QuestionSetUpdateDto
-
     {
-        [Required(ErrorMessage = "O nome do caderno é obrigatório.")]
-        [MaxLength(100, ErrorMessage = "O nome do caderno não pode exceder 100 caracteres.")]
-        public string Name { get; set; }
-
-        [MaxLength(500, ErrorMessage = "A descrição do caderno não pode exceder 500 caracteres.")]
-        public string Description { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
-        public List<Guid> QuestionIds { get; set; } = new List<Guid>();
-    }   
-
-
-    // Exceções Personalizadas
-
-    public class NotFoundException : Exception
-    {
-        public NotFoundException(string message) : base(message) { }
-    }
-
-    public class ValidationException : Exception
-    {
-        public ValidationException(string message) : base(message) { }
-    }
-
-    public class UnauthorizedAccessException : Exception
-    {
-        public UnauthorizedAccessException(string message = "Acesso não autorizado.") : base(message) { }
+        public List<Guid> QuestionIds { get; set; }
     }
 
 }

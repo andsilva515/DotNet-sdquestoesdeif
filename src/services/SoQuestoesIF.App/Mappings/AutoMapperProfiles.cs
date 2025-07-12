@@ -58,16 +58,12 @@ namespace SoQuestoesIF.App.Mappings
 
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); 
             CreateMap<EducationLevelCreateDto, EducationLevel>().ReverseMap();
-            CreateMap<EducationLevelUpdateDto, EducationLevel>().ReverseMap();       
-         
+            CreateMap<EducationLevelUpdateDto, EducationLevel>().ReverseMap();
+
             CreateMap<QuestionSet, QuestionSetDto>()
-          .ForMember(dest => dest.QuestionIds, opt => opt.MapFrom(src => src.QuestionSetQuestion.Select(qsq => qsq.QuestionId).ToList()));
-
-            CreateMap<QuestionSetCreateDto, QuestionSet>()
-                .ForMember(dest => dest.QuestionSetQuestion, opt => opt.Ignore()); // Ignoramos aqui, o serviço cuida
-
-            CreateMap<QuestionSetUpdateDto, QuestionSet>()
-                .ForMember(dest => dest.QuestionSetQuestion, opt => opt.Ignore()); // Ignoramos aqui, o serviço cuida
+            .ForMember(dest => dest.QuestionIds, opt => opt.Ignore());
+            CreateMap<QuestionSetCreateDto, QuestionSet>().ReverseMap();
+            CreateMap<QuestionSetUpdateDto, QuestionSet>().ReverseMap();
 
             CreateMap<UserAnswer, UserAnswerDto>().ReverseMap(); 
             CreateMap<UserAnswerCreateDto, UserAnswer>().ReverseMap();

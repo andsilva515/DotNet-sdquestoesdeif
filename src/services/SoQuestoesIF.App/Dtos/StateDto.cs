@@ -9,19 +9,19 @@ namespace SoQuestoesIF.App.Dtos
     public class StateDto
     {
         public Guid Id { get; set; }
-        public string Uf { get; set; }
-        public string Name { get; set; }
+        public string Uf { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 
     public class StateCreateDto
     {
-        public string Uf { get; set; }
-        public string Name { get; set; }
+        public string Uf { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 
     public class StateUpdateDto
     {
-        public string Uf { get; set; }
-        public string Name { get; set; }
+        public string Uf { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }

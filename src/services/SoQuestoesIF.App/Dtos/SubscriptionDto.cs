@@ -10,7 +10,7 @@ namespace SoQuestoesIF.App.Dtos
     public class SubscriptionDto
     {
         public Guid Id { get; set; }
-        public string Type { get; set; }
+        public string Type { get; set; } = string.Empty;
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool IsActive { get; set; }
@@ -26,17 +26,17 @@ namespace SoQuestoesIF.App.Dtos
     public class PackageDto
     {
         public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int DurationDays { get; set; }
-        public string Type { get; set; }
+        public string Type { get; set; } = string.Empty;
     }
 
     public class PackageCreateDto
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int DurationDays { get; set; }
         public PackageType Type { get; set; }
