@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IUserAnswerRepository 
     {
-        Task<UserAnswer> GetByIdAsync(Guid id);
+        Task<UserAnswer?> GetByIdAsync(Guid id);
         Task<IEnumerable<UserAnswer>> GetAllByUserAsync(Guid userId);
         Task AddAsync(UserAnswer entity);
 

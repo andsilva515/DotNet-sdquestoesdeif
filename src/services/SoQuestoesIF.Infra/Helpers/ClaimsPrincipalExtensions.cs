@@ -11,8 +11,13 @@ namespace SoQuestoesIF.Infra.Helpers
     {
         public static Guid GetUserId(this ClaimsPrincipal user)
         {
-            var claim = user.FindFirst(ClaimTypes.NameIdentifier);
-            return Guid.Parse(claim.Value);
+            var claim = user.FindFirst(ClaimTypes.NameIdentifier)       
+               ?? throw new Exception("Claim NameIdentifier não encontrada no usuário autenticado.");
+
+            if (!Guid.TryParse(claim.Value, out var userId))
+                throw new FormatException("O identificador do usuário não é um GUID válido.");
+
+            return userId;
         }
     }
 

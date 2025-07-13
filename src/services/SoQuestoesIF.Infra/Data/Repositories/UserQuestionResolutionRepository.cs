@@ -18,7 +18,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<UserQuestionResolutionLog> GetTodayLogAsync(Guid userId, DateTime date)
+        public async Task<UserQuestionResolutionLog?> GetTodayLogAsync(Guid userId, DateTime date)
         {
             return await _context.UserQuestionResolutionLogs
                 .FirstOrDefaultAsync(x => x.UserId == userId && x.Date == date.Date);

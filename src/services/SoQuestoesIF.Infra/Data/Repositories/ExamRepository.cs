@@ -51,14 +51,14 @@ namespace SoQuestoesIF.Infra.Data.Repositories
         public async Task SaveExamQuestionsAsync(Exam exam, List<Guid> questionIds)
         {
             // Obtém as relações existentes
-            var existingLinks = _context.ExamQuestion.Where(eq => eq.ExamId == exam.Id).ToList();
+            var existingLinks = _context.ExamQuestions.Where(eq => eq.ExamId == exam.Id).ToList();
 
             // Identifica as questões a serem removidas (existem no banco, mas não na nova lista)
             var toRemove = existingLinks
                             .Where(eq => !questionIds.Contains(eq.QuestionId))
                             .ToList();
 
-            _context.ExamQuestion.RemoveRange(toRemove);
+            _context.ExamQuestions.RemoveRange(toRemove);
 
             // Identifica as questões a serem adicionadas (estão na nova lista, mas não existem no banco)
             var existingQuestionIds = existingLinks.Select(eq => eq.QuestionId).ToHashSet(); // Usar HashSet para busca mais rápida
@@ -71,7 +71,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
                         })
                         .ToList();
 
-            await _context.ExamQuestion.AddRangeAsync(toAdd);
+            await _context.ExamQuestions.AddRangeAsync(toAdd);
 
             // NENHUM SaveChangesAsync AQUI! Será feito pelo UnitOfWork no serviço.
         }

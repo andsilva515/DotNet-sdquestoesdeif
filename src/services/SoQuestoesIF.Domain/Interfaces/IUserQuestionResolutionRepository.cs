@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IUserQuestionResolutionRepository
     {
-        Task<UserQuestionResolutionLog> GetTodayLogAsync(Guid userId, DateTime date);
+        Task<UserQuestionResolutionLog?> GetTodayLogAsync(Guid userId, DateTime date);
         Task AddAsync(UserQuestionResolutionLog log);
         void Update(UserQuestionResolutionLog log);
     }

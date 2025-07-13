@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface ITopicRepository
     {
-        Task<Topic> GetByIdAsync(Guid id);
+        Task<Topic?> GetByIdAsync(Guid id);
         Task<IEnumerable<Topic>> GetAllAsync();
         Task AddAsync(Topic entity);
         void Update(Topic entity);

@@ -16,7 +16,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
         {
             _context = context;
         }
-        public async Task<ExamBoard> GetByIdAsync(Guid id)
+        public async Task<ExamBoard?> GetByIdAsync(Guid id)
         {
             return await _context.ExamBoards.FindAsync(id);
         }

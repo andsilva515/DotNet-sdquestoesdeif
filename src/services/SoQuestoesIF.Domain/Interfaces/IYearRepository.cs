@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IYearRepository
     {
-        Task<Year> GetByIdAsync(Guid id);
+        Task<Year?> GetByIdAsync(Guid id);
         Task<IEnumerable<Year>> GetAllAsync();
         Task AddAsync(Year entity);
         void Update(Year entity);

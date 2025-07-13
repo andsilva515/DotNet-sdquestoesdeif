@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IStateRepository
     {
-        Task<State> GetByIdAsync(Guid id);
+        Task<State?> GetByIdAsync(Guid id);
         Task<IEnumerable<State>> GetAllAsync();
         Task AddAsync(State entity);
         void Update(State entity);

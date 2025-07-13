@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IAgencyRepository
     {
-        Task<Agency> GetByIdAsync(Guid id);
+        Task<Agency?> GetByIdAsync(Guid id);
         Task<IEnumerable<Agency>> GetAllAsync();
         Task AddAsync(Agency agency);
         void Delete(Agency agency);                  

@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IExamBoardRepository
     {
-        Task<ExamBoard> GetByIdAsync(Guid id);
+        Task<ExamBoard?> GetByIdAsync(Guid id);
         Task<IEnumerable<ExamBoard>> GetAllAsync();
         Task AddAsync(ExamBoard examBoard);
         void Update(ExamBoard examBoard);

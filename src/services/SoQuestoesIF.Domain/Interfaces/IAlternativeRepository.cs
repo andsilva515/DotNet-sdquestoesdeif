@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IAlternativeRepository
     {
-        Task<Alternative> GetByIdAsync(Guid id);
+        Task<Alternative?> GetByIdAsync(Guid id);
         Task<IEnumerable<Alternative>> GetAllByQuestionIdAsync(Guid questionId);
         Task AddAsync(Alternative alternative);
         void Update(Alternative alternative);

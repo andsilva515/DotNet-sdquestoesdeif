@@ -21,7 +21,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
         public async Task AddAsync(PasswordResetToken token)
             => await _context.PasswordResetTokens.AddAsync(token);
 
-        public async Task<PasswordResetToken> GetValidTokenAsync(string token)
+        public async Task<PasswordResetToken?> GetValidTokenAsync(string token)
             => await _context.PasswordResetTokens
                 .FirstOrDefaultAsync(t =>
                     t.Token == token &&

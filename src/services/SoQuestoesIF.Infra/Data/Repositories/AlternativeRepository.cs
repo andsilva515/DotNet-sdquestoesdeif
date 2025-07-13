@@ -18,7 +18,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<Alternative> GetByIdAsync(Guid id)
+        public async Task<Alternative?> GetByIdAsync(Guid id)
         {
             return await _context.Alternatives
                 .FirstOrDefaultAsync(a => a.Id == id);

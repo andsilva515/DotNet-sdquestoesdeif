@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IPackageRepository
     {
-        Task<Package> GetByIdAsync(Guid id);
+        Task<Package?> GetByIdAsync(Guid id);
         Task<IEnumerable<Package>> GetAllAsync();
         Task AddAsync(Package package);
         void Update(Package package);

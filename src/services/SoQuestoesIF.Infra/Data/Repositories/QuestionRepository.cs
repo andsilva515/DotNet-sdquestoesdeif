@@ -19,7 +19,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<Question> GetByIdAsync(Guid id)
+        public async Task<Question?> GetByIdAsync(Guid id)
         {
             return await _context.Questions
                 .Include(q => q.Agency)
@@ -32,7 +32,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
                 .FirstOrDefaultAsync(q => q.Id == id);
         }
 
-        public async Task<IEnumerable<Question>> GetAllAsync()
+        public async Task<IEnumerable<Question?>> GetAllAsync()
         {
             return await _context.Questions
                 .Include(q => q.Agency)

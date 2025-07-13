@@ -18,7 +18,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<CommentUser> GetByIdAsync(Guid id)
+        public async Task<CommentUser?> GetByIdAsync(Guid id)
         {
             return await _context.CommentUsers
                 .FirstOrDefaultAsync(c => c.Id == id);

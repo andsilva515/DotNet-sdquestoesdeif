@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IPositionRepository
     {
-        Task<Position> GetByIdAsync(Guid id);
+        Task<Position?> GetByIdAsync(Guid id);
         Task<IEnumerable<Position>> GetAllAsync();
         Task AddAsync(Position entity);
         void Update(Position entity);

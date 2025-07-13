@@ -59,8 +59,13 @@ namespace SoQuestoesIF.App.Services
                 throw new Exception("Token inválido ou expirado.");
 
             var user = await _userRepository.GetByIdAsync(resetToken.UserId);
+            if (user == null)
+                throw new Exception("Usuário não encontrado.");
+
+            // Atualiza a senha com hash bcrypt
             user.ChangePassword(BCrypt.Net.BCrypt.HashPassword(newPassword));
 
+            // Marca token como usado
             resetToken.Used = true;
 
             _resetRepository.Update(resetToken);

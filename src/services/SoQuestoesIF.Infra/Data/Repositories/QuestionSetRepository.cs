@@ -19,7 +19,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<QuestionSet> GetByIdAsync(Guid id)
+        public async Task<QuestionSet?> GetByIdAsync(Guid id)
         {
             return await _context.QuestionSets
                 .Include(qs => qs.QuestionSetQuestions)

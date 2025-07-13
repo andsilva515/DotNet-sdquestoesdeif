@@ -18,7 +18,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<CommentTeacher> GetByIdAsync(Guid id)
+        public async Task<CommentTeacher?> GetByIdAsync(Guid id)
         {
             return await _context.CommentTeachers
                 .Include(c => c.UserProf)

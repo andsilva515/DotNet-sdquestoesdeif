@@ -30,7 +30,9 @@ namespace SoQuestoesIF.App.Services
         public async Task<CommentTeacherDto> GetByIdAsync(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity == null) throw new Exception("Comentário não encontrado.");
+            if (entity == null) 
+                throw new Exception("Comentário não encontrado.");
+            
             return _mapper.Map<CommentTeacherDto>(entity);
         }
 

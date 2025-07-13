@@ -10,8 +10,8 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IQuestionRepository
     {
-        Task<Question> GetByIdAsync(Guid id);
-        Task<IEnumerable<Question>> GetAllAsync();
+        Task<Question?> GetByIdAsync(Guid id);
+        Task<IEnumerable<Question?>> GetAllAsync();
         Task<IEnumerable<Question>> GetByFilterAsync(
             Guid? agencyId,
             Guid? examBoardId,

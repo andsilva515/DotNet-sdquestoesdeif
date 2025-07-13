@@ -18,7 +18,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<Package> GetByIdAsync(Guid id)
+        public async Task<Package?> GetByIdAsync(Guid id)
             => await _context.Packages.FindAsync(id);
 
         public async Task<IEnumerable<Package>> GetAllAsync()

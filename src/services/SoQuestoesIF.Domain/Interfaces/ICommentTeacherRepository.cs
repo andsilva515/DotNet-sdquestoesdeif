@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface ICommentTeacherRepository
     {
-        Task<CommentTeacher> GetByIdAsync(Guid id);
+        Task<CommentTeacher?> GetByIdAsync(Guid id);
         Task<IEnumerable<CommentTeacher>> GetAllByQuestionAsync(Guid questionId);
         Task AddAsync(CommentTeacher entity);
         void Delete(CommentTeacher entity);

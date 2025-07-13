@@ -10,7 +10,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IQuestionSetRepository
     {
-        Task<QuestionSet> GetByIdAsync(Guid id);
+        Task<QuestionSet?> GetByIdAsync(Guid id);
         Task<IEnumerable<QuestionSet>> GetAllAsync();
         Task AddAsync(QuestionSet entity);
         void Update(QuestionSet entity);

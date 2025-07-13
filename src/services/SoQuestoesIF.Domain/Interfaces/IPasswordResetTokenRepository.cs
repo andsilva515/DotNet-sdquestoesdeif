@@ -10,7 +10,7 @@ namespace SoQuestoesIF.Domain.Interfaces
     public interface IPasswordResetTokenRepository
     {
         Task AddAsync(PasswordResetToken token);
-        Task<PasswordResetToken> GetValidTokenAsync(string token);
+        Task<PasswordResetToken?> GetValidTokenAsync(string token);
         void Update(PasswordResetToken token);
     }
 
