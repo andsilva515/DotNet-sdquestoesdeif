@@ -69,7 +69,7 @@ namespace SoQuestoesIF.App.Services
         public async Task DeleteAsync(Guid id)
         {
             var agency = await _repository.GetByIdAsync(id);
-            if (agency != null)
+            if (agency == null)
                 throw new Exception("Órgão não econtrado.");
             
                 _repository.Delete(agency);

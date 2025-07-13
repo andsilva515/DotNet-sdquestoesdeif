@@ -30,19 +30,19 @@ namespace SoQuestoesIF.App.Mappings
             .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString()));
             CreateMap<Package, PackageDto>()
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString()));
-            CreateMap<PackageCreateDto, Package>();
+            CreateMap<PackageCreateDto, Package>().ReverseMap();
 
             CreateMap<Question, QuestionDto>().ReverseMap();
-            CreateMap<QuestionCreateDto, Question>();
-            CreateMap<QuestionUpdateDto, Question>();
+            CreateMap<QuestionCreateDto, Question>().ReverseMap();
+            CreateMap<QuestionUpdateDto, Question>().ReverseMap();
 
             CreateMap<Subject, SubjectDto>().ReverseMap();
-            CreateMap<SubjectCreateDto, Subject>();
+            CreateMap<SubjectCreateDto, Subject>().ReverseMap();
             CreateMap<SubjectUpdateDto, Subject>();
 
             CreateMap<Agency, AgencyDto>().ReverseMap();
             CreateMap<AgencyCreateDto, Agency>().ReverseMap();
-            CreateMap<AgencyUpdateDto, Agency>().ReverseMap();
+            CreateMap<AgencyUpdateDto, Agency>();
 
             CreateMap<ExamBoard, ExamBoardDto>().ReverseMap();
             CreateMap<ExamBoardCreateDto, ExamBoard>().ReverseMap();
@@ -57,8 +57,8 @@ namespace SoQuestoesIF.App.Mappings
             CreateMap<TopicUpdateDto, Topic>().ReverseMap();
 
             CreateMap<EducationLevel, EducationLevelDto>().ReverseMap(); 
-            CreateMap<EducationLevelCreateDto, EducationLevel>().ReverseMap();
-            CreateMap<EducationLevelUpdateDto, EducationLevel>().ReverseMap();
+            CreateMap<EducationLevelCreateDto, EducationLevel>();
+            CreateMap<EducationLevelUpdateDto, EducationLevel>();
 
             CreateMap<QuestionSet, QuestionSetDto>()
             .ForMember(dest => dest.QuestionIds, opt => opt.Ignore());

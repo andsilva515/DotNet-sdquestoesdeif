@@ -18,6 +18,6 @@ namespace SoQuestoesIF.Domain.Entities
         public Guid SelectedAlternativeId { get; set; }
         public Alternative SelectedAlternative { get; set; } = null!;
         public Guid? AlternativeId { get; set; }    
-        public Alternative Alternative { get; set; }
+        public Alternative Alternative { get; set; } = null!;
     }
 }

@@ -39,5 +39,10 @@ namespace SoQuestoesIF.Infra.Data.Repositories
         {
             _context.Subjects.Remove(subject);
         }
+
+        public Task CreateAsync(Subject subject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface IEducationLevelRepository
     {
-        Task<EducationLevel> GetByIdAsync(Guid id);
+        Task<EducationLevel?> GetByIdAsync(Guid id);
         Task<IEnumerable<EducationLevel>> GetAllAsync();
         Task AddAsync(EducationLevel entity);
         void Update(EducationLevel entity);

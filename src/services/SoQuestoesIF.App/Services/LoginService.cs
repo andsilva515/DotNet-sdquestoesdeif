@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.App.Interfaces;
@@ -12,6 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SoQuestoesIF.App.Services
 {
@@ -53,16 +53,20 @@ namespace SoQuestoesIF.App.Services
                 Expiration = expiration
             };
         }
-
         private string GenerateToken(User user)
         {
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            var jwtKey = _configuration["Jwt:Key"];
+            if (string.IsNullOrEmpty(jwtKey))
+                throw new Exception("A chave JWT (Jwt:Key) não foi configurada.");
+
+            var key = Encoding.ASCII.GetBytes(jwtKey);
+
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role.ToString())
-        };
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        new Claim(ClaimTypes.Role, user.Role.ToString())
+    };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -80,6 +84,7 @@ namespace SoQuestoesIF.App.Services
 
             return tokenHandler.WriteToken(token);
         }
-    }       
-    
+
+    }
+
 }

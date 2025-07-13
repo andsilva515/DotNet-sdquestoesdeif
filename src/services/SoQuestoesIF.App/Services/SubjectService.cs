@@ -51,31 +51,29 @@ namespace SoQuestoesIF.App.Services
             await _repository.AddAsync(subject);
             await _unitOfWork.CommitAsync();
 
-        }
-        public async Task UpdateAsync(Guid id, SubjectUpdateDto dto)          
+        }   
+        public async Task UpdateAsync(Guid id, SubjectUpdateDto dto)
         {
             var subject = await _repository.GetByIdAsync(id);
             if (subject == null)
                 throw new Exception("Disciplina não encontrada.");
 
-            subject.Name = dto.Name;
-            subject.Description = dto.Description;
-            subject.IsActive = dto.IsActive;
+            _mapper.Map(dto, subject);  // Atualiza a entidade com os dados do DTO
+
+            _repository.Update(subject);
+            await _unitOfWork.CommitAsync();
         }
+
         public async Task DeleteAsync(Guid id)
         {
             var subject = await _repository.GetByIdAsync(id);
-            if (subject != null)
+            if (subject == null)
                 throw new Exception("Disciplina não encontrada.");
             {
                 _repository.Delete(subject);
                 await _unitOfWork.CommitAsync();
             }
-        }
+        }        
 
-        public Task UpdateAsync(SubjectUpdateDto dto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

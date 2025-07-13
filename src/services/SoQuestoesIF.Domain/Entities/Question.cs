@@ -22,15 +22,15 @@ namespace SoQuestoesIF.Domain.Entities
         public int CorrectAnswers { get; set; }
         public int WrongAnswers { get; set; }
         public Guid AgencyId { get; set; }
-        public Agency Agency { get; set; } = null;
+        public Agency Agency { get; set; } = null!;
         public Guid ExamBoardId { get; set; }
-        public ExamBoard ExamBoard { get; set; } = null;
+        public ExamBoard ExamBoard { get; set; } = null!;
         public Guid PositionId { get; set; }
-        public Position Position { get; set; } = null;
+        public Position Position { get; set; } = null!;
         public Guid SubjectId { get; set; }
-        public Subject Subject { get; set; } = null;
+        public Subject Subject { get; set; } = null!;
         public Guid TopicId { get; set; }
-        public Topic Topic { get; set; } = null;
+        public Topic Topic { get; set; } = null!;
         public ICollection<Alternative> Alternatives { get; set; } = new List<Alternative>();
         public ICollection<CommentUser> CommentsUsers { get; set; } = new List<CommentUser>();
 

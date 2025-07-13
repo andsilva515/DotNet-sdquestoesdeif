@@ -42,39 +42,29 @@ namespace SoQuestoesIF.App.Services
 
         public async Task<Guid> CreateAsync(EducationLevelCreateDto dto)
         {
-            var educationLevel = new EducationLevel
-            {
-                Id = Guid.NewGuid(),
-                Name = dto.Name,
-                Description = dto.Description,
-                IsActive = true
-            };
+            var entity = _mapper.Map<EducationLevel>(dto);
+            entity.Id = Guid.NewGuid();
 
-            await _repository.AddAsync(educationLevel);
+            await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
 
-            return educationLevel.Id;
+            return entity.Id;
         }
-
         public async Task UpdateAsync(Guid id, EducationLevelUpdateDto dto)
         {
-            var educationLevel = await _repository.GetByIdAsync(id);
-            if (educationLevel == null)
-                throw new Exception("Órgão não encontrado.");
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+                throw new Exception("Nível de educação não encontrado.");
 
-            educationLevel.Name = dto.Name;
-            educationLevel.Description = dto.Description;
-            educationLevel.IsActive = dto.IsActive;
-
-            _repository.Update(educationLevel);
+            _mapper.Map(dto, entity);
+            _repository.Update(entity);
             await _unitOfWork.CommitAsync();
         }
-
         public async Task DeleteAsync(Guid id)
         {
             var educationLevel = await _repository.GetByIdAsync(id);
             if (educationLevel == null)
-                throw new Exception("Órgão não encontrado.");
+                throw new Exception("Nível de educação não encontrado.");
 
             _repository.Delete(educationLevel);
             await _unitOfWork.CommitAsync();

@@ -23,17 +23,26 @@ namespace SoQuestoesIF.App.Services
         public async Task EnviarContatoAsync(ContactDto contato)
         {
             var smtpHost = _configuration["Smtp:Host"];
-            var smtpPort = int.Parse(_configuration["Smtp:Port"]);
+            var smtpPort = int.Parse(_configuration["Smtp:Port"] ?? "587");
             var smtpUser = _configuration["Smtp:User"];
             var smtpPass = _configuration["Smtp:Password"];
             var emailDestino = _configuration["Smtp:Destino"];
 
-            var mensagem = new MailMessage();
-            mensagem.From = new MailAddress(smtpUser);
+            if (string.IsNullOrWhiteSpace(smtpUser))
+                throw new Exception("O e-mail do remetente (Smtp:User) não está configurado.");
+
+            if (string.IsNullOrWhiteSpace(emailDestino))
+                throw new Exception("O e-mail de destino (Smtp:Destino) não está configurado.");
+
+            var mensagem = new MailMessage
+            {
+                From = new MailAddress(smtpUser),
+                Subject = "Contato do Site",
+                Body = $"Nome: {contato.Nome}\nEmail: {contato.Email}\n\nMensagem:\n{contato.Message}",
+                IsBodyHtml = false
+            };
+
             mensagem.To.Add(emailDestino);
-            mensagem.Subject = "Contato do Site";
-            mensagem.Body = $"Nome: {contato.Nome}\nEmail: {contato.Email}\n\nMensagem:\n{contato.Message}";
-            mensagem.IsBodyHtml = false;
 
             using var smtp = new SmtpClient(smtpHost, smtpPort)
             {
@@ -43,5 +52,6 @@ namespace SoQuestoesIF.App.Services
 
             await smtp.SendMailAsync(mensagem);
         }
+
     }
 }

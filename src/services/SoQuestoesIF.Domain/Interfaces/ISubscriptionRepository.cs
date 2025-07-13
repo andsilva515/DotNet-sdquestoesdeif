@@ -9,9 +9,11 @@ namespace SoQuestoesIF.Domain.Interfaces
 {
     public interface ISubscriptionRepository
     {
-        Task<Subscription> GetByIdAsync(Guid id);
+        Task<Subscription?> GetByIdAsync(Guid id);
         Task<IEnumerable<Subscription>> GetByUserIdAsync(Guid userId);
         Task AddAsync(Subscription subscription);
         void Update(Subscription subscription);
+
+        Task<Subscription?> GetActiveSubscriptionAsync(Guid userId);
     }
 }

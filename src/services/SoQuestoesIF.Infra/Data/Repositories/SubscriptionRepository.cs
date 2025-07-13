@@ -18,7 +18,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<Subscription> GetByIdAsync(Guid id)
+        public async Task<Subscription?> GetByIdAsync(Guid id)
             => await _context.Subscriptions.FindAsync(id);
 
         public async Task<IEnumerable<Subscription>> GetByUserIdAsync(Guid userId)
@@ -31,8 +31,16 @@ namespace SoQuestoesIF.Infra.Data.Repositories
 
         public void Update(Subscription subscription)
             => _context.Subscriptions.Update(subscription);
+
+        public async Task<Subscription?> GetActiveSubscriptionAsync(Guid userId)
+        {
+            return await _context.Subscriptions
+                .Where(s => s.UserId == userId && s.IsActive)
+                .OrderByDescending(s => s.StartDate) // se quiser pegar a mais recente
+                .FirstOrDefaultAsync();
+        }
+
+
     }
-
-
 }
 

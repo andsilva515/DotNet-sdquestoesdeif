@@ -26,7 +26,7 @@ namespace SoQuestoesIF.App.Dtos
         public Guid PositionId { get; set; }
         public Guid SubjectId { get; set; }
         public Guid TopicId { get; set; }
-        public ICollection<AlternativeDto> Alternatives { get; set; }
+        public ICollection<AlternativeDto> Alternatives { get; set; } = new List<AlternativeDto>();
     }
 
     public class QuestionCreateDto
@@ -43,7 +43,7 @@ namespace SoQuestoesIF.App.Dtos
         public Guid PositionId { get; set; }
         public Guid SubjectId { get; set; }
         public Guid TopicId { get; set; }
-        public ICollection<AlternativeDto> Alternatives { get; set; }
+        public ICollection<AlternativeDto> Alternatives { get; set; } = new List<AlternativeDto>();
     }
 
     public class QuestionUpdateDto
@@ -55,7 +55,6 @@ namespace SoQuestoesIF.App.Dtos
         public string ExamNumber { get; set; } = string.Empty;
         public string ExamUrl { get; set; } = string.Empty;
         public string FullExamUrl { get; set; } = string.Empty;
-        public ICollection<AlternativeDto> Alternatives { get; set; }    }
-
- 
+        public ICollection<AlternativeDto> Alternatives { get; set; } = new List<AlternativeDto>();   
+    }       
 }

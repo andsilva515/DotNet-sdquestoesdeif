@@ -51,6 +51,16 @@ namespace SoQuestoesIF.App.Services
             await _unitOfWork.CommitAsync();
             return sub.Id;
         }
+
+        public async Task<SubscriptionDto> GetByIdAsync(Guid id)
+        {
+            var subscription = await _repository.GetByIdAsync(id);
+            if (subscription is null)
+                throw new Exception("Assinatura não encontrada.");
+
+            return _mapper.Map<SubscriptionDto>(subscription);
+        }
+
     }
 
 }

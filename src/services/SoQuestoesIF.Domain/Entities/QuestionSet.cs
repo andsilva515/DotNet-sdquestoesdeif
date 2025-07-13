@@ -16,7 +16,7 @@ namespace SoQuestoesIF.Domain.Entities
         public Guid UserId { get; set; }
         public bool IsActive { get; set; }
 
-        public ICollection<QuestionSetQuestion> QuestionSetQuestions { get; set; }
+        public ICollection<QuestionSetQuestion> QuestionSetQuestions { get; set; } = new List<QuestionSetQuestion>();
     }
 
 

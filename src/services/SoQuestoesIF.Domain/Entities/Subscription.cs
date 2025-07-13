@@ -11,7 +11,7 @@ namespace SoQuestoesIF.Domain.Entities
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public User User { get; set; } = null!;
         public SubscriptionType Type { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }

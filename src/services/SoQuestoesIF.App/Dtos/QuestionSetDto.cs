@@ -16,7 +16,7 @@ namespace SoQuestoesIF.App.Dtos
         public Guid UserId { get; set; }
         public bool IsActive { get; set; }
 
-        public List<Guid> QuestionIds { get; set; }
+        public List<Guid> QuestionIds { get; set; } = new List<Guid>();
     }
 
     public class QuestionSetCreateDto
@@ -24,7 +24,7 @@ namespace SoQuestoesIF.App.Dtos
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty; 
         public Guid UserId { get; set; }
-        public List<Guid> QuestionIds { get; set; }
+        public List<Guid> QuestionIds { get; set; } = new List<Guid>();
     }
 
     public class QuestionSetUpdateDto
@@ -32,7 +32,7 @@ namespace SoQuestoesIF.App.Dtos
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
-        public List<Guid> QuestionIds { get; set; }
+        public List<Guid> QuestionIds { get; set; } = new List<Guid>();
     }
 
 }
