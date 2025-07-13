@@ -12,7 +12,7 @@ namespace SoQuestoesIF.App.Interfaces
     {
         Task<IEnumerable<SubjectDto>> GetAllAsync();
         Task<SubjectDto> GetByIdAsync(Guid id);
-        Task CreateAsync(SubjectCreateDto dto);
+        Task<Guid> CreateAsync(SubjectCreateDto dto);
         Task UpdateAsync(Guid id, SubjectUpdateDto dto);
         Task DeleteAsync(Guid id);
         

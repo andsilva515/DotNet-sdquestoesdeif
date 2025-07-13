@@ -60,6 +60,7 @@ builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IPackagePurchaseRepository, PackagePurchaseRepository>();
 builder.Services.AddScoped<IUserQuestionResolutionRepository, UserQuestionResolutionRepository>();
+
 builder.Services.AddScoped<IQuestionAccessService, QuestionAccessService>();
 
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();

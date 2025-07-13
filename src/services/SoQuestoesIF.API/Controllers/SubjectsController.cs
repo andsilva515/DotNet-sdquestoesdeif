@@ -36,7 +36,7 @@ namespace SoQuestoesIF.API.Controllers
         public async Task<IActionResult> Create([FromBody] SubjectCreateDto dto)
         {
             var id = await _subjectService.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id }, null);    
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         [HttpPut("{id}")]

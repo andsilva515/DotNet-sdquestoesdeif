@@ -38,20 +38,17 @@ namespace SoQuestoesIF.App.Services
             var subjects = await _repository.GetAllAsync();
             return _mapper.Map<IEnumerable<SubjectDto>>(subjects);
         }
-        public async Task CreateAsync(SubjectCreateDto dto)             
+        public async Task<Guid> CreateAsync(SubjectCreateDto dto)
         {
-            var subject = new Subject
-            {
-                Id = Guid.NewGuid(),
-                Name = dto.Name,
-                Description = dto.Description,
-                IsActive = true
-            };
+            var entity = _mapper.Map<Subject>(dto);
+            entity.Id = Guid.NewGuid();
 
-            await _repository.AddAsync(subject);
+            await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
 
-        }   
+            return entity.Id;
+        }
+
         public async Task UpdateAsync(Guid id, SubjectUpdateDto dto)
         {
             var subject = await _repository.GetByIdAsync(id);
