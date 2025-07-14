@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SoQuestoesIF.API.Workers;
 using SoQuestoesIF.App.Interfaces;
 using SoQuestoesIF.App.Mappings;
 using SoQuestoesIF.App.Services;
@@ -43,6 +44,12 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
+
+// Serviço de background (Worker) que roda de tempos em tempos (por exemplo, todo dia à meia-noite), Hosted Service.
+
+builder.Services.AddHostedService<SubscriptionExpirationWorker>();
+builder.Services.AddScoped<ISubscriptionExpirationService, SubscriptionExpirationService>();
+
 
 // Adiciona controllers e Swagger
 builder.Services.AddControllers();

@@ -28,6 +28,10 @@ namespace SoQuestoesIF.App.Services
         public async Task<bool> CanResolveQuestionAsync(Guid userId)
         {
             // Verifica se tem assinatura
+
+            // Verifica se a assinatura está vencida e expira, se necessário
+            await CheckAndExpireSubscriptionAsync(userId);
+
             var activeSub = await _subscriptionRepository.GetActiveSubscriptionAsync(userId);
             if (activeSub != null)
                 return true;
@@ -39,6 +43,18 @@ namespace SoQuestoesIF.App.Services
                 return true; // ainda não resolveu nenhuma hoje
 
             return log.ResolvedCount < 10;
+        }
+       
+        // Verifica se a assinatura ativa do usuário expirou e inativa.       
+        public async Task CheckAndExpireSubscriptionAsync(Guid userId)
+        {
+            var activeSub = await _subscriptionRepository.GetActiveSubscriptionAsync(userId);
+            if (activeSub != null && activeSub.EndDate.HasValue && activeSub.EndDate.Value < DateTime.UtcNow)
+            {
+                activeSub.IsActive = false;
+                _subscriptionRepository.Update(activeSub);
+                await _unitOfWork.CommitAsync();
+            }
         }
 
         public async Task IncrementResolutionCountAsync(Guid userId)
@@ -66,5 +82,4 @@ namespace SoQuestoesIF.App.Services
             await _unitOfWork.CommitAsync();
         }
     }
-
 }

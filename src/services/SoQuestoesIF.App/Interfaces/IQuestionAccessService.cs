@@ -10,6 +10,8 @@ namespace SoQuestoesIF.App.Interfaces
     {
         Task<bool> CanResolveQuestionAsync(Guid userId);
         Task IncrementResolutionCountAsync(Guid userId);
+        Task CheckAndExpireSubscriptionAsync(Guid userId);
+
     }
 
 }

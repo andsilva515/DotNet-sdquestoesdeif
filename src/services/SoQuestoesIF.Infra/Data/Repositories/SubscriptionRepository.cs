@@ -25,13 +25,7 @@ namespace SoQuestoesIF.Infra.Data.Repositories
             => await _context.Subscriptions
                 .Where(s => s.UserId == userId)
                 .ToListAsync();
-
-        public async Task AddAsync(Subscription subscription)
-            => await _context.Subscriptions.AddAsync(subscription);
-
-        public void Update(Subscription subscription)
-            => _context.Subscriptions.Update(subscription);
-
+        
         public async Task<Subscription?> GetActiveSubscriptionAsync(Guid userId)
         {
             return await _context.Subscriptions
@@ -40,7 +34,17 @@ namespace SoQuestoesIF.Infra.Data.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public async Task AddAsync(Subscription subscription)
+            => await _context.Subscriptions.AddAsync(subscription);
 
+        public void Update(Subscription subscription)
+            => _context.Subscriptions.Update(subscription);
+
+
+        public async Task<IEnumerable<Subscription>> GetAllActiveAsync()
+         => await _context.Subscriptions
+             .Where(s => s.IsActive)
+             .ToListAsync();
     }
 }
 

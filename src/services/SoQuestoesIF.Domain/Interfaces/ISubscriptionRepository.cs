@@ -13,7 +13,9 @@ namespace SoQuestoesIF.Domain.Interfaces
         Task<IEnumerable<Subscription>> GetByUserIdAsync(Guid userId);
         Task AddAsync(Subscription subscription);
         void Update(Subscription subscription);
-
         Task<Subscription?> GetActiveSubscriptionAsync(Guid userId);
+        
+        // Novo método para pegar todas as ativas
+        Task<IEnumerable<Subscription>> GetAllActiveAsync();
     }
 }
