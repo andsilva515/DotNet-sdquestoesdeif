@@ -25,21 +25,12 @@ namespace SoQuestoesIF.API.Controllers
             return Ok(packages);
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] PackageCreateDto dto)
-        {
-            var id = await _service.CreatePackageAsync(dto);
-            return CreatedAtAction(nameof(GetAll), new { id }, null);
-        }
-
         [HttpPost("purchase")]
-        [Authorize]
         public async Task<IActionResult> Purchase([FromBody] PackagePurchaseDto dto)
         {
             var userId = User.GetUserId();
-            await _service.PurchasePackageAsync(userId, dto);
-            return Ok();
+            var url = await _service.CreatePurchaseAndCheckoutAsync(userId, dto);
+            return Ok(new { redirectUrl = url });
         }
     }
 }

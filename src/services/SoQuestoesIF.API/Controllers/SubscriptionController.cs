@@ -19,20 +19,13 @@ namespace SoQuestoesIF.API.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUserSubscriptions()
-        {
-            var userId = User.GetUserId();
-            var subs = await _service.GetUserSubscriptionsAsync(userId);
-            return Ok(subs);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> CreateSubscription([FromBody] SubscriptionCreateDto dto)
+        public async Task<IActionResult> Create([FromBody] SubscriptionCreateDto dto)
         {
             var userId = User.GetUserId();
-            var id = await _service.CreateSubscriptionAsync(userId, dto);
-            return CreatedAtAction(nameof(GetUserSubscriptions), new { id }, null);
+            var url = await _service.CreateSubscriptionAndCheckoutAsync(userId, dto);
+            return Ok(new { redirectUrl = url });
         }
+        
     }
 }

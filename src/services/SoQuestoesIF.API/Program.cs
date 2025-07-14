@@ -1,5 +1,4 @@
-using FluentAssertions.Common;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SoQuestoesIF.App.Interfaces;
@@ -13,10 +12,17 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura JSON Web Tokens - JWT
+// ⚠️ Valida que a chave JWT está configurada
+var jwtKey = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrWhiteSpace(jwtKey))
+    throw new InvalidOperationException("A configuração 'Jwt:Key' não foi definida.");
 
-var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
+var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+var jwtAudience = builder.Configuration["Jwt:Audience"];
 
+var key = Encoding.ASCII.GetBytes(jwtKey);
+
+// ✅ Configura autenticação JWT (somente UMA vez)
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -30,29 +36,48 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
 
-// Add services to the container.
-
+// Adiciona controllers e Swagger
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configuração CORS
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
+    {
+        policy.WithOrigins("https://sdquestoesdeif.vercel.app/")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
-// Iterfaces e Reposit�rios
+// DbContext
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+
+// UnitOfWork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Repositórios e Serviços
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
 builder.Services.AddScoped<IPasswordResetTokenService, PasswordResetTokenService>();
-// e tamb�m IEmailSender, que voc� implementa conforme SMTP ou SendGrid
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
@@ -60,7 +85,6 @@ builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IPackagePurchaseRepository, PackagePurchaseRepository>();
 builder.Services.AddScoped<IUserQuestionResolutionRepository, UserQuestionResolutionRepository>();
-
 builder.Services.AddScoped<IQuestionAccessService, QuestionAccessService>();
 
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
@@ -83,82 +107,35 @@ builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ICommentUserRepository, CommentUserRepository>();
 builder.Services.AddScoped<ICommentUserService, CommentUserService>();
-
-builder.Services.AddScoped<IQuestionSetRepository, QuestionSetRepository>();
-builder.Services.AddScoped<IQuestionSetService, QuestionSetService>();
-
-builder.Services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
-builder.Services.AddScoped<IUserAnswerService, UserAnswerService>();
 builder.Services.AddScoped<ICommentTeacherRepository, CommentTeacherRepository>();
 builder.Services.AddScoped<ICommentTeacherService, CommentTeacherService>();
 builder.Services.AddScoped<IStateRepository, StateRepository>();
 builder.Services.AddScoped<IStateService, StateService>();
 builder.Services.AddScoped<IYearRepository, YearRepository>();
 builder.Services.AddScoped<IYearService, YearService>();
+builder.Services.AddScoped<IQuestionSetRepository, QuestionSetRepository>();
+builder.Services.AddScoped<IQuestionSetService, QuestionSetService>();
+builder.Services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
+builder.Services.AddScoped<IUserAnswerService, UserAnswerService>();
 
-builder.Services.AddScoped<IEmailService, EmailService>();
-
-// Contexto Base
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+// Criação do app
 var app = builder.Build();
 
-//  Adiciona o middleware de autentica��o JWT
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]))
-    };
-});
-
-// Configure the HTTP request pipeline.
+// Pipeline de requisições
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Configura��o CORS
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        policy =>
-        {
-            policy.WithOrigins(
-                "https://sdquestoesdeif.vercel.app/"
-            )
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-        });
-});
-
 app.UseHttpsRedirection();
 
-// Configura��o CORS
+// CORS
 app.UseCors(MyAllowSpecificOrigins);
 
-app.UseAuthorization();
+// Autenticação e autorização
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

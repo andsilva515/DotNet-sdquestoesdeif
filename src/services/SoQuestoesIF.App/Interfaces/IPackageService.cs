@@ -11,6 +11,6 @@ namespace SoQuestoesIF.App.Interfaces
     {
         Task<IEnumerable<PackageDto>> GetAllPackagesAsync();
         Task<Guid> CreatePackageAsync(PackageCreateDto dto);
-        Task PurchasePackageAsync(Guid userId, PackagePurchaseDto dto);
+        Task<string> CreatePurchaseAndCheckoutAsync(Guid userId, PackagePurchaseDto dto);
     }
 }

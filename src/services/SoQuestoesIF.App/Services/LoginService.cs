@@ -33,19 +33,21 @@ namespace SoQuestoesIF.App.Services
 
         public async Task<LoginResponseDto> AuthenticateAsync(LoginDto dto)
         {
+            if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Password))
+                throw new ArgumentException("E-mail e senha são obrigatórios.");
+
             var user = await _userRepository.GetByEmailAsync(dto.Email)
-                ?? throw new Exception("Usuário ou senha inválidos.");
+                ?? throw new UnauthorizedAccessException("Usuário ou senha inválidos.");
 
             if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-                throw new Exception("Usuário ou senha inválidos.");
+                throw new UnauthorizedAccessException("Usuário ou senha inválidos.");
 
-            // Atualizar última data de login
             user.LastLoginAt = DateTime.UtcNow;
             _userRepository.Update(user);
             await _unitOfWork.CommitAsync();
 
-            var token = GenerateToken(user);
             var expiration = DateTime.UtcNow.AddHours(2);
+            var token = GenerateToken(user, expiration);
 
             return new LoginResponseDto
             {
@@ -53,31 +55,40 @@ namespace SoQuestoesIF.App.Services
                 Expiration = expiration
             };
         }
-        private string GenerateToken(User user)
+
+        private string GenerateToken(User user, DateTime expiration)
         {
-            var jwtKey = builder.Configuration["Jwt:Key"];
+            var jwtKey = _configuration["Jwt:Key"];
+            var jwtIssuer = _configuration["Jwt:Issuer"];
+            var jwtAudience = _configuration["Jwt:Audience"];
+
             if (string.IsNullOrWhiteSpace(jwtKey))
                 throw new Exception("A configuração 'Jwt:Key' não foi configurada.");
+            if (string.IsNullOrWhiteSpace(jwtIssuer))
+                throw new Exception("A configuração 'Jwt:Issuer' não foi configurada.");
+            if (string.IsNullOrWhiteSpace(jwtAudience))
+                throw new Exception("A configuração 'Jwt:Audience' não foi configurada.");
 
             var key = Encoding.ASCII.GetBytes(jwtKey);
 
             var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role.ToString())
-        };
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
 
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddHours(2),
-            Issuer = _configuration["Jwt:Issuer"],
-            Audience = _configuration["Jwt:Audience"],
-            SigningCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(key),
-            SecurityAlgorithms.HmacSha256Signature)
-        };
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = expiration,
+                Issuer = jwtIssuer,
+                Audience = jwtAudience,
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);

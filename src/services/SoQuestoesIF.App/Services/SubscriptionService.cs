@@ -14,53 +14,77 @@ namespace SoQuestoesIF.App.Services
 {
     public class SubscriptionService : ISubscriptionService
     {
-        private readonly ISubscriptionRepository _repository;
+        private readonly ISubscriptionRepository _subscriptionRepository;
+        private readonly IPaymentRepository _paymentRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly PagSeguroPaymentService _paymentService; // Use DI para injetar
         private readonly IMapper _mapper;
 
         public SubscriptionService(
-            ISubscriptionRepository repository,
+            ISubscriptionRepository subscriptionRepository,
+            IPaymentRepository paymentRepository,
             IUnitOfWork unitOfWork,
+            PagSeguroPaymentService paymentService,
             IMapper mapper)
         {
-            _repository = repository;
+            _subscriptionRepository = subscriptionRepository;
+            _paymentRepository = paymentRepository;
             _unitOfWork = unitOfWork;
+            _paymentService = paymentService;
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<SubscriptionDto>> GetUserSubscriptionsAsync(Guid userId)
+        public async Task<string> CreateSubscriptionAndCheckoutAsync(Guid userId, SubscriptionCreateDto dto)
         {
-            var subs = await _repository.GetByUserIdAsync(userId);
-            return _mapper.Map<IEnumerable<SubscriptionDto>>(subs);
-        }
-
-        public async Task<Guid> CreateSubscriptionAsync(Guid userId, SubscriptionCreateDto dto)
-        {
-            var sub = new Subscription
+            // Cria assinatura inativa
+            var subscription = new Subscription
             {
                 Id = Guid.NewGuid(),
                 UserId = userId,
                 Type = dto.Type,
-                StartDate = DateTime.UtcNow,
-                EndDate = dto.Type == SubscriptionType.Monthly ? DateTime.UtcNow.AddMonths(1) : DateTime.UtcNow.AddYears(1),
-                IsActive = true,
-                Price = dto.Price
+                IsActive = false,
+                Price = dto.Price,
+                StartDate = DateTime.MinValue,
+                EndDate = null
             };
+            await _subscriptionRepository.AddAsync(subscription);
 
-            await _repository.AddAsync(sub);
+            // Cria checkout no gateway
+            var checkoutUrl = await _paymentService.CreateCheckoutAsync(userId, subscription.Id);
+
+            // Cria pagamento aguardando
+            var payment = new Payment
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ProductId = subscription.Id,
+                Amount = dto.Price,
+                Method = EnumPaymentMethod.PagSeguro,
+                GatewayTransactionId = subscription.Id.ToString(), // Ex: pode usar o ID como referência
+                Status = "Aguardando",
+                PaidAt = DateTime.MinValue
+            };
+            await _paymentRepository.AddAsync(payment);
+
             await _unitOfWork.CommitAsync();
-            return sub.Id;
+            return checkoutUrl;
         }
 
-        public async Task<SubscriptionDto> GetByIdAsync(Guid id)
+        public async Task ActivateSubscriptionAsync(Guid subscriptionId)
         {
-            var subscription = await _repository.GetByIdAsync(id);
-            if (subscription is null)
-                throw new Exception("Assinatura não encontrada.");
+            var subscription = await _subscriptionRepository.GetByIdAsync(subscriptionId);
+            if (subscription == null)
+                throw new Exception("Assinatura não encontrada");
 
-            return _mapper.Map<SubscriptionDto>(subscription);
+            subscription.IsActive = true;
+            subscription.StartDate = DateTime.UtcNow;
+            subscription.EndDate = subscription.Type == SubscriptionType.Monthly
+                ? DateTime.UtcNow.AddMonths(1)
+                : DateTime.UtcNow.AddYears(1);
+
+            _subscriptionRepository.Update(subscription);
+            await _unitOfWork.CommitAsync();
         }
-
     }
 
 }

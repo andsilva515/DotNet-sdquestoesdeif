@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using SoQuestoesIF.App.Interfaces;
+using SoQuestoesIF.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,19 +9,45 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Services
 {
-    public class MercadoPagoPaymentService
+    public class MercadoPagoPaymentService : IPaymentService
     {
-        // para Pix, boleto, compra avulsa
-        public Task<string> CreateCheckoutAsync(Guid userId, Guid productId)
+        private readonly IPaymentRepository _paymentRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public MercadoPagoPaymentService(
+            IPaymentRepository paymentRepository,
+            IUnitOfWork unitOfWork)
         {
-            // TODO: Integrar com a API do Mercado Pago Checkout
-            return Task.FromResult("https://mercadopago.com/checkout?preference_id=FAKE_ID");
+            _paymentRepository = paymentRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task HandleWebhookAsync(HttpRequest request)
+        public Task<string> CreateCheckoutAsync(Guid userId, Guid productId)
         {
-            // TODO: Processar webhook de pagamento
-            return Task.CompletedTask;
+            // TODO: Integração real com MercadoPago
+            return Task.FromResult($"https://mercadopago.com/checkout?reference={productId}");
+        }
+
+        public async Task HandleWebhookAsync(HttpRequest request)
+        {
+            // TODO: Validar assinatura do webhook
+
+            // Exemplo simples
+            var transactionId = request.Query["reference"].FirstOrDefault();
+
+            if (string.IsNullOrWhiteSpace(transactionId))
+                throw new Exception("Identificador de transação ausente.");
+
+
+            var payment = await _paymentRepository.GetByGatewayTransactionIdAsync(transactionId);
+            if (payment == null)
+                throw new Exception("Pagamento não encontrado");
+
+            payment.Status = "Pago";
+            payment.PaidAt = DateTime.UtcNow;
+            _paymentRepository.Update(payment);
+
+            await _unitOfWork.CommitAsync();
         }
     }
 }

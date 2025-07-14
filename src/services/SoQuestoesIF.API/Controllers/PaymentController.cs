@@ -20,29 +20,17 @@ namespace SoQuestoesIF.API.Controllers
             _mercadoPago = mercadoPago;
         }
 
-        [HttpPost("checkout")]
-        public async Task<IActionResult> Checkout(Guid userId, Guid productId, string method)
+        [HttpPost("webhook/mercadopago")]
+        public async Task<IActionResult> WebhookMercadoPago()
         {
-            string url = method.ToLower() switch
-            {
-                "pagseguro" => await _pagSeguro.CreateCheckoutAsync(userId, productId),
-                "mercadopago" => await _mercadoPago.CreateCheckoutAsync(userId, productId),
-                _ => throw new Exception("Método inválido")
-            };
-
-            return Ok(new { redirectUrl = url });
+            await _mercadoPago.HandleWebhookAsync(Request);
+            return Ok();
         }
 
-        [HttpPost("webhook/{method}")]
-        public async Task<IActionResult> Webhook(string method)
+        [HttpPost("webhook/pagseguro")]
+        public async Task<IActionResult> WebhookPagSeguro()
         {
-            if (method.ToLower() == "pagseguro")
-                await _pagSeguro.HandleWebhookAsync(Request);
-            else if (method.ToLower() == "mercadopago")
-                await _mercadoPago.HandleWebhookAsync(Request);
-            else
-                return BadRequest("Método inválido");
-
+            await _pagSeguro.HandleWebhookAsync(Request);
             return Ok();
         }
     }

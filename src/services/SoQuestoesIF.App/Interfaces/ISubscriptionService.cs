@@ -9,7 +9,7 @@ namespace SoQuestoesIF.App.Interfaces
 {
     public interface ISubscriptionService
     {
-        Task<IEnumerable<SubscriptionDto>> GetUserSubscriptionsAsync(Guid userId);
-        Task<Guid> CreateSubscriptionAsync(Guid userId, SubscriptionCreateDto dto);
+        Task<string> CreateSubscriptionAndCheckoutAsync(Guid userId, SubscriptionCreateDto dto);
+        Task ActivateSubscriptionAsync(Guid subscriptionId);
     }
 }
