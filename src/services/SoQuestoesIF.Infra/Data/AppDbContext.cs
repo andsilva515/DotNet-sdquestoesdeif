@@ -37,35 +37,16 @@ namespace SoQuestoesIF.Infra.Data
         public DbSet<PackagePurchase> PackagePurchases { get; set; } = null!;
         public DbSet<UserQuestionResolutionLog> UserQuestionResolutionLogs { get; set; } = null!;
 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql(ObterStringConexao());
-                base.OnConfiguring(optionsBuilder);
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
 
-            // Índice único para impedir múltiplos registros por dia por usuário
             modelBuilder.Entity<UserQuestionResolutionLog>()
                 .HasIndex(x => new { x.UserId, x.Date })
                 .IsUnique();
 
-            // Você pode ter outros configurations aqui
-            // Por exemplo:
-            // modelBuilder.Entity<Subscription>().Property(x => x.Type).HasConversion<string>();
-
         }
 
-        public string ObterStringConexao()
-        {
-            return "Host=localhost;Port=5432;Database=soquestoes;Username=admin;Password=admin";
-        }
     }
 }

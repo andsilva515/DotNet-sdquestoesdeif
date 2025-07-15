@@ -13,13 +13,19 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ⚠️ Valida que a chave JWT está configurada
+// ⚠️ Valida que a chave JWT está configurada e Validar se Issuer e Audience estão vazios.
+
 var jwtKey = builder.Configuration["Jwt:Key"];
 if (string.IsNullOrWhiteSpace(jwtKey))
     throw new InvalidOperationException("A configuração 'Jwt:Key' não foi definida.");
 
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+if (string.IsNullOrWhiteSpace(jwtIssuer))
+    throw new InvalidOperationException("A configuração 'Jwt:Issuer' não foi definida.");
+
 var jwtAudience = builder.Configuration["Jwt:Audience"];
+if (string.IsNullOrWhiteSpace(jwtAudience))
+    throw new InvalidOperationException("A configuração 'Jwt:Audience' não foi definida.");
 
 var key = Encoding.ASCII.GetBytes(jwtKey);
 
@@ -33,6 +39,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.RequireHttpsMetadata = false;
     options.SaveToken = true;
+    options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
