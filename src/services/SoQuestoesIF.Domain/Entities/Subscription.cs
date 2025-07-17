@@ -17,5 +17,8 @@ namespace SoQuestoesIF.Domain.Entities
         public DateTime? EndDate { get; set; }
         public bool IsActive { get; set; }
         public decimal Price { get; set; }
+        public Guid PackageId { get; set; }
+        public Package Package { get; set; } = null!;
+        public ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }      
 }

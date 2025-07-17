@@ -31,9 +31,9 @@ namespace SoQuestoesIF.Domain.Entities
         public Subject Subject { get; set; } = null!;
         public Guid TopicId { get; set; }
         public Topic Topic { get; set; } = null!;
-        public ICollection<Alternative> Alternatives { get; set; } = new List<Alternative>();
-        public ICollection<CommentUser> CommentsUsers { get; set; } = new List<CommentUser>();     
+        public ICollection<Alternative> Alternatives { get; set; } = new List<Alternative>();       
         public ICollection<ExamQuestion> ExamQuestions { get; set; } = new List<ExamQuestion>();
+        public ICollection<CommentUser> CommentsUsers { get; set; } = new List<CommentUser>();
         public ICollection<CommentTeacher> CommentTeachers { get; set; } = new List<CommentTeacher>();
         public ICollection<QuestionSetQuestion> QuestionSetQuestions { get; set; } = new List<QuestionSetQuestion>();
 

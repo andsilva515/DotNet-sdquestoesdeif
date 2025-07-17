@@ -15,6 +15,7 @@ namespace SoQuestoesIF.Domain.Entities
         public Package Package { get; set; } = null!;
         public DateTime PurchaseDate { get; set; }  
         public decimal Price { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; }             
+       
     }
 }

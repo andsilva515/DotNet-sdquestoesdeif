@@ -16,6 +16,12 @@ namespace SoQuestoesIF.Domain.Entities
         public EnumPaymentMethod Method { get; set; }
         public string GatewayTransactionId { get; set; } = string.Empty;
         public DateTime PaidAt { get; set; }
-        public string Status { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;      
+        public User User { get; set; } = null!;
+        public Guid? PackagePurchaseId { get; set; }
+        public PackagePurchase? PackagePurchase { get; set; }
+        public Guid? SubscriptionId { get; set; }
+        public Subscription? Subscription { get; set; }  
+
     }
 }

@@ -14,7 +14,10 @@ namespace SoQuestoesIF.Domain.Entities
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int DurationDays { get; set; }
+        public Guid PositionId { get; set; }
+        public Guid SubjectId { get; set; }
         public PackageType Type { get; set; }
         public ICollection<PackagePurchase> PackagePurchases { get; set; } = new List<PackagePurchase>();
+        public ICollection<Subscription> Subscriptions { get; set; } = new List<Subscription>();
     }
 }

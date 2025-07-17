@@ -24,8 +24,10 @@ namespace SoQuestoesIF.Domain.Entities
         public ICollection<Exam> CreatedExams { get; set; } = new List<Exam>();
         public ICollection<QuestionSet> QuestionSets { get; set; } = new List<QuestionSet>();
         public ICollection<CommentTeacher> CommentTeachers { get; set; } = new List<CommentTeacher>();
-        public ICollection<PasswordResetToken> PasswordResetTokens { get; set; } = new List<PasswordResetToken>();
+        public ICollection<Subscription> Subscriptions { get; set; } = new List<Subscription>();
         public ICollection<PackagePurchase> PackagePurchases { get; set; } = new List<PackagePurchase>();
+        public ICollection<PasswordResetToken> PasswordResetTokens { get; set; } = new List<PasswordResetToken>();              
+
         public void Activate()
         {
             Status = EnumUserStatus.Active;

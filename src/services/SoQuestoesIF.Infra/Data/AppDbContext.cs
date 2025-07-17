@@ -40,16 +40,8 @@ namespace SoQuestoesIF.Infra.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-            
-            
-            base.OnModelCreating(modelBuilder);      
-
-            // 🎯 Índice único de UserQuestionResolutionLog por usuário + data
-            modelBuilder.Entity<UserQuestionResolutionLog>()
-                .HasIndex(x => new { x.UserId, x.Date })
-                .IsUnique();
-
-            // ⚠️ Outros mapeamentos automáticos (se houver configurations adicionais no assembly)   
+                        
+            base.OnModelCreating(modelBuilder);            
        
         }
 
