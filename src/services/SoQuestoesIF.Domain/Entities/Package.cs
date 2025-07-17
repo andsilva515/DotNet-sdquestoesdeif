@@ -15,5 +15,6 @@ namespace SoQuestoesIF.Domain.Entities
         public decimal Price { get; set; }
         public int DurationDays { get; set; }
         public PackageType Type { get; set; }
+        public ICollection<PackagePurchase> PackagePurchases { get; set; } = new List<PackagePurchase>();
     }
 }

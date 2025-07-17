@@ -15,9 +15,6 @@ namespace SoQuestoesIF.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public Guid UserId { get; set; }
         public bool IsActive { get; set; }
-
         public ICollection<QuestionSetQuestion> QuestionSetQuestions { get; set; } = new List<QuestionSetQuestion>();
     }
-
-
 }
