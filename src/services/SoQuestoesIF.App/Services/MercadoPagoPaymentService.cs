@@ -25,6 +25,7 @@ namespace SoQuestoesIF.App.Services
         public Task<string> CreateCheckoutAsync(Guid userId, Guid productId)
         {
             // TODO: Integração real com MercadoPago
+
             return Task.FromResult($"https://mercadopago.com/checkout?reference={productId}");
         }
 
@@ -33,6 +34,7 @@ namespace SoQuestoesIF.App.Services
             // TODO: Validar assinatura do webhook
 
             // Exemplo simples
+
             var transactionId = request.Query["reference"].FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(transactionId))

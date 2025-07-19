@@ -17,20 +17,20 @@ namespace SoQuestoesIF.App.Services
         private readonly ISubscriptionRepository _subscriptionRepository;
         private readonly IPaymentRepository _paymentRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly PagSeguroPaymentService _paymentService; // Use DI para injetar
+        private readonly IEnumerable<IPaymentService> _paymentServices;
         private readonly IMapper _mapper;
 
         public SubscriptionService(
             ISubscriptionRepository subscriptionRepository,
             IPaymentRepository paymentRepository,
             IUnitOfWork unitOfWork,
-            PagSeguroPaymentService paymentService,
+            IEnumerable<IPaymentService> paymentServices,
             IMapper mapper)
         {
             _subscriptionRepository = subscriptionRepository;
             _paymentRepository = paymentRepository;
             _unitOfWork = unitOfWork;
-            _paymentService = paymentService;
+            _paymentServices = paymentServices;
             _mapper = mapper;
         }
 
@@ -50,7 +50,9 @@ namespace SoQuestoesIF.App.Services
             await _subscriptionRepository.AddAsync(subscription);
 
             // Cria checkout no gateway
-            var checkoutUrl = await _paymentService.CreateCheckoutAsync(userId, subscription.Id);
+            var paymentMethod = dto.PaymentMethod;
+            var paymentService = GetPaymentService(paymentMethod);
+            var checkoutUrl = await paymentService.CreateCheckoutAsync(userId, subscription.Id);
 
             // Cria pagamento aguardando
             var payment = new Payment
@@ -59,8 +61,8 @@ namespace SoQuestoesIF.App.Services
                 UserId = userId,
                 ProductId = subscription.Id,
                 Amount = dto.Price,
-                Method = EnumPaymentMethod.PagSeguro,
-                GatewayTransactionId = subscription.Id.ToString(), // Ex: pode usar o ID como referência
+                Method = paymentMethod,
+                GatewayTransactionId = subscription.Id.ToString(), // Pode ser substituído por ID real da transação se houver
                 Status = "Aguardando",
                 PaidAt = DateTime.MinValue
             };
@@ -85,6 +87,16 @@ namespace SoQuestoesIF.App.Services
             _subscriptionRepository.Update(subscription);
             await _unitOfWork.CommitAsync();
         }
+        private IPaymentService GetPaymentService(EnumPaymentMethod method)
+        {
+            return method switch
+            {
+                EnumPaymentMethod.PagSeguro => _paymentServices.FirstOrDefault(s => s is PagSeguroPaymentService),
+                EnumPaymentMethod.MercadoPago => _paymentServices.FirstOrDefault(s => s is MercadoPagoPaymentService),
+                _ => throw new ArgumentException("Método de pagamento inválido", nameof(method))
+            };
+        }
+
     }
 
 }

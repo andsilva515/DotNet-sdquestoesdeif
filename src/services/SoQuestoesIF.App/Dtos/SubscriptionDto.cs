@@ -21,6 +21,7 @@ namespace SoQuestoesIF.App.Dtos
     {
         public SubscriptionType Type { get; set; }
         public decimal Price { get; set; }
+        public EnumPaymentMethod PaymentMethod { get; set; } // NOVO: PagSeguro ou MercadoPago
     }
 
     public class PackageDto

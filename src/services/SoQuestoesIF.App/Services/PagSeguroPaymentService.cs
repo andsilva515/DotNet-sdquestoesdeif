@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Services
 {
-    public class PagSeguroPaymentService
+    public class PagSeguroPaymentService : IPaymentService
     {
         private readonly IPaymentRepository _paymentRepository;
-        private readonly ISubscriptionService _subscriptionService;
+        private readonly Lazy<ISubscriptionService> _subscriptionService;
         private readonly IUnitOfWork _unitOfWork;
 
         public PagSeguroPaymentService(
             IPaymentRepository paymentRepository,
-            ISubscriptionService subscriptionService,
+            Lazy<ISubscriptionService> subscriptionService,
             IUnitOfWork unitOfWork)
         {
             _paymentRepository = paymentRepository;
@@ -36,24 +36,30 @@ namespace SoQuestoesIF.App.Services
             // TODO: Validar assinatura do webhook (ex.: verificar HMAC, token de segurança etc.)
 
             // Obtém o transactionId de forma segura
+
             var transactionId = request.Query["reference"].FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(transactionId))
                 throw new Exception("Identificador de transação ausente.");
 
             // Carrega o pagamento
+
             var payment = await _paymentRepository.GetByGatewayTransactionIdAsync(transactionId);
             if (payment == null)
                 throw new Exception("Pagamento não encontrado.");
 
             // Atualiza dados do pagamento
+
             payment.Status = "Pago";
             payment.PaidAt = DateTime.UtcNow;
             _paymentRepository.Update(payment);
 
             // Aqui é importante confirmar: o ProductId representa a assinatura a ser ativada?
+
             // Se sim, tudo bem. Se não, ajuste para ativar corretamente.
-            await _subscriptionService.ActivateSubscriptionAsync(payment.ProductId);
+
+            await _subscriptionService.Value.ActivateSubscriptionAsync(payment.ProductId);
+
 
             // Commit
             await _unitOfWork.CommitAsync();

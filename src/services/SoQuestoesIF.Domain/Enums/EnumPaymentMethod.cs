@@ -8,7 +8,7 @@ namespace SoQuestoesIF.Domain.Enums
 {
     public enum EnumPaymentMethod
     {
-        PagSeguro, // Assinatura mensal com recorrência (cartão de crédito)
-        MercadoPago // Pacote avulso (pix, cartão, boleto)
+        PagSeguro = 1, // Assinatura mensal com recorrência (cartão de crédito)
+        MercadoPago = 2 // Pacote avulso (pix, cartão, boleto)
     }
 }
