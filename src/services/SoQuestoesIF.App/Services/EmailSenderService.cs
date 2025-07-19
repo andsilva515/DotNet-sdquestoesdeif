@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SoQuestoesIF.App.Services
 {
-    public class EmailSenderSrvice : IEmailSenderService
+    public class EmailSenderService : IEmailSenderService
     {
         //  EmailSenderFake.cs (caso não use e-mail real):
         public Task SendAsync(string to, string subject, string body)

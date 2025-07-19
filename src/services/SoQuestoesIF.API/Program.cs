@@ -132,6 +132,16 @@ builder.Services.AddScoped<IQuestionSetService, QuestionSetService>();
 builder.Services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
 builder.Services.AddScoped<IUserAnswerService, UserAnswerService>();
 
+// Serviços de aplicação
+builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
+builder.Services.AddScoped<IPasswordResetTokenService, PasswordResetTokenService>();
+
+// Serviços de domínio
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IPackageService, PackageService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+
+
 // Criação do app
 var app = builder.Build();
 
