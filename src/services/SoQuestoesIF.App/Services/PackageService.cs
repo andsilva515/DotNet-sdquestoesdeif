@@ -18,7 +18,7 @@ namespace SoQuestoesIF.App.Services
         private readonly IPaymentRepository _paymentRepository;
         private readonly IPackagePurchaseRepository _purchaseRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly MercadoPagoPaymentService _paymentService;
+        private readonly IPaymentService _paymentService;
         private readonly IMapper _mapper;
 
         public PackageService(
@@ -26,7 +26,7 @@ namespace SoQuestoesIF.App.Services
             IPaymentRepository paymentRepository,
             IPackagePurchaseRepository purchaseRepository,
             IUnitOfWork unitOfWork,
-            MercadoPagoPaymentService paymentService,
+            IPaymentService paymentService,
             IMapper mapper)
         {
             _packageRepository = packageRepository;

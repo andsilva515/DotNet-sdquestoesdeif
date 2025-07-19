@@ -9,6 +9,7 @@ using SoQuestoesIF.Domain.Interfaces;
 using SoQuestoesIF.Domain.Services;
 using SoQuestoesIF.Infra.Data;
 using SoQuestoesIF.Infra.Data.Repositories;
+using SoQuestoesIF.Infra.DependencyInjection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -138,14 +139,11 @@ builder.Services.AddScoped<IPasswordResetTokenService, PasswordResetTokenService
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IPaymentService, PagSeguroPaymentService>();
 builder.Services.AddScoped<IPaymentService, MercadoPagoPaymentService>();
-
-
-
-
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+builder.Services.AddScoped(typeof(Lazy<>), typeof(LazyResolver<>));
 
 // Criação do app
 var app = builder.Build();
