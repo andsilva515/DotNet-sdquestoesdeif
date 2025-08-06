@@ -36,9 +36,9 @@ namespace SoQuestoesIF.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] UserCreateDto dto)
+        public async Task<IActionResult> Create([FromBody] UserCreateDto usuario)
         {
-            var id = await _userService.CreateAsync(dto);
+            var id = await _userService.CreateAsync(usuario);
             return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
