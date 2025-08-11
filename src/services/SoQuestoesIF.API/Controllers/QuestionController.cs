@@ -22,7 +22,7 @@ namespace SoQuestoesIF.API.Controllers
             _questionAccessService = questionAccessService;
         }        
 
-        [HttpGet]
+        [HttpGet("listar")]
         public async Task<IActionResult> GetAll()
         {
             var items = await _questionService.GetAllAsync();
@@ -37,7 +37,7 @@ namespace SoQuestoesIF.API.Controllers
             return Ok(item);
         }
 
-        [HttpPost]
+        [HttpPost("cadastrar")]
         public async Task<IActionResult> Create([FromBody] QuestionCreateDto dto)
         {
             var id = await _questionService.CreateAsync(dto);
