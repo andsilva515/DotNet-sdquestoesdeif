@@ -70,7 +70,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("https://sdquestoesdeif.vercel.app/")
+        policy.WithOrigins("https://sdquestoesdeif.vercel.app/", // Servidor frontend padrão
+                           "http://127.0.0.1:5500") // Live Server padrão
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
