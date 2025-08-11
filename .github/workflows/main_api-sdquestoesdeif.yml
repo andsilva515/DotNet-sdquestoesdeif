@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - api-sdquestoesif-prod
+name: Build and deploy ASP.Net Core app to Azure Web App - api-sdquestoesdeif
 
 on:
   push:
@@ -51,15 +51,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_58C7FF9F246D4E858D2B33DBB8422212 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4D9BE2289F6C45E9AF9B968B38EF276E }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7AD2F43C474347E188D8DAE032360086 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0F978F11505840258ECFDE074BFCEA92 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BC13D406914746CAAF823EA79E610212 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CE4EDAA67557461AB3C4BCFA15E4DC9A }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'api-sdquestoesif-prod'
+          app-name: 'api-sdquestoesdeif'
           slot-name: 'Production'
           package: .
           

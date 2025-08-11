@@ -65,15 +65,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configuração CORS
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("https://sdquestoesdeif.vercel.app/", // Servidor frontend padrão
-                           "http://127.0.0.1:5500") // Live Server padrão
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        policy.WithOrigins(
+            "https://sdquestoesdeif.vercel.app/", // Produção
+            "http://127.0.0.1:5500" // Desenvolvimento local
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod();
     });
 });
 
