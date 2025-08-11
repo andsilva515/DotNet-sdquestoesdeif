@@ -70,7 +70,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("https://sdquestoesdeif.vercel.app/")
+        policy.WithOrigins("https://sdquestoesdeif.vercel.app")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
