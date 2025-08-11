@@ -22,7 +22,7 @@ namespace SoQuestoesIF.API.Controllers
             _questionAccessService = questionAccessService;
         }        
 
-        [HttpGet("listar")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var items = await _questionService.GetAllAsync();
