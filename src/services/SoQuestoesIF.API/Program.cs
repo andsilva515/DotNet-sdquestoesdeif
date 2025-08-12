@@ -92,12 +92,14 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Repositórios e Serviços
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
 builder.Services.AddScoped<IPasswordResetTokenService, PasswordResetTokenService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
@@ -155,6 +157,7 @@ var app = builder.Build();
 
 // Pipeline de requisições
 if (app.Environment.IsDevelopment())
+
 {
     app.UseSwagger();
     app.UseSwaggerUI();
