@@ -53,7 +53,7 @@ namespace SoQuestoesIF.App.Services
             {
                 EnableSsl = true,                 // STARTTLS na 587
                 UseDefaultCredentials = false,    // importante no Outlook.com
-                Credentials = new NetworkCredential(smtpUser, smtpPass),
+                Credentials = new NetworkCredential(user, pass),
                 Timeout = 20000
             };
 
