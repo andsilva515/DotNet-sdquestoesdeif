@@ -22,36 +22,50 @@ namespace SoQuestoesIF.App.Services
 
         public async Task EnviarContatoAsync(ContactDto contato)
         {
-            var smtpHost = _configuration["Smtp:Host"];
-            var smtpPort = int.Parse(_configuration["Smtp:Port"] ?? "587");
-            var smtpUser = _configuration["Smtp:User"];
-            var smtpPass = _configuration["Smtp:Password"];
-            var emailDestino = _configuration["Smtp:Destino"];
+            // Lê das variáveis de ambiente (no Azure use Smtp__Host, etc.)
+            var smtpHost     = _configuration["Smtp:Host"];      // ex.: smtp-mail.outlook.com
+            var smtpPortText = _configuration["Smtp:Port"];      // ex.: 587
+            var smtpUser     = _configuration["Smtp:User"];      // ex.: anderson.ssilva@outlook.com
+            var smtpPass     = _configuration["Smtp:Password"];  // senha da conta
+            var emailDestino = _configuration["Smtp:Destino"];   // para quem enviar
 
+            if (string.IsNullOrWhiteSpace(smtpHost))
+                throw new InvalidOperationException("Config SMTP ausente: Smtp:Host");
+            if (!int.TryParse(smtpPortText, out var smtpPort))
+                smtpPort = 587; // padrão seguro
             if (string.IsNullOrWhiteSpace(smtpUser))
-                throw new Exception("O e-mail do remetente (Smtp:User) não está configurado.");
-
+                throw new InvalidOperationException("Config SMTP ausente: Smtp:User");
+            if (string.IsNullOrWhiteSpace(smtpPass))
+                throw new InvalidOperationException("Config SMTP ausente: Smtp:Password");
             if (string.IsNullOrWhiteSpace(emailDestino))
-                throw new Exception("O e-mail de destino (Smtp:Destino) não está configurado.");
+                throw new InvalidOperationException("Config SMTP ausente: Smtp:Destino");
 
             var mensagem = new MailMessage
             {
-                From = new MailAddress(smtpUser),
+                From = new MailAddress(smtpUser), // From deve ser o mesmo usuário
                 Subject = "Contato do Site",
                 Body = $"Nome: {contato.Nome}\nEmail: {contato.Email}\n\nMensagem:\n{contato.Message}",
                 IsBodyHtml = false
             };
-
             mensagem.To.Add(emailDestino);
 
             using var smtp = new SmtpClient(smtpHost, smtpPort)
             {
-                EnableSsl = true,
-                Credentials = new NetworkCredential(smtpUser, smtpPass)
+                EnableSsl = true,                 // STARTTLS na 587
+                UseDefaultCredentials = false,    // importante no Outlook.com
+                Credentials = new NetworkCredential(smtpUser, smtpPass),
+                Timeout = 20000
             };
 
-            await smtp.SendMailAsync(mensagem);
+            try
+            {
+                await smtp.SendMailAsync(mensagem);
+            }
+            catch (SmtpException ex)
+            {
+                // Repropaga com mensagem clara (aparece no Log Stream / 500)
+                throw new Exception($"Falha SMTP: {ex.StatusCode} - {ex.Message}", ex);
+            }
         }
-
     }
 }
