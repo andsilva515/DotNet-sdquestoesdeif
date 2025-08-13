@@ -4,10 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.App.Interfaces;
 
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SoQuestoesIF.App.Dtos;
-using SoQuestoesIF.App.Interfaces;
+
 
 namespace SoQuestoesIF.API.Controllers
 {
