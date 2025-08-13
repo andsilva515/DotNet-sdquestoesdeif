@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.App.Interfaces;
 using System;
@@ -53,7 +53,7 @@ namespace SoQuestoesIF.App.Services
             {
                 EnableSsl = true,                 // STARTTLS na 587
                 UseDefaultCredentials = false,    // importante no Outlook.com
-                Credentials = new NetworkCredential(user, pass),
+                Credentials = new NetworkCredential(smtpUser, smtpPass),
                 Timeout = 20000
             };
 
