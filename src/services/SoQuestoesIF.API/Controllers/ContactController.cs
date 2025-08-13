@@ -1,62 +1,39 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SoQuestoesIF.App.Dtos;
 using SoQuestoesIF.App.Interfaces;
 
-
-
 namespace SoQuestoesIF.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")] // /api/Contato
+    [Route("api/[controller]")] // => /api/Contato
     public class ContatoController : ControllerBase
     {
         private readonly IEmailService _emailService;
-        private readonly ILogger<ContatoController> _logger;
 
-        public ContatoController(IEmailService emailService, ILogger<ContatoController> logger)
+        public ContatoController(IEmailService emailService)
         {
             _emailService = emailService;
-            _logger = logger;
         }
 
-        [HttpPost]
+        [HttpPost] // POST /api/Contato
         [AllowAnonymous]
         public async Task<IActionResult> EnviarFormulario([FromBody] ContactDto dto)
         {
             if (string.IsNullOrWhiteSpace(dto.Nome) ||
                 string.IsNullOrWhiteSpace(dto.Email) ||
                 string.IsNullOrWhiteSpace(dto.Message))
+            {
                 return BadRequest("Todos os campos são obrigatórios.");
+            }
 
-            try
-            {
-                await _emailService.EnviarContatoAsync(dto);
-                return Ok("Mensagem enviada com sucesso!");
-            }
-            catch (SmtpException ex)
-            {
-                _logger.LogError(ex, "Falha SMTP ao enviar contato.");
-                // 502 ajuda a diferenciar problema de backend externo (SMTP)
-                return StatusCode(StatusCodes.Status502BadGateway,
-                    "Falha ao enviar e-mail (SMTP). Verifique credenciais/host/porta.");
-            }
-            catch (InvalidOperationException ex) // config ausente
-            {
-                _logger.LogError(ex, "Configuração SMTP ausente/incorreta.");
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Falha de configuração SMTP no servidor.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro inesperado ao enviar contato.");
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Erro interno ao processar sua solicitação.");
-            }
+            await _emailService.EnviarContatoAsync(dto);
+            return Ok("Mensagem enviada com sucesso!");
         }
 
-        [HttpGet("config-check")]
+        // ✅ Mantém DENTRO da classe
+        [HttpGet("config-check")] // GET /api/Contato/config-check
         [AllowAnonymous]
         public IActionResult ConfigCheck([FromServices] IConfiguration config)
         {
