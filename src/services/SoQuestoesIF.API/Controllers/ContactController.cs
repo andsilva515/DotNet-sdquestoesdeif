@@ -33,4 +33,20 @@ namespace SoQuestoesIF.API.Controllers
             return Ok("Mensagem enviada com sucesso!");
         }
     }
+    [HttpGet("config-check")]
+    [AllowAnonymous]
+    public IActionResult ConfigCheck([FromServices] IConfiguration config)
+    {
+            return Ok(new
+    {
+        Host    = config["Smtp:Host"],
+        Port    = config["Smtp:Port"],
+        User    = config["Smtp:User"],
+        Destino = config["Smtp:Destino"],
+        PasswordHasValue = !string.IsNullOrWhiteSpace(config["Smtp:Password"])
+    });
+}
+
+
+    
 }
