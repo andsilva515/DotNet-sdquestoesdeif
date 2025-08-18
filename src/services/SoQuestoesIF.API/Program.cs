@@ -75,7 +75,7 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(
             "https://sdquestoesdeif.vercel.app", // Produção
             "https://sdquestoesdeif.com.br",
-            "http://127.0.0.1:5500" // Desenvolvimento local
+            "http://127.0.0.1:5500", // Desenvolvimento local
             "https://www.sdquestoesdeif.com.br"
         )
         .AllowAnyHeader()
